@@ -1,0 +1,7 @@
+# !/bin/sh
+
+xset b
+xset b
+echo ''
+sleep 1
+xset -b

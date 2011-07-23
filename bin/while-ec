@@ -1,0 +1,2 @@
+while read f; do emacsclient -n `echo $f|sed 's/\([^:]*\):\(.*\):.*/+\2 \1/'`; done
+

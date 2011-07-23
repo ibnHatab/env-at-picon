@@ -1,0 +1,58 @@
+#! /usr/bin/perl
+
+
+use Term::ANSIColor;
+use IPC::Open3;
+use Cwd 'abs_path';
+
+
+$colors{"time"}		= color("cyan");
+$colors{"tid"}		= color("green");
+
+$colors{"[WARNING]"}	= color("blue");
+$colors{"[ERROR]"}	= color("bold red");
+$colors{"[TRACE]"}	= color("magenta");
+$colors{"[INFO]"}	= color("yellow");
+$colors{"[DEBUG]"}	= color("blue");
+$colors{"[NOTICE]"}	= color("bold yellow");
+$colors{"[CRITICAL]"}	= color("underscore blink red");
+$colors{"[ALERT]"}	= color("blue");
+$colors{"[EMERGENCY]"}	= color("underline bold red");
+
+# Figure out which compiler to invoke based on our program name.
+$progName = shift @ARGV;
+
+$e_pid = open3('<&STDIN', \*TCOUT, \*TCOUT, $progName, @ARGV);
+
+$compile_done = "wait for files to compile...";
+# Colorize the output from the compiler.
+while(<TCOUT>)
+{
+#    if (m#^(.?[0-9]+:[0-9]+:[0-9\.]+):([0-9]+):(\w+\s*):(.*)$#)
+    if (m#^(\[.*\])(.*)$#)
+    {
+	$field1 = $1 || "";
+	$field2 = $2 || "";
+	
+	print($colors{"$field1"}, "$field1", color("reset"));
+	print(color("reset"),     "$field2\n");
+	
+	if ($field2 =~ /$compile_done/){ 
+	    print(color("bold red"), "================================================\n", color("reset"));
+	} 
+    
+    }
+    else # Anything else.        
+    {
+	print(color("reset"), $_);
+    }
+}
+
+# Get the return code of the compiler and exit with that.
+waitpid($e_pid, 0);
+exit ($? >> 8);
+
+
+
+
+

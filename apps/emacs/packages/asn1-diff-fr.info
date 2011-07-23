@@ -1,0 +1,460 @@
+Ceci est le fichier Info asn1-diff.info, produit par Makeinfo version
+4.1 à partir asn1-diff.texi.
+
+INFO-DIR-SECTION Development
+START-INFO-DIR-ENTRY
+* ASN.1 diff: (asn1-diff).  Mode Emacs pour comparer deux spe'cifications ASN.1.
+END-INFO-DIR-ENTRY
+
+   This file documents ...
+
+   Copyright 2003 France Te'le'com - Branche De'veloppement
+
+
+File: asn1-diff.info,  Node: Top,  Next: Pre'sentation du mode ASN.1 Diff,  Prev: (dir),  Up: (dir)
+
+Mode "ASN.1 Diff" pour Emacs
+****************************
+
+* Menu:
+
+* Pre'sentation du mode ASN.1 Diff::
+* Lancer une comparaison::
+* Fene^trage::
+* Selection de messages::
+* Insertion des messages::
+* Impression des modules::
+* Personnalisation::
+* Personnalisation avance'e::
+
+
+File: asn1-diff.info,  Node: Pre'sentation du mode ASN.1 Diff,  Next: Lancer une comparaison,  Prev: Top,  Up: Top
+
+Pre'sentation du mode ASN.1 Diff
+********************************
+
+Introduction
+============
+
+   Le mode ASN.1 Diff permet de comparer deux spe'cifications ASN.1.
+Pour cela, il utilise Asnp, un comparateur de spe'cification ASN.1:1997,
+de'veloppe' par France Te'le'com R&D (renseignement a`
+asn1@rd.francetelecom.fr) Cette commande est exe'cute'e directement
+dans un buffer d'Emacs.  Les modules ASN.1 correspondant aux
+spe'cifications sont ouverts et les diffe'rences sont mises en couleur.
+Un simple clic de souris sur un messages affiche les diffe'rences
+correspondantes. De me^me, cliquer sur une diffe'rence dans un module
+affiche le message correspondant.  Il est ensuite possible d'effectuer
+diverses ope'rations : se'lection de messages, insertion des messages
+d'Asnp dans les modules, impression des modules ...
+
+Touches de raccourcis
+=====================
+
+   Toutes les commandes du mode ASN.1 Diff sont accessibles depuis le
+menu "ASN.1-Diff". Les raccourcis clavier qui leur sont associe's sont
+affiche'es dans le menu a` cote' du nom de l'entre'e et il est ainsi
+facile de les retenir.
+
+   Les touches de raccourci du buffer Diff (le buffer dans lequel se
+trouvent les messages re'sultant de l'exe'cution d'Asnp) sont de simples
+lettres (ex: `n' pour aller au message suivant).  Tous les raccourcis
+donne's dans ce document concernent le buffer Diff.
+
+   Dans un buffer ASN.1, tous ces raccourcis sont accessibles.  Il
+suffit de taper au pre'alable `C-c' (ex: `C-c n').  On ne peut pas
+taper directement `n' car ceci inse'rerait la lettre "n".
+
+   Une liste des principaux raccourcis est disponible a` l'aide de la
+commande "Aide" du menu "ASN1-Diff".
+
+   Pour connai^tre toutes les touches de raccourci, appuyer sur `C-h b'.
+
+Installation
+============
+
+   Ce module est en principe installe' avec les autres fichiers Emacs.
+La seule chose a` faire est de s'assurer que la commande de lancement
+d'Asnp est bien de'finie. Si le mode ASN.1 pour Emacs a de'ja` e'te'
+installe', il ne devrait pas y avoir de proble`me.
+
+   Passer directement a` la section suivante et faire un essai. Si c,a
+ne marche pas, modifier la commande de comparaison a` l'aide du
+sous-menu "Personnalisation Rapide" et enregistrer (entre'e "Enregister
+la commande et les Parame`tres de comparaison" du me^me menu).
+
+
+File: asn1-diff.info,  Node: Lancer une comparaison,  Next: Fene^trage,  Prev: Pre'sentation du mode ASN.1 Diff,  Up: Top
+
+Lancement d'une comparaison
+***************************
+
+   Le mode ASN.1 Diff permet de comparer deux spe'cifications ASN.1.
+Pour lancer une comparaison, taper `M-x asn1-diff'. Si un fichier ASN.1
+est ouvert, on peut aussi utiliser l'entre'e "Comparer Deux
+Spe'cifications" du menu ASN.1 ou le raccourci clavier `C-c C-d'
+
+   Ensuite, il faut entrer le nom des fichiers de la nouvelle et de
+l'ancienne spe'cification. Il est possible d'entrer plusieurs fichiers :
+     Nouvelle specification : ~/new/*.asn ~/fred.asn
+     Ancienne specification : ~/old/*.asn ~/jack.asn
+
+   Asnp est alors automatiquement lance' pour re'aliser la comparaison.
+
+   Une fois celle-ci est termine'e, les messages d'Asnp indiquant les
+diffe'rences sont mis en couleurs.  Par la suite, nous appelerons
+buffer Diff le buffer dans lequel se trouve ces messages.
+
+   Tous les modules qui correspondent a` ces messages sont ouverts et
+les diffe'rences mises en couleurs.  Il est ainsi facile de les
+re'pe'rer.  Il est possible de de'sactiver la couleur a` l'aide du menu
+ou en appuyant sur `c' (pour ne pas colorier les diffe'rences au
+de'marrage, voir la  *Note Personnalisation::).
+
+   Pour afficher les diffe'rences correspondant a` un message, cliquer
+sur celui-ci avec le bouton 2 de la souris (bouton de droite pour les
+souris a` deux boutons).
+
+   De me^me, pour afficher le message correspondant a` une diffe'rence,
+cliquer (toujours avec le me^me bouton) sur une diffe'rence. Celle-ci
+sera mise en couleur et le message correspondant sera affiche' en
+premier dans le buffer Diff.
+
+   Il est parfaitement possible d'e'diter les fichiers apre`s la
+comparaison.  Si des diffe'rences sont efface'es, le message associe'
+sera toujours pre'sent. Pour re'actualiser, relancer la comparaison
+(raccourci : `!').
+
+   Les messages d'asnp sont trie's en fonction de la nouvelle
+spe'cifications. D'abord par ordre alphabe'tique et ensuite selon les
+nume'ros de ligne et de colonne. Ainsi, le fait d'appuyer sur `n'
+(message suivant) permet d'avancer dans le me^me fichier par ordre
+d'apparition des differences.  Pour de'sactiver ce tri, voir la *Note
+Personnalisation::.
+
+   Une comparaison sur de gros fichiers pouvant prendre beaucoup de
+temps, il est possible d'enregistrer le re'sultat d'une comparaison :
+enregister simplement le buffer Diff (`C-x C-s'). Donner un nom de
+fichier avec l'extension `.asnd'. Il suffit ensuite d'ouvrir ce fichier
+avec emacs et tout se passera comme si la comparaison venait de se
+terminer : les modules ASN.1 seront ouverts, les diffe'rences mises en
+couleur...
+
+   Si des buffers ASN.1 sont detruits, il est possible de ne pas
+relancer la comparaison mais simplement de relire les messages d'Asnp
+qui se trouvent dans le buffer Diff (menu "Relire les Messages", `S').
+
+   Pour quitter de'finitivement le mode ASN.1 Diff, se'lectionner
+l'entre'e "Quitter" du menu (raccourci clavier : `q'). Le menu ASN.1
+Diff sera alors supprimer et les diffe'rences ne seront plus en couleur.
+
+`<RET>'
+     affiche les diffe'rences correspondant au message courant
+
+`<SPC>' ou `n'
+     affiche les diffe'rences pour le message suivant
+
+`<BS>' ou `<DEL>' ou `p'
+     affiche les diffe'rences pour le message pre'ce'dent
+     (`<BS>' de'signe la touche Backspace)
+
+
+File: asn1-diff.info,  Node: Fene^trage,  Next: Selection de messages,  Prev: Lancer une comparaison,  Up: Top
+
+Fene^trage
+**********
+
+L'affichage se compose de trois fene^tres :
+
+   - une fene^tre ou` sont affiche's les nouveaux modules;
+
+   - une fene^tre ou` sont affiche's les anciens modules;
+
+   - la fene^tre ou` se trouve le buffer Diff.
+
+   La pre'sentation de ces fene^tres est modifiable (voir la *Note
+Personnalisation::).  Pour une meilleure visibilite', il est conseille'
+d'agrandir la fene^tre d'Emacs a` la taille de l'e'cran.
+
+   Rappel : pour modifier la taille d'une fene^tre sous Emacs, cliquer
+avec le bouton gauche sur une bordure et de'placer la souris en
+maintenant le bouton enfonce'.
+
+   Pour faire de'filer simultanement les deux fene^tres ou` sont
+affiche'es les modules, appuyer sur `v' (de'filement vers le bas) ou
+sur `V' (de'filement vers le haut).
+
+   La commande "Quitter Momentanement" du menu de'truit ces fene^tres.
+
+   Il est possible de les restaurer en cliquant sur un message ou` en
+se'lectionnant l'entre'e "Restaurer le fene^trage" du menu.  La
+commande "Relancer le fene^trage" annule les modifications qui aurait
+pu e^tre apporte'es sur la taille des fene^tres.
+
+`w q' ou `e'
+     detruit les fene^tres
+
+`w r'
+     re'organise les fene^tres
+
+`w s'
+     restaure les fene^tres
+
+
+File: asn1-diff.info,  Node: Selection de messages,  Next: Insertion des messages,  Prev: Fene^trage,  Up: Top
+
+Selection de messages
+*********************
+
+Il est possible de se'lectionner des messages et d'effectuer ensuite des
+ope'rations sur ces messages :
+   - insertion de ces messages dans les modules ASN.1 (voir la *Note
+     Insertion des messages::);
+
+   - affichage en couleur de ces messages uniquement (tre`s utile pour
+     l'impression).
+
+   Il est aussi possible d'ignorer des messages. Un message ignore'
+n'est jamais inse're' dans les modules. Les touches `n' et `p' (message
+suivant et message pre'ce'dent) ignorent ces messages. Pour aller
+re'ellement au message suivant ou pre'ce'dent, on peut utiliser les
+touches `N' et `P'
+
+`m'
+     marque un message
+
+`i' ou `d'
+     ignore un message
+
+`u'
+     de'se'lectionne un message
+
+Pour se'lectionner des groupes de messages :
+
+`a m'
+     marque tous les messages
+
+`a i' ou `a d'
+     ignore tous les messages
+
+`a u'
+     de'se'lectionne tous les messages
+
+`a w'
+     ignore tous les warnings
+
+   Note : pour ignorer tous les warnings au de'marrage, voir la *Note
+Personnalisation::.
+
+
+File: asn1-diff.info,  Node: Insertion des messages,  Next: Impression des modules,  Prev: Selection de messages,  Up: Top
+
+Insertion des messages d'Asnp
+*****************************
+
+   Il est possible d'inse'rer les messages d'Asnp dans les modules, aux
+endroits  ou` se trouvent les diffe'rences. Pour cela, se'lectionner
+l'entre'e "Inserer les Messages dans les Modules" du menu "ASN.1-Diff".
+
+   Le sous-menu "Autres Insertions" offre e'galement la possibilite' de
+n'inse'rer que les messages marque's ou d'inse'rer un texte au lieu des
+messages.
+
+   Note : un message ignore' (Voir la *Note Selection de messages::)
+n'est jamais insere' dans les modules.
+
+   Il est possible d'annuler une insertion.
+
+   Apre`s une insertion, tous les buffers ASN.1 sont modifie's. Il est
+possible de tous les enregistrer.
+
+`r' ou `R m'
+     inse`re les messages
+
+`R M'
+     inse`re seulement les messages marque's
+
+`R t'
+     demande la saisie d'un texte et inse`re celui-ci au lieu des
+     messages
+
+`R M'
+     demande la saisie d'un texte et l' inse`re seulement pour les
+     messages marque's
+
+`R u'
+     annule une insertion
+
+`s'
+     enregistre tous les buffers ASN.1 des spe'cifications
+
+
+File: asn1-diff.info,  Node: Impression des modules,  Next: Personnalisation,  Prev: Insertion des messages,  Up: Top
+
+Impression des modules
+**********************
+
+Une entre'e du menu "ASN.1-Diff" permet d'imprimer tous les modules
+ASN.1 des spe'cifications compare'es (raccourci clavier : `p').  Le
+texte mis en couleur restera en couleur.  i.e. : les diffe'rences
+seront parfaitement visibles.
+
+   Une entre'e du menu permet de ne mettre en couleur que les
+diffe'rences correspondant aux messages marque's (`o').  Pour re'tablir
+ensuite la couleur, appuyer deux fois sur `c' (entre'e "Couleurs
+On/Off" du menu).
+
+
+File: asn1-diff.info,  Node: Personnalisation,  Next: Personnalisation avance'e,  Prev: Impression des modules,  Up: Top
+
+Personnalisation
+****************
+
+   Note : il n'est pas ne'cessaire de lancer une comparaison pour avoir
+le menu "ASN.1-Diff". Pour faire apparai^tre celui-ci, se'lectionner
+l'entre'e "Afficher le Menu de Comparaison" du sous-menu
+"Personnalisation Rapide" du menu "ASN.1"
+
+Personnalisation rapide
+=======================
+
+   Pour modifier certaines options sans passer par des buffers
+"customize", il existe le sous-menu "Personnalisation Rapide". Il
+permet d'activer ou de de'sactiver la colorisation automatique au
+de'marrage. Il permet e'galement de modifier la commande et les
+parame`tres de comparaison.
+
+`O'
+     modifie les parame`tres de comparaison
+
+`P'
+     modifie la commande de comparaison
+
+Utilisation des buffers "customize"
+===================================
+
+La configuration du mode ASN.1 Diff se fait essentiellement a` l'aide
+des buffers dits "customize" d'Emacs. Le principe de ces buffers est
+tre`s simple : le nom de la variable correspondant a` l'option est
+affiche'e en couleur.  La valeur de cette variable est affiche'e a` sa
+droite.  (cliquer eventuellement sur [Show] pour voir cette valeur).
+En dessous, se trouve la documentation sur cette variable.  (cliquer
+eventuellement sur [Show] pour voir toute la documentation).
+
+   Si quelque chose a e'te' modifie', il suffit d'appuyer sur
+[Save for Future Session] pour le sauvegarder.  Pour modifier
+simplement le parame`tre pour cette session courante (sans rien
+enregistrer), cliquer sur [State] et choisir l'entre'e
+[Set for current session].
+
+   Pour quitter, appuyer sur [Bury Buffer].
+
+   Sous XEmacs, [Show] est repre'sente' par une petite fle`che et
+[Bury Buffer] est remplace' par un bouton "done".
+
+Options
+=======
+
+   Les options disponibles via le sous-menu "Personnaliser" sont :
+   - commande de comparaison;
+
+   - parame`tres de cette commande;
+
+   - colorisation automatique au de'marrage;
+
+   - ignorer tous les warnings au de'marrage;
+
+   - type des fene^tres;
+
+   - taille de la fene^tre Diff;
+
+   - confirmation avant de quitter;
+
+   - demande a` enregistrer tous les buffers avant la comparaison;
+
+   - mettre en surbrillance les message d'Asnp quand la souris passe
+     dessus;
+
+   - trier les messages d'asnp;
+
+   - texte a` inse'rer par de'faut;
+
+   - centrer les diffe'rences dans les fene^tres;
+
+   - couper les lignes trop longues;
+
+   - nom du buffer Diff.
+
+Couleur
+=======
+
+   Il est possible de modifier toutes les couleurs du mode.  L'entre'e
+"Styles d'Ecriture et Couleurs..." du sous-menu "Personnalisation"
+affiche un buffer semblable a` un buffer "customize" mais plus
+convivial.
+
+   Il est possible de de'sactiver la colorisation automatique au
+de'marrage directement a` l'aide du sous-menu "Personnalisation Rapide".
+
+
+File: asn1-diff.info,  Node: Personnalisation avance'e,  Prev: Personnalisation,  Up: Top
+
+Personnalisation avance'e
+*************************
+
+   Voici la liste des variables qui peuvent e^tre modifie'es :
+
+   - asn1-diff-command
+
+   - asn1-diff-switches
+
+   - asn1-diff-use-color
+
+   - asn1-diff-ignore-warning-at-startup
+
+   - asn1-diff-windows-type
+
+   - asn1-diff-window-height
+
+   - asn1-diff-window-width
+
+   - asn1-diff-ask-to-quit
+
+   - asn1-diff-ask-about-save
+
+   - asn1-diff-highlight
+
+   - asn1-diff-sort-p
+
+   - asn1-diff-buffer-name
+
+   - asn1-diff-truncate-lines
+
+   - asn1-diff-recenter
+
+   - asn1-diff-text-to-insert
+
+   - asn1-diff-list-of-faces
+
+   - asn1-diff-before-diff-hook
+
+   - asn1-diff-after-diff-hook
+
+   - asn1-diff-make-windows-hook
+
+   - asn1-diff-open-file-hook
+
+
+
+Tag Table:
+Node: Top340
+Node: Pre'sentation du mode ASN.1 Diff722
+Node: Lancer une comparaison3141
+Node: Fene^trage6522
+Node: Selection de messages7846
+Node: Insertion des messages9000
+Node: Impression des modules10189
+Node: Personnalisation10808
+Node: Personnalisation avance'e13669
+
+End Tag Table

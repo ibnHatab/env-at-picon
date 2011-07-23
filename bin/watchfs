@@ -1,0 +1,28 @@
+#!/bin/sh
+
+EXT=$1
+# echo $EXT
+
+shift
+CMD=$@
+
+echo $CMD
+
+# exit
+
+while true
+do
+    inotifywait -r -q --exclude ".*_flymake.*" $EXT
+    if test $? == "0"; then
+	eval $CMD
+	RES=$?
+	TIME=`date +%T`
+	if test $RES == "0"; then
+	    echo -e "\033[1;32m ($TIME)  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++\033[m"
+	else
+	    echo -e "\033[1;31m ($TIME)  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++\033[m"
+	fi
+    else
+	exit
+    fi
+done
