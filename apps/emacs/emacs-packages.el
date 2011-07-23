@@ -38,7 +38,6 @@
 		("\\.ml\\w?"               . tuareg-mode)
 		("\\.hs\\w?"               . haskell-mode)
 		("\\.yang"                 . yang-mode)
-		("\\.scala"                . scala-mode)
 		("\\.erl$"                 . erlang-mode)
 		("\\.hrl$"                 . erlang-mode)
 		("\\.ie$"                  . erlang-mode)
@@ -235,34 +234,6 @@
 			    ))
 
 
-;; (require 'flymake)
-
-;; (defun flymake-jslint-init ()
-;;   (let* ((temp-file (flymake-init-create-temp-buffer-copy
-;;                      'flymake-create-temp-inplace))
-;;          (local-file (file-relative-name
-;;                       temp-file
-;;                       (file-name-directory buffer-file-name))))
-;;     (list "/usr/local/bin/jsflakes" (list local-file))))
-
-;; (setq flymake-allowed-file-name-masks
-;;       (cons '(".+\\.js$"
-;;               flymake-jslint-init
-;;               flymake-simple-cleanup
-;;               flymake-get-real-file-name)
-;;             flymake-allowed-file-name-masks))
-
-;; (setq flymake-err-line-patterns
-;;       (cons '("^Lint at line \\([[:digit:]]+\\) character \\([[:digit:]]+\\): \\(.+\\)$"
-;;               nil 1 2 3)
-;;             flymake-err-line-patterns))
-
-;; (provide 'flymake-jslint)
-;; (require 'flymake-jslint)
-;; (add-hook 'javascript-mode-hook
-;;           (lambda () (flymake-mode 1)))
-
-
 ;; Haskell
 (require 'haskell-mode)
 (require 'inf-haskell)
@@ -276,30 +247,10 @@
  '(haskell-program-name "ghci"))
 ;; (setq haskell-font-lock-symbols t)
 
-;; Scala
-(require 'scala-mode-auto)
-(add-hook 'scala-mode-hook
- 	  '(lambda ()
- 	     (yas/minor-mode-on)
- 	     )) 
-(defun me-turn-off-indent-tabs-mode ()
-  (setq indent-tabs-mode nil))
-(add-hook 'scala-mode-hook   'me-turn-off-indent-tabs-mode)
-
 ;; Yasnippet
 (require 'yasnippet) ;; not yasnippet-bundle
 (yas/initialize)
 (yas/load-directory "~/apps/emacs/packages/yasnippet/snippets")
-
-(require 'ensime)
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-
-;;(load "mvn.el")
-;; (load-library "mvn")
-
-;; (add-hook 'scala-mode-hook
-;; 	  '(lambda ()
-;; 	     (define-key scala-mode-map '[f6] 'mvn)))
 
 ;; Python
 (autoload 'python-mode "python-mode" "Python Mode." t)
@@ -313,58 +264,11 @@
 (add-hook 'ipython-shell-hook #'(lambda ()
   				  (define-key py-mode-map (kbd "M-\'") 'anything-ipython-complete)))
 
-;; (when (load "flymake" t)
-;;  (defun flymake-pyflakes-init ()
-;;    (let* ((temp-file (flymake-init-create-temp-buffer-copy
-;;                              'flymake-create-temp-inplace))
-;;              (local-file (file-relative-name
-;;                           temp-file
-;;                           (file-name-directory buffer-file-name))))
-;;      (list "pyflakes" (list local-file))))
-;;  (defun flymake-jslint-init ()
-;;    (let* ((temp-file (flymake-init-create-temp-buffer-copy
-;;                              'flymake-create-temp-inplace))
-;;              (local-file (file-relative-name
-;;                           temp-file
-;;                           (file-name-directory buffer-file-name))))
-;;      (list "/usr/local/bin/jsflakes" (list local-file))))
-
-;;  (add-to-list 'flymake-allowed-file-name-masks
-;;               '("\\.py\\'" flymake-pyflakes-init))
-;;  (add-to-list 'flymake-allowed-file-name-masks
-;;               '("\\.js\\'" flymake-jslint-init)))
-;; (add-hook 'find-file-hook 'flymake-find-file-hook)
-;; (load-library "flymake-cursor")
-
 ;; Yang
 (autoload 'yang-mode "yang-mode" "Major mode for editing YANG spec." t)
 
-
 ;; Coq / ProofGeneral
 ;;(load-file "~/apps/emacs/packages/ProofGeneral/generic/proof-site.el")
-
-
-;; HTML
-(add-hook 'html-helper-load-hook
-          (function (lambda () (load "css.el"))))
-(add-hook 'html-helper-load-hook
-          '(lambda () (require 'html-font)))
-(add-hook 'html-helper-load-hook
-          '(lambda () (require 'tempo)))
-
-(add-hook 'html-helper-mode-hook
-          '(lambda () (font-lock-mode 1)))
-
-(setq html-helper-do-write-file-hooks t)
-(setq html-helper-build-new-buffer t)
-(setq html-helper-address-string
-      "<a href=\"/\">Vlad Kinzerskiy&lt;kinzersk at mrc.alcatel.ro &gt;</a>")
-
-(add-hook  'html-helper-mode-hook '(lambda () "" (interactive)
-                                     (global-set-key '[(f5)]
-                                                     'browse-url-of-file) ;F5
-                                     ))
-
 
 
 ;;C++
@@ -477,32 +381,4 @@
   "Major mode for editing ASN.1 specifications." t)
 
 
-;;; F#
-(autoload 'fsharp-mode "fsharp" "Major mode for editing F# code." t)
-(autoload 'run-fsharp "inf-fsharp" "Run an inferior F# process." t)
-  
-(setq inferior-fsharp-program "mono /udir/kinzersk/work/fsharp/FSharp-1.9.4.19/bin/fsi.exe")
-(setq fsharp-compiler "mono /udir/kinzersk/work/fsharp/FSharp-1.9.4.19/bin/fsc.exe")
-
-(autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
-(setq auto-mode-alist
-      (append '(("\\.cs$" . csharp-mode)) auto-mode-alist))
-
-;; OCAML
-(autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
-(autoload 'camldebug "camldebug" "Run the Caml debugger" t)
-
-;; Erlang
-;; (setq erlang-root-dir "C:/Program Files/erl5.7.5")
-;; (setq exec-path (cons "C:/Program Files/erl5.7.5/bin" exec-path))
-;; (require 'erlang-start) 
-
-;; J
-;; (autoload 'j-mode "j-mode"  "Major mode for J." t)
-;; (autoload 'j-shell "j-mode" "Run J from emacs." t)
-;; (setq auto-mode-alist
-;;       (append '("\\.ij[rstp]" . j-mode) auto-mode-alist))
-
-;; LOGO
-;;(autoload 'logo-mode "logo")
 

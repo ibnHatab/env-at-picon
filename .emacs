@@ -6,25 +6,13 @@
       (nconc
        '(expand-file-name "~/apps/emacs" )
        '(expand-file-name "~/apps/emacs/packages" )
-       '(expand-file-name "~/apps/emacs/packages/cc-mode" )
-       '(expand-file-name "~/apps/emacs/packages/speedbar" )
-       '(expand-file-name "~/apps/emacs/packages/tuareg-mode" )
-       '(expand-file-name "~/apps/emacs/packages/logo" )
-       '(expand-file-name "~/apps/emacs/packages/fsharp" )
        '(expand-file-name "~/apps/emacs/packages/yasnippet" )
-       '(expand-file-name "~/apps/emacs/packages/scala-mode" )
-       '(expand-file-name "~/apps/emacs/packages/haskell-mode" )
        '(expand-file-name "~/apps/emacs/packages/ensime/elisp" )
        '(expand-file-name "~/apps/emacs/packages/esense" )
        '(expand-file-name "~/apps/emacs/packages/erlang-mode" )
        '(expand-file-name "~/apps/emacs/packages/distel" )
        '(expand-file-name "~/apps/emacs/packages/wrangler" )
        load-path))
-
-(setq exec-path 
-      (append exec-path (list "/udir/tools/scala/bin" )))
-(setq exec-path 
-      (append exec-path (list "/udir/tools/ensime/bin" )))
 
 ;;(setq mac-command-modifier 'meta) ;;Sets the command (Apple) key as Meta
 
@@ -33,7 +21,6 @@
 (load-library "emacs-fontlock")
 (load-library "emacs-packages")
 (load-library "emacs-searchcurrent")
-
 
 ;; Remove unnecessary gui stuff
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
