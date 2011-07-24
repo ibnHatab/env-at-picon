@@ -50,8 +50,8 @@
 
 ;; Erlang
 
-(setq erlang-root-dir   "/udir/tools/otp/lib/erlang")
-(add-to-list 'exec-path "/udir/tools/otp/lib/erlang/bin")
+(setq erlang-root-dir   "/usr/lib/erlang")
+(add-to-list 'exec-path "/usr/lib/erlang/bin")
 (defvar inferior-erlang-prompt-timeout t)
 
 (add-hook 'erlang-load-hook 'my-erlang-load-hook)
