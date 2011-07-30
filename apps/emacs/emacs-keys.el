@@ -35,8 +35,8 @@
 (global-set-key [C-M-up] 'vjo-backward-current-word-keep-offset)
 
 
-(global-set-key [C-right]        'forward-word)
-(global-set-key [C-left]         'backward-word)
+(global-set-key [M-right]        'forward-word)
+(global-set-key [M-left]         'backward-word)
 
 (global-set-key [C-delete]       'kill-word)
 (global-set-key [ESC-backspace]  `backward-kill-word)
@@ -45,6 +45,12 @@
 (global-set-key [(C-tab)] 'other-window )
 (global-set-key [(C-S-tab)] 'previous-multiframe-window )
 
+(global-set-key [s-left] 'windmove-left)          ; move to left windnow
+(global-set-key [s-right] 'windmove-right)        ; move to right window
+(global-set-key [s-up] 'windmove-up)              ; move to upper window
+(global-set-key [s-down] 'windmove-down)          ; move to downer window
+
+
 (global-set-key [M-backspace]    'undo)
 (global-set-key [M-return]
                 '(lambda () (interactive)
@@ -52,7 +58,6 @@
                    (advertised-undo)
                    (message "Undo Toggle")
                    ))
-
 
 (global-set-key [?\C-\.]          'goto-line)
 (global-set-key "\C-cz"           'comment-region)
@@ -78,4 +83,5 @@
 (define-key global-map '[C-S-mouse-3]  'view-register)
 
 (global-set-key "%" 'goto-match-paren)
+
 
