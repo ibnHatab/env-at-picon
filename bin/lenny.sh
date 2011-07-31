@@ -1,3 +1,4 @@
 
-vncviewer -p ~/.vnc/passwd lenny:1
+gterm.sh ssh vkinzers@lenny
+#vncviewer -p ~/.vnc/passwd lenny:1
 
