@@ -116,7 +116,7 @@ about Emacs' online help, use \"\\[help-for-help]\".
     ("\C-c\C-ds" edb-synch-breakpoints)
     ("\C-c\C-dS" edb-save-dbg-state)
     ("\C-c\C-dR" edb-restore-dbg-state)
-    ("\C-c\C-dm" edb-monitor)          
+    ("\C-c\C-dm" edb-monitor)
     ("\C-c\C-d:" erl-eval-expression)
     ("\C-c\C-dL" erl-reload-module)
     ("\C-c\C-dr" erl-reload-modules)
@@ -127,7 +127,8 @@ about Emacs' online help, use \"\\[help-for-help]\".
     ("\C-c\C-dl" erl-process-list)
     ("\C-\M-i"   erl-complete)	; M-TAB
     ("\M-?"      erl-complete)	; Some windowmanagers hijack M-TAB..
-    ("\C-c\C-de" erl-ie-show-session)
+    ("\C-c\C-de" erl-ie-copy-region-to-session)
+    ("\C-c\C-dc" erl-ie-show-session)
     ("\C-c\C-df" erl-refactor-subfunction)
     ("\C-c\C-dF" erl-find-module)
     ("\C-c\C-dg" erl-ping)
@@ -189,7 +190,7 @@ about Emacs' online help, use \"\\[help-for-help]\".
   (setq erlang-menu-items
 	(erlang-menu-delete 'distel-menu-items erlang-menu-items))
   (erlang-menu-init))
-  
+
 (defvar distel-menu-items
   '(nil
     ("Distel"

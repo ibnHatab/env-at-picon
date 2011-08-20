@@ -2,6 +2,7 @@
 (setq auto-mode-alist
       (append '(
                 ("\\.el$"                  . emacs-lisp-mode)
+                ("\\.h$"                   . c-mode)
                 ("\\.c$"                   . c-mode)
                 ("\\.ec$"                  . c-mode)
                 ("\\.C$"                   . c++-mode)
@@ -17,8 +18,8 @@
                 ("ChangeLog$"              . change-log-mode)
                 ("\\.emacs$"               . emacs-lisp-mode)
                 ("\\.?[Ff][Aa][Qq]$"       . faq-mode)
-		("\\.js$"                  . js2-mode)
-		("\\.json$"                . espresso-mode)
+		        ("\\.js$"                  . js2-mode)
+		        ("\\.json$"                . espresso-mode)
                 ("\\.mak$"                 . makefile-mode)
                 ("\\<[mM]akefile$"         . makefile-mode)
                 ("\\.out$"                 . compilation-mode)
@@ -45,6 +46,19 @@
 		("\\.csp$"                 . csp-mode)
                 )auto-mode-alist))
 
+;; Doxymacs
+(defun my-doxymacs-font-lock-hook ()
+  (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
+      (doxymacs-font-lock)))
+(add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
+
+;; CMake
+(require 'cmake-mode)
+(setq auto-mode-alist
+      (append '(("CMakeLists\\.txt\\'" . cmake-mode)
+		("\\.cmake\\'" . cmake-mode))
+	      auto-mode-alist))
+
 ;; CSP
 (require 'csp-mode)
 
@@ -61,7 +75,7 @@
 
 (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
 (defun my-erlang-mode-hook ()
-        (setq inferior-erlang-machine-options 
+        (setq inferior-erlang-machine-options
 	      '("-sname" "emacs" "-pa" "../ebin" "-pa" "../test" "-pa" "../.eunit"))
         (imenu-add-to-menubar "imenu")
         (local-set-key [return] 'newline-and-indent)
@@ -154,7 +168,7 @@
            node)
 
       (save-excursion
-	
+
         ;; I like to indent case and labels to half of the tab width
         (back-to-indentation)
         (if (looking-at "case\\s-")
@@ -183,7 +197,7 @@
   (c-toggle-hungry-state 1)
   (set (make-local-variable 'indent-line-function) 'my-js2-indent-function)
   (define-key js2-mode-map [(meta control |)] 'cperl-lineup)
-  (define-key js2-mode-map [(meta control \;)] 
+  (define-key js2-mode-map [(meta control \;)]
     '(lambda()
        (interactive)
        (insert "/* -----[ ")
@@ -206,7 +220,7 @@
 (defun js2-custom-setup ()
   (moz-minor-mode 1))
 
-;; M-x moz-reload-mode 
+;; M-x moz-reload-mode
 (define-minor-mode moz-reload-mode
   "Moz Reload Minor Mode"
   nil " Reload" nil
@@ -223,9 +237,9 @@
 
 ;; Node.JS REPL
 ;; M-x run-js
-(require 'js-comint) 
-(setq inferior-js-program-command "node-no-readline") 
-(add-hook 'js2-mode-hook '(lambda () 
+(require 'js-comint)
+(setq inferior-js-program-command "node-no-readline")
+(add-hook 'js2-mode-hook '(lambda ()
 			    (local-set-key "\C-x\C-e" 'js-send-last-sexp)
 			    (local-set-key "\C-cb"    'js-send-buffer)
 ;;			    (local-set-key "\C-\M-x" 'js-send-last-sexp-and-go)
@@ -243,7 +257,7 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 (add-hook 'haskell-mode-hook 'font-lock-mode)
 (add-hook 'haskell-mode-hook '(lambda () (capitalized-words-mode t)))
-(custom-set-variables 
+(custom-set-variables
  '(haskell-program-name "ghci"))
 ;; (setq haskell-font-lock-symbols t)
 
@@ -274,14 +288,17 @@
 ;;C++
 (add-hook 'c-mode-hook       'elec-cr-mode)
 (add-hook 'elec-cr-mode-hook 'elec-par-install-electric)
-(add-hook 'c++-mode-hook     'elec-cr-mode)
 
+;;C++
+(add-hook 'c++-mode-hook     'elec-cr-mode)
 (autoload 'expand-member-functions "member-functions" "Expand C++ member function declarations" t)
 (add-hook 'c++-mode-hook (lambda () (local-set-key "\C-cm" #'expand-member-functions)))
 
-;;(add-hook  'c-mode-common-hook '(lambda () "" (interactive)
-(add-hook  'c++-mode-hook '(lambda () "" (interactive)
-                             (c-set-style "java") ;; C-c .
+(add-hook  'c-mode-common-hook '(lambda () "" (interactive)
+;;(add-hook  'c++-mode-hook '(lambda () "" (interactive)
+				  ;;(c-set-style "java") ;; C-c .
+			     ;; push armcc error regex
+			     (add-to-list 'compilation-error-regexp-alist '("^\\(.+?\\)(\\([0-9]+\\),\\([0-9]+\\)) :" 1 2 3))
                              (global-set-key '[(f4)]          'next-error) ;F4
                              (global-set-key '[(C-f4)]        'previous-error)
 
@@ -303,25 +320,18 @@
                                                    'scope-operator
                                                    )
                               compilation-ask-about-save nil
-                              ;;                                   compilation-read-command nil
                               compilation-scroll-output t
                               fill-column 80
                               comment-column 40
-                              tab-width 8
+                              tab-width 4
                               c-basic-offset 2
-                              hs-minor-mode t
+                              hs-minor-mode t ;; F6
                               )
-
-                             ;; configure default compile command and macro preprocessor
-                             (make-local-variable 'compile-command)
-                             ;;                                  (setq compile-command "make -k")
-                             (setq compile-command "make")
-                             (setq compilation-read-command nil)
                              ;; code stail
                              (setq-default indent-tabs-mode nil)
                              (setq-default nuke-trailing-whitespace-p t)
-                             )          ; end lambda
-           )                            ; end add-hook
+                             )
+           )
 
 
 ;; LISP

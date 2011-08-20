@@ -99,7 +99,7 @@
 
 (defun erl-ie-evaluate (start end node &optional inline)
   "Evaluate region START to END on NODE.
-The marked region can be a function definition, a function 
+The marked region can be a function definition, a function
 call or an expression."
   (interactive (list
 		(region-beginning)
@@ -111,7 +111,7 @@ call or an expression."
     (erl-spawn
       (erl-send (tuple 'distel_ie node)
 		(tuple 'evaluate erl-self string))
-      
+
       (message "Sent eval request..")
 
       ;; move cursor to after the marked region
@@ -122,7 +122,7 @@ call or an expression."
 		(with-current-buffer buffer
 		  ;; Clear "Sent eval request.." message
 		  (message "")
-	      
+
 		  (let ((my-point (point)))
                     (unless (looking-at "^")
                       (end-of-line)
@@ -135,25 +135,25 @@ call or an expression."
                       (save-excursion (indent-rigidly beg (point) 5)
                                       (goto-char beg)
                                       (delete-region (point) (+ (point) 5))
-                                      (insert " -:-> ")))
+                                      (insert "% -:-> ")))
                     (insert "\n")
                     (goto-char my-point)
                     (push-mark (point) t)))
 	      (display-message-or-view (format "Result: %s" value)
 				       "*Evaluation Result*")))
-	   
+
 	   (['msg msg]
 	    (with-current-buffer buffer
 	      (message msg)))
-	   
+
 	   (['error reason]
 	    (with-current-buffer buffer
-	      
+
 	      ;; TODO: should check the buffer for first non-whitespace
 	      ;; before we do:
 	      (newline 1)
 	      (insert "Error: ") (insert reason) (newline 1)))
-	   
+
 	   (other
 	    (message "Unexpected: %S" other)))))))
 
