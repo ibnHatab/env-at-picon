@@ -23,9 +23,10 @@
 (load-library "emacs-searchcurrent")
 
 ;; Remove unnecessary gui stuff
+(setq inhibit-startup-message t)    ; no stupid messages about who did what
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-;; (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 (blink-cursor-mode 0) ;; no blink
 (display-time)
@@ -37,6 +38,12 @@
 (setq line-number-mode t)
 (setq column-number-mode t)
 (global-set-key "\C-c\C-w" 'backward-kill-word)
+
+(iswitchb-mode 1)              ; Show me my completions please
+(setq iswitchb-case nil) ; completions are case sensitive.
+
+;; Delete trailing whitespace
+(add-hook 'write-file-functions 'delete-trailing-whitespace)
 
 ;; Black Jeck
 ;; (set-background-color "black")
@@ -66,6 +73,8 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(dir-locals-mode t)
+ '(enable-local-variables :all)
  '(blink-cursor-mode nil)
  '(blink-matching-paren-on-screen t)
  '(c-echo-syntactic-information-p nil)
