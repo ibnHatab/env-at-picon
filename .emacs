@@ -108,3 +108,6 @@
 ;; (set-default-font "-apple-Monaco-medium-normal-normal-*-18-*-*-*-m-0-iso10646-1")
 (modify-frame-parameters nil '((wait-for-wm . nil)))
 
+;; (enable cscope)
+(require 'xcscope)
+
