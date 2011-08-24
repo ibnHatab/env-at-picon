@@ -12,6 +12,7 @@
        '(expand-file-name "~/apps/emacs/packages/erlang-mode" )
        '(expand-file-name "~/apps/emacs/packages/distel" )
        '(expand-file-name "~/apps/emacs/packages/wrangler" )
+       '(expand-file-name "~/apps/emacs/packages/haskell-mode" )
        load-path))
 
 ;;(setq mac-command-modifier 'meta) ;;Sets the command (Apple) key as Meta
