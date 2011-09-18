@@ -73,15 +73,14 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(x-select-enable-clipboard t)
- '(dir-locals-mode t)
- '(enable-local-variables :all)
  '(blink-cursor-mode nil)
  '(blink-matching-paren-on-screen t)
  '(c-echo-syntactic-information-p nil)
  '(column-number-mode t)
  '(compilation-window-height 14)
+ '(dir-locals-mode t nil (dir-locals))
  '(display-time-mode t)
+ '(enable-local-variables :all)
  '(font-lock-global-modes t)
  '(global-font-lock-mode t nil (font-lock))
  '(haskell-program-name "ghci")
@@ -91,10 +90,14 @@
  '(show-paren-mode t nil (paren))
  '(show-paren-ring-bell-on-mismatch t)
  '(show-paren-style (quote parenthesis))
+ '(tooltip-delay 1.7)
+ '(tooltip-mode nil)
+ '(tooltip-short-delay 0.7)
  '(truncate-lines nil)
  '(truncate-partial-width-windows nil)
  '(vc-command-messages t)
- '(vc-initial-comment t))
+ '(vc-initial-comment t)
+ '(x-select-enable-clipboard t))
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
