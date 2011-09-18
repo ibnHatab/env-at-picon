@@ -21,7 +21,10 @@
 (global-set-key [(f7)]          'start-kbd-macro)
 (global-set-key [(C-f7)]        'end-kbd-macro)
 (global-set-key [(f8)]          'call-last-kbd-macro)
-(global-set-key [(f9)]          'compile)  ;F9
+;(global-set-key [(f9)]          'compile)  ;F9
+(global-set-key [?\C-c ?b] 'compile)
+(global-set-key [?\C-c ?n] 'next-error)
+(global-set-key [?\C-c ?p] 'previous-error)
 (global-set-key [(f10)]         'grep)     ;F10
 (global-set-key [(C-f9)]        'run)
 (global-set-key [(f11)]		'nuke-trailing-whitespace) ;F11
