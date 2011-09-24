@@ -24,6 +24,10 @@ EDITOR=vim;     export EDITOR
 
 ulimit -c 100000
 
+HISTFILESIZE=1000000000
+HISTSIZE=1000000
+
+
 #Erlang
 ERL_LIBS=/udir/tools/otp/lib/erlang/lib
 ERL_LIBS=$ERL_LIBS:$HOME/libs/femto_test/deps:$HOME/libs/femto_test/apps
