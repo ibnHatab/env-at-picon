@@ -1,0 +1,25 @@
+#!/bin/sh
+
+case $1 in
+	h | help | -h | -help) echo "Useage:"
+  	echo "To add a user to the phonebook do: pb add Joe Blow 123-456-8900"
+  	echo "To remove a user from the phone book do:"
+  	echo "pb delete <first or last name>"
+  	echo "NOTE: when deleting a user be sure to use either first or last name, whichever is unique."
+  	echo "If you use parens in your phone number be sure to put double quotes around the phone number."
+esac
+
+case $1 in
+  # add) echo $2 >> ~/.phonebook;;
+  add) echo $2 $3 $4 >> ~/.phonebook;;
+  delete) cat ~/.phonebook | grep -v $2 > /tmp/phonebook && \
+    mv /tmp/phonebook ~/.phonebook;;
+esac
+
+case $1 in
+  f | find | -f | -find) egrep $2 ~/.phonebook;;
+esac
+
+case $1 in
+  c | call | -c | -call) PHONE=`egrep $2 ~/.phonebook | cut -d ' ' -f 2`;  twinkle --cmd "call $PHONE" ;;
+esac
