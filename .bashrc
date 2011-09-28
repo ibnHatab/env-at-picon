@@ -37,7 +37,8 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]
+    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h[\W$(__git_ps1 " (%s)")]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h[\W$(__git_ps1 " (%s)")]\[\033[00m\]:\[\033[01;32m\]\w\[\033[00m\]
 $ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w
@@ -71,5 +72,19 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+if [ -f ~/.clipboard ]; then
+    . ~/.clipboard
+fi
+
+# Added by autojump install.sh
+source ~/bin/autojump.bash
+
 export OOO_FORCE_DESKTOP=gnome
+#export LM_LICENSE_FILE=$HOME/libs/license.dat
+
+export LM_LICENSE_FILE=5555@135.86.206.75
+export LM_LICENSE_FILE=~/public_html/license.rvds.dat
+export PATH=$PATH:/udir/tools/CodeSourcery/Sourcery_G++_Lite/bin/
+export PATH=$PATH:/udir/tools/arm-2008q1/bin
+
 
