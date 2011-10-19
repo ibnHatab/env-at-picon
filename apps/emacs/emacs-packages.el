@@ -321,6 +321,7 @@
                                                         )
                                    compilation-ask-about-save nil
                                    compilation-scroll-output t
+                                   c-echo-syntactic-information-p nil
                                    fill-column 80
                                    comment-column 40
                                    tab-width 4

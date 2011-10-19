@@ -76,6 +76,7 @@
 (global-set-key [(shift insert)]	'clipboard-yank)
 
 ;; Move line/code region with M-S-Up/Down
+
 (defun move-text-internal (arg)
   (cond
    ((and mark-active transient-mark-mode)
@@ -111,5 +112,5 @@
   (interactive "*p")
   (move-text-internal (- arg)))
 
-(global-set-key [M-S-up] 'move-text-up)
+(global-set-key [M-S-up]   'move-text-up)
 (global-set-key [M-S-down] 'move-text-down)
