@@ -10,15 +10,22 @@
 (global-set-key [(f2)]          'save-buffer) ;F2
 (global-set-key [(f3)]          'find-file) ;F3
 (global-set-key [(f5)]          'speedbar-get-focus) ;F4
-(global-set-key [(f6)]          'hs-hide-block)
-(global-set-key [(C-f6)]        'hs-show-block)
-(global-set-key [(f7)]          'start-kbd-macro)
-(global-set-key [(C-f7)]        'end-kbd-macro)
-(global-set-key [(f8)]          'call-last-kbd-macro)
+                                        ; f7
+                                        ; f8
 (global-set-key [(f10)]         'grep)     ;F10
 (global-set-key [(f11)]         'nuke-trailing-whitespace) ;F11
 (global-set-key [(f12)]         'kill-this-buffer) ;F12
 (global-set-key [(C-f12)]       'server-edit) ;F12
+
+;; cscope
+(define-key global-map [(control f2)] 'cscope-find-global-definition-no-prompting)  ;; f2 Definition
+(define-key global-map [(control f3)] 'cscope-find-this-symbol)                     ;; f3 Symbols
+(define-key global-map [(control f4)] 'cscope-find-functions-calling-this-function) ;; f4 References
+(define-key global-map [(control f5)] 'cscope-pop-mark)                             ;; f5 Pop mark
+(define-key global-map [(control f6)] 'cscope-display-buffer)                       ;; f6 display buffer
+(define-key global-map [(control f7)] 'cscope-prev-symbol)                          ;; f7 prev sym
+(define-key global-map [(control f8)] 'cscope-next-symbol)                          ;; f8 next sym
+(define-key global-map [(control f9)] 'cscope-set-initial-directory)                ;; f9 set initial dir
 
 ;; Compile mode
 (global-set-key [?\C-c ?b]      'compile)

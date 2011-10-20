@@ -46,6 +46,23 @@
 		("\\.csp$"                 . csp-mode)
                 )auto-mode-alist))
 
+
+
+;; (enable cscope)
+(require 'xcscope)
+(setq cscope-database-regexps
+      '(
+        ( "^/local/cbadescu/femto_repo/metro_initial_callp/"
+          ( "/local/cbadescu/femto_repo/metro_initial_callp" ) )
+        ( "^/tmp/ccase"
+          ( "/tmp/ccase" ) )
+        )
+)
+
+(custom-set-variables
+ '(cscope-truncate-lines t)
+ )
+
 ;; Doxymacs
 (defun my-doxymacs-font-lock-hook ()
   (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
@@ -299,8 +316,6 @@
 				  (c-set-style "ellemtel") ;; C-c .
                                   ;; push armcc error regex
                                   (add-to-list 'compilation-error-regexp-alist '("^\\(.+?\\)(\\([0-9]+\\),\\([0-9]+\\)) :" 1 2 3))
-                                  (global-set-key '[(f4)]          'next-error) ;F4
-                                  (global-set-key '[(C-f4)]        'previous-error)
 
                                   (define-key c-mode-base-map [(return)] 'newline-and-indent)
 
