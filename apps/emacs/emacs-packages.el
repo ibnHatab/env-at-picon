@@ -46,6 +46,12 @@
 		("\\.csp$"                 . csp-mode)
                 )auto-mode-alist))
 
+; autocomplete
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories
+	     (concat (getenv "HOME") "/apps/emacs/packages/ac-dict"))
+(ac-config-default)
+
 ;; Doxymacs
 (defun my-doxymacs-font-lock-hook ()
   (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
