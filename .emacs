@@ -38,10 +38,9 @@
 (setq transient-mark-mode t)
 (setq line-number-mode t)
 (setq column-number-mode t)
-(global-set-key "\C-c\C-w" 'backward-kill-word)
 
-(iswitchb-mode 1)              ; Show me my completions please
-(setq iswitchb-case nil) ; completions are case sensitive.
+(iswitchb-mode 1)        ; Show me my completions please
+;;(setq iswitchb-case nil) ; completions are case sensitive.
 
 ;; Delete trailing whitespace
 (add-hook 'write-file-functions 'delete-trailing-whitespace)
@@ -64,8 +63,6 @@
 (set-foreground-color "white")
 (set-cursor-color "#dddddd")
 
-(server-start)
-
 
 ;; end
 
@@ -79,7 +76,7 @@
  '(c-echo-syntactic-information-p nil)
  '(column-number-mode t)
  '(compilation-window-height 14)
- '(dir-locals-mode t nil (dir-locals))
+ '(cscope-truncate-lines t)
  '(display-time-mode t)
  '(enable-local-variables :all)
  '(font-lock-global-modes t)
@@ -87,13 +84,11 @@
  '(haskell-program-name "ghci")
  '(inhibit-startup-screen t)
  '(next-line-add-newlines nil)
- '(pc-selection-mode t nil (pc-select))
+ '(pc-selection-mode f nil (pc-select))
  '(show-paren-mode t nil (paren))
  '(show-paren-ring-bell-on-mismatch t)
  '(show-paren-style (quote parenthesis))
- '(tooltip-delay 1.7)
  '(tooltip-mode nil)
- '(tooltip-short-delay 0.7)
  '(truncate-lines nil)
  '(truncate-partial-width-windows nil)
  '(vc-command-messages t)
@@ -105,13 +100,12 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#2F3E35" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 128 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
+ '(default ((t (:inherit nil :stipple nil :background "#2F3E35" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
  '(flymake-errline ((((class color)) (:underline "Red"))))
  '(flymake-warnline ((((class color)) (:underline "LightBlue2")))))
 
 ;; (set-default-font "-apple-Monaco-medium-normal-normal-*-18-*-*-*-m-0-iso10646-1")
 (modify-frame-parameters nil '((wait-for-wm . nil)))
 
-;; (enable cscope)
-(require 'xcscope)
+(server-start)
 
