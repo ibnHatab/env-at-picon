@@ -11,6 +11,9 @@
 	.inputrc	 - ?
 	.vimrc		 - vim config for trace reading :ic and :mounse
 
+You can adapt this command to do the job for you:
+for i in `find env/ -maxdepth 1 | sed -e '1d'`; do ln -s $i; done
+
 2. Get Erlang test tools
 
 mkdir libs; cd libs
