@@ -12,6 +12,7 @@
 (global-set-key [(f5)]          'speedbar-get-focus) ;F4
                                         ; f7
                                         ; f8
+(global-set-key [(f9)]          'compile)     ;F9
 (global-set-key [(f10)]         'grep)     ;F10
 (global-set-key [(f11)]         'nuke-trailing-whitespace) ;F11
 (global-set-key [(f12)]         'kill-this-buffer) ;F12

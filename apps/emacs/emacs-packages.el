@@ -68,6 +68,7 @@
  )
 
 ;; Doxymacs
+(require 'doxymacs)
 (defun my-doxymacs-font-lock-hook ()
   (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
       (doxymacs-font-lock)))
