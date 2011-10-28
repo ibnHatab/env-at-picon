@@ -48,6 +48,7 @@
 ;; Move between visible windows
 (global-set-key [(C-tab)]	'other-window )
 (global-set-key [(C-S-tab)]	'previous-multiframe-window )
+(global-set-key [(M-tab)]	'complete-tag )
 
 (global-set-key [s-left]  'windmove-left)         ; move to left windnow
 (global-set-key [s-right] 'windmove-right)        ; move to right window
