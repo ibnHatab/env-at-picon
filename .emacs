@@ -95,8 +95,8 @@
  '(truncate-partial-width-windows nil)
  '(vc-command-messages t)
  '(vc-initial-comment t)
- '(x-select-enable-clipboard t))
-
+ '(x-select-enable-clipboard t)
+ '(cscope-program-args '"-q"))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
