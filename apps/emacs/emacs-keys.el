@@ -30,9 +30,9 @@
 (global-set-key [(M-tab)]	'complete-tag )
 
 ;; Compile mode
-(global-set-key [?\C-c ?C-b]    'compile)
-(global-set-key [?\C-c ?C-n]    'next-error)
-(global-set-key [?\C-c ?C-p]    'previous-error)
+(global-set-key [?\C-c ?\C-b]    'compile)
+(global-set-key [?\C-c ?\C-n]    'next-error)
+(global-set-key [?\C-c ?\C-p]    'previous-error)
 
 ;; Fast movements
 (global-set-key [M-right]       'forward-word)
