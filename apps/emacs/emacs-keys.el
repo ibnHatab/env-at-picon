@@ -9,7 +9,10 @@
 
 (global-set-key [(f2)]          'save-buffer) ;F2
 (global-set-key [(f3)]          'find-file) ;F3
-(global-set-key [(f4)]          'compilation-next-error) ;F4
+(global-set-key [(f4)]          'next-error) ;F4
+(global-set-key [(C-f4)]        'previous-error) ;Ctrl+F4
+
+
 (global-set-key [(f5)]          'speedbar-get-focus) ;F5
                                         ; f7
                                         ; f8

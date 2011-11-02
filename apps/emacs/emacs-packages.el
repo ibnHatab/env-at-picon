@@ -413,4 +413,14 @@
   "Major mode for editing ASN.1 specifications." t)
 
 
+;;; org-mode
+(setq load-path (cons "~/apps/emacs/packages/org/lisp" load-path))
+(setq load-path (cons "~/apps/emacs/packages/org/contrinlisp" load-path))
+(require 'org-install)
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(setq org-log-done 'time)
