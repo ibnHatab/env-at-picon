@@ -96,7 +96,8 @@
  '(vc-command-messages t)
  '(vc-initial-comment t)
  '(x-select-enable-clipboard t)
- '(cscope-program-args '"-q"))
+ '(cscope-program-args '"-q")
+ '(cscope-use-relative-paths t))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -111,3 +112,19 @@
 
 (server-start)
 
+;; custom org
+
+Here is an example:
+  (setq org-publish-project-alist
+         '(("org"
+            :base-directory "~/org/org-files"
+            :publishing-directory "~/public_html/org"
+            :section-numbers nil
+            :table-of-contents nil
+            :style "<link rel=\"stylesheet\"
+                   href=\"../other/mystyle.css\"
+                   type=\"text/css\"/>")))
+
+
+(setq org-default-notes-file (concat org-directory "/notes.org"))
+(define-key global-map "\C-cc" 'org-capture)

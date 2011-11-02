@@ -62,6 +62,8 @@
 #          Without this option, only the current directory is
 #          searched.
 #
+#     -q   Enable  fast  symbol lookup via an inverted index.
+#
 #     -v
 #          Be verbose.  Output simple progress messages.
 #
@@ -79,6 +81,7 @@ LIST_FILE='cscope.files'
 DATABASE_FILE='cscope.out'
 RECURSE=
 VERBOSE=
+QUICK=""
 export DIR RECURSE			# Need to pass these to subprocesses
 
 while [ -n "$1" ]
@@ -107,6 +110,9 @@ do
 	;;
     -r)
 	RECURSE=1
+	;;
+    -q)
+	QUICK="-q"
 	;;
     -v)
 	VERBOSE=1
@@ -156,7 +162,7 @@ then
     echo "Indexing files ..."
 fi
 
-cscope -q -b -i $LIST_FILE -f $DATABASE_FILE
+cscope ${QUICK} -b -i $LIST_FILE -f $DATABASE_FILE
 
 if [ "X$VERBOSE" != "X" ]
 then
