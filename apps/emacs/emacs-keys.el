@@ -26,11 +26,12 @@
 (define-key global-map [(control f7)] 'cscope-prev-symbol)                          ;; f7 prev sym
 (define-key global-map [(control f8)] 'cscope-next-symbol)                          ;; f8 next sym
 (define-key global-map [(control f9)] 'cscope-set-initial-directory)                ;; f9 set initial dir
+(global-set-key [(M-tab)]	'complete-tag )
 
 ;; Compile mode
-(global-set-key [?\C-c ?b]      'compile)
-(global-set-key [?\C-c ?n]      'next-error)
-(global-set-key [?\C-c ?p]      'previous-error)
+(global-set-key [?\C-c ?C-b]    'compile)
+(global-set-key [?\C-c ?C-n]    'next-error)
+(global-set-key [?\C-c ?C-p]    'previous-error)
 
 ;; Fast movements
 (global-set-key [M-right]       'forward-word)
@@ -46,10 +47,6 @@
 (global-set-key [C-backspace]   'backward-kill-word)
 
 ;; Move between visible windows
-(global-set-key [(C-tab)]	'other-window )
-(global-set-key [(C-S-tab)]	'previous-multiframe-window )
-(global-set-key [(M-tab)]	'complete-tag )
-
 (global-set-key [s-left]  'windmove-left)         ; move to left windnow
 (global-set-key [s-right] 'windmove-right)        ; move to right window
 (global-set-key [s-up]    'windmove-up)           ; move to upper window

@@ -46,11 +46,15 @@
 		("\\.csp$"                 . csp-mode)
                 )auto-mode-alist))
 
+; winner-mode for restoring windows configuration C-c Left/Right
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
+
 ; autocomplete
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories
-	     (concat (getenv "HOME") "/apps/emacs/packages/ac-dict"))
-(ac-config-default)
+;(require 'auto-complete-config)
+;(add-to-list 'ac-dictionary-directories
+;	     (concat (getenv "HOME") "/apps/emacs/packages/ac-dict"))
+;(ac-config-default)
 
 ;; (enable cscope)
 (require 'xcscope)
