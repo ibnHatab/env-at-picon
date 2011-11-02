@@ -83,11 +83,13 @@
  '(global-font-lock-mode t nil (font-lock))
  '(haskell-program-name "ghci")
  '(inhibit-startup-screen t)
+ '(menu-bar-mode nil)
  '(next-line-add-newlines nil)
  '(pc-selection-mode f nil (pc-select))
  '(show-paren-mode t nil (paren))
  '(show-paren-ring-bell-on-mismatch t)
  '(show-paren-style (quote parenthesis))
+ '(tool-bar-mode nil)
  '(tooltip-mode nil)
  '(truncate-lines nil)
  '(truncate-partial-width-windows nil)
@@ -100,7 +102,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#2F3E35" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
+ '(default ((t (:inherit nil :stipple nil :background "#2F3E35" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 128 :width normal :foundry "b&h" :family "lucidatypewriter"))))
  '(flymake-errline ((((class color)) (:underline "Red"))))
  '(flymake-warnline ((((class color)) (:underline "LightBlue2")))))
 
