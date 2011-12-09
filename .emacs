@@ -42,6 +42,10 @@
 (iswitchb-mode 1)        ; Show me my completions please
 ;;(setq iswitchb-case nil) ; completions are case sensitive.
 
+; winner-mode for restoring windows configuration C-c Left/Right
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
+
 ;; Delete trailing whitespace
 (add-hook 'write-file-functions 'delete-trailing-whitespace)
 
@@ -114,7 +118,7 @@
 
 ;; custom org
 
-Here is an example:
+;; Here is an example:
   (setq org-publish-project-alist
          '(("org"
             :base-directory "~/org/org-files"
@@ -126,5 +130,5 @@ Here is an example:
                    type=\"text/css\"/>")))
 
 
-(setq org-default-notes-file (concat org-directory "/notes.org"))
-(define-key global-map "\C-cc" 'org-capture)
+;;(setq org-default-notes-file (concat org-directory "/notes.org"))
+;;(define-key global-map "\C-cc" 'org-capture)
