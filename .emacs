@@ -29,6 +29,8 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
+(setq auto-revert-interval 1)
+;; (global-auto-revert-mode t)
 (blink-cursor-mode 0) ;; no blink
 (display-time)
 (setq use-file-dialog nil)
@@ -40,7 +42,11 @@
 (setq column-number-mode t)
 
 (iswitchb-mode 1)        ; Show me my completions please
-;;(setq iswitchb-case nil) ; completions are case sensitive.
+(setq iswitchb-case nil) ; completions are case sensitive.
+
+; winner-mode for restoring windows configuration C-c Left/Right
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
 
 ;; Delete trailing whitespace
 (add-hook 'write-file-functions 'delete-trailing-whitespace)
@@ -83,12 +89,16 @@
  '(global-font-lock-mode t nil (font-lock))
  '(haskell-program-name "ghci")
  '(inhibit-startup-screen t)
+ '(menu-bar-mode nil)
  '(next-line-add-newlines nil)
+ '(org-support-shift-select t)
  '(pc-selection-mode f nil (pc-select))
  '(show-paren-mode t nil (paren))
  '(show-paren-ring-bell-on-mismatch t)
  '(show-paren-style (quote parenthesis))
+ '(tool-bar-mode nil)
  '(tooltip-mode nil)
+ '(transient-mark-mode t)
  '(truncate-lines nil)
  '(truncate-partial-width-windows nil)
  '(vc-command-messages t)

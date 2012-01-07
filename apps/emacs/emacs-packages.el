@@ -44,13 +44,18 @@
 		("\\.ie$"                  . erlang-mode)
 		("\\.es$"                  . erlang-mode)
 		("\\.csp$"                 . csp-mode)
+                ("\\.\\(d\\|s\\)ats\\'"    . ats-two-mode-mode)
                 )auto-mode-alist))
 
+
+(require 'ats-mode)
+
+
 ; autocomplete
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories
-	     (concat (getenv "HOME") "/apps/emacs/packages/ac-dict"))
-(ac-config-default)
+;(require 'auto-complete-config)
+;(add-to-list 'ac-dictionary-directories
+;	     (concat (getenv "HOME") "/apps/emacs/packages/ac-dict"))
+;(ac-config-default)
 
 ;; (enable cscope)
 (require 'xcscope)
@@ -68,6 +73,7 @@
  )
 
 ;; Doxymacs
+(require 'doxymacs)
 (defun my-doxymacs-font-lock-hook ()
   (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
       (doxymacs-font-lock)))
@@ -300,26 +306,35 @@
   				  (define-key py-mode-map (kbd "M-\'") 'anything-ipython-complete)))
 
 ;; Yang
-(autoload 'yang-mode "yang-mode" "Major mode for editing YANG spec." t)
+;(autoload 'yang-mode "yang-mode" "Major mode for editing YANG spec." t)
 
-;; Coq / ProofGeneral
+;; Coq/ProofGeneral
 ;;(load-file "~/apps/emacs/packages/ProofGeneral/generic/proof-site.el")
 
 
-;;C++
-(add-hook 'c-mode-hook       'elec-cr-mode)
+;;C/C++
+(autoload 'elec-cr-mode "elec-cr" "High powered C editing mode." t)
 (add-hook 'elec-cr-mode-hook 'elec-par-install-electric)
+(autoload 'elec-par-install-electric "elec-par")
 
-;;C++
+(add-hook 'c-mode-hook       'elec-cr-mode)
 (add-hook 'c++-mode-hook     'elec-cr-mode)
+
 (autoload 'expand-member-functions "member-functions" "Expand C++ member function declarations" t)
-(add-hook 'c++-mode-hook (lambda () (local-set-key "\C-cm" #'expand-member-functions)))
+(add-hook 'c++-mode-hook (lambda ()
+                           (local-set-key "\C-cm" #'expand-member-functions)))
+
 
 (add-hook  'c-mode-common-hook '(lambda () "" (interactive)
-                                  ;;(add-hook  'c++-mode-hook '(lambda () "" (interactive)
-				  (c-set-style "ellemtel") ;; C-c .
+;;(add-hook  'c++-mode-hook '(lambda () "" (interactive)
+				  (c-set-style "stroustrup") ;; C-c .
                                   ;; push armcc error regex
-                                  (add-to-list 'compilation-error-regexp-alist '("^\\(.+?\\)(\\([0-9]+\\),\\([0-9]+\\)) :" 1 2 3))
+                                  (add-to-list 'compilation-error-regexp-alist
+                                               '("^\\(.+?\\)(\\([0-9]+\\),\\([0-9]+\\)) :" 1 2 3))
+                                  ;; push cmake - armcc error regex
+                                  (add-to-list 'compilation-error-regexp-alist
+                                               '("^.*]\s\\(.+?\\)(\\([0-9]+\\),\\([0-9]+\\)) :" 1 2 3))
+
 
                                   (define-key c-mode-base-map [(return)] 'newline-and-indent)
 
@@ -333,10 +348,12 @@
                                    c-comment-continuation-stars "// "
                                    c-hanging-comment-ender-p t
                                    c-hanging-comment-starter-p t
-                                   c-cleanup-list (list 'empty-defun-braces
+                                   c-cleanup-list (list ;; 'empty-defun-braces
                                                         'defun-close-semi
                                                         'list-close-comma
                                                         'scope-operator
+                                                        'brace-else-brace
+                                                        'brace-elseif-brace
                                                         )
                                    compilation-ask-about-save nil
                                    compilation-scroll-output t
@@ -345,10 +362,9 @@
                                    fill-column 80
                                    comment-column 40
                                    tab-width 4
-                                   c-basic-offset 2
+                                   c-basic-offset 4
                                    hs-minor-mode t ;; F6
                                    )
-                                  ;; code stail
                                   (setq-default indent-tabs-mode nil)
                                   (setq-default nuke-trailing-whitespace-p t)
                                   )
@@ -404,6 +420,8 @@
 ;;;      (autoload 'find-function "find-func" nil t)
 
 ;;; ASN.1 Mode
+;; (autoload 'daveb-mib-mode "daveb-mib-mode"  "Mode for editing ASN.1 SNMP MIBs")
+
 (autoload 'asn1-diff-mode "asn1-diff"
   "Major mode for editing comparison of ASN.1 specifications." t)
 (autoload 'asn1-diff "asn1-diff"
