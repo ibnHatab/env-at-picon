@@ -88,7 +88,7 @@ Mrxvt.scrollbarRight:		true
 Mrxvt.scrollbarStyle:		rxvt
 
 # Number of lines to save in the scroll back buffer for all tabs
-Mrxvt.saveLines:		500000
+Mrxvt.saveLines:		65535
 
 # Don't scroll to the bottom every time some output is produced.
 Mrxvt.scrollTtyOutputInhibit:	true
