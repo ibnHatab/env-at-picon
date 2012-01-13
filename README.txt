@@ -1,4 +1,6 @@
-
+0. Requirements:
+   ipython
+   bash-completion
 
 1. Link or copy following files to the $HOME
 	bin/             - some common scripts
