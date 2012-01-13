@@ -47,7 +47,7 @@
   (winner-mode 1))
 
 ;; Delete trailing whitespace
-(add-hook 'write-file-functions 'delete-trailing-whitespace)
+;; (add-hook 'write-file-functions 'delete-trailing-whitespace)
 
 ;; Black Jeck
 ;; (set-background-color "black")
