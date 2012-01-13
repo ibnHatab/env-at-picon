@@ -1,26 +1,37 @@
 
 (require                        'define-key-wise)
 
+;; replace by bookmark system
 (global-set-key-wise            '[(f1)];; 'switch-other-buffer		F1
                                 "Makes the same operation as C-x b RET."
                                 '(switch-to-buffer (other-buffer)))
 (global-set-key-wise            '[(M-f1)]   'gse-bury-buffer)
 (global-set-key-wise            '[(C-f1)]   'gse-unbury-buffer)
+(global-set-key-wise            '[(C-tab)]   'other-window)
+
+
+;; bookmarks
+(global-set-key [(control f11)]       'af-bookmark-toggle )
+(global-set-key [f11]                 'af-bookmark-cycle-forward )
+(global-set-key [(shift f11)]         'af-bookmark-cycle-reverse )
+(global-set-key [(control shift f11)] 'af-bookmark-clear-all )
+(global-set-key [(M-f11)]             'bookmark-bmenu-list )
+
 
 (global-set-key [(f2)]          'save-buffer) ;F2
 (global-set-key [(f3)]          'find-file) ;F3
 (global-set-key [(f4)]          'next-error) ;F4
 (global-set-key [(C-f4)]        'previous-error) ;Ctrl+F4
 
-
 (global-set-key [(f5)]          'speedbar-get-focus) ;F5
                                         ; f7
                                         ; f8
 (global-set-key [(f9)]          'compile)     ;F9
 (global-set-key [(f10)]         'grep)     ;F10
-(global-set-key [(f11)]         'nuke-trailing-whitespace) ;F11
+(global-set-key [(C-f10)]       'nuke-trailing-whitespace) ;F11
 (global-set-key [(f12)]         'kill-this-buffer) ;F12
 (global-set-key [(C-f12)]       'server-edit) ;F12
+
 
 ;; cscope
 (define-key global-map [(control f2)] 'cscope-find-global-definition-no-prompting)  ;; f2 Definition
@@ -34,9 +45,7 @@
 (global-set-key [(M-tab)]	'complete-tag )
 
 ;; Compile mode
-(global-set-key [?\C-c ?\C-b]    'compile)
-(global-set-key [?\C-c ?\C-n]    'next-error)
-(global-set-key [?\C-c ?\C-p]    'previous-error)
+(global-set-key [?\C-c ?b]    'compile)
 
 ;; Fast movements
 (global-set-key [M-right]       'forward-word)
@@ -50,6 +59,13 @@
 (global-set-key [C-delete]      'kill-word)
 (global-set-key [ESC-backspace] 'backward-kill-word)
 (global-set-key [C-backspace]   'backward-kill-word)
+
+(defun backward-delete-word (arg)
+  "Delete characters backward until encountering the beginning of a word.
+With argument ARG, do this that many times."
+  (interactive "p")
+  (delete-region (point) (progn (backward-word arg) (point))))
+(define-key minibuffer-local-map [C-backspace] 'backward-delete-word)
 
 ;; Move between visible windows
 (global-set-key [(C-tab)]	'other-window )
@@ -90,41 +106,9 @@
 (global-set-key [(shift insert)]	'clipboard-yank)
 
 ;; Move line/code region with M-S-Up/Down
-
-(defun move-text-internal (arg)
-  (cond
-   ((and mark-active transient-mark-mode)
-    (if (> (point) (mark))
-        (exchange-point-and-mark))
-    (let ((column (current-column))
-          (text (delete-and-extract-region (point) (mark))))
-      (forward-line arg)
-      (move-to-column column t)
-      (set-mark (point))
-      (insert text)
-      (exchange-point-and-mark)
-      (setq deactivate-mark nil)))
-   (t
-    (let ((column (current-column)))
-      (beginning-of-line)
-      (when (or (> arg 0) (not (bobp)))
-        (forward-line)
-        (when (or (< arg 0) (not (eobp)))
-          (transpose-lines arg))
-        (forward-line -1))
-      (move-to-column column t)))))
-
-(defun move-text-down (arg)
-  "Move region (transient-mark-mode active) or current line
-  arg lines down."
-  (interactive "*p")
-  (move-text-internal arg))
-
-(defun move-text-up (arg)
-  "Move region (transient-mark-mode active) or current line
-  arg lines up."
-  (interactive "*p")
-  (move-text-internal (- arg)))
-
 (global-set-key [M-S-up]   'move-text-up)
 (global-set-key [M-S-down] 'move-text-down)
+
+;; Camel / Uncamel cases
+(global-set-key "\M-_" 'mo-toggle-identifier-naming-style)
+
