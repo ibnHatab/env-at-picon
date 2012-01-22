@@ -48,8 +48,100 @@
                 )auto-mode-alist))
 
 
-(require 'ats-mode)
+;; Flymake
+(require 'flymake)
+;; erlang
+(defun flymake-erlang-init ()
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+		     'flymake-create-temp-with-folder-structure))
+         ;;  		     'flymake-create-temp-inplace))
+  	 (local-file (file-relative-name
+  		      temp-file
+  		      (file-name-directory buffer-file-name))))
+    (list "~/bin/eflymake" (list local-file))))
 
+(add-to-list 'flymake-allowed-file-name-masks
+ 	     '("\\.erl\\'" flymake-erlang-init))
+;; ats
+(defun flymake-ats-init ()
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+		     'flymake-create-temp-inplace))
+  	 (local-file (file-relative-name
+  		      temp-file
+  		      (file-name-directory buffer-file-name))))
+    (list "atscc" (list "-tc " local-file))))
+
+(add-to-list 'flymake-allowed-file-name-masks
+ 	     '("\\.\\(d\\|s\\)ats\\'" flymake-ats-init))
+(push
+ '("\\(syntax error: \\)?\\([^\n:]*\\): \\[?[0-9]*(line=\\([0-9]*\\), offs=\\([0-9]*\\))\\]?\\(.*\\)?"
+   2 3 4 5) flymake-err-line-patterns)
+;; o'caml
+(defun flymake-ocaml-init ()
+          (flymake-simple-make-init-impl
+            'flymake-create-temp-with-folder-structure nil nil
+            (file-name-nondirectory buffer-file-name)
+            'flymake-get-ocaml-cmdline))
+    (defun flymake-get-ocaml-cmdline (source base-dir)
+       (list "ocaml_flycheck.pl"
+            (list source base-dir)))
+
+    (push '(".+\\.ml[yilp]?$" flymake-ocaml-init flymake-simple-java-cleanup)
+          flymake-allowed-file-name-masks)
+    (push
+      '("^\\(\.+\.ml[yilp]?\\|\.lhs\\):\\([0-9]+\\):\\([0-9]+\\):\\(.+\\)"
+       1 2 3 4) flymake-err-line-patterns)
+
+    ;; optional setting
+    ;; if you want to use flymake always, then add the following hook.
+    ;; (add-hook
+    ;;  'tuareg-mode-hook
+    ;;  '(lambda ()
+    ;;     (if (not (null buffer-file-name)) (flymake-mode))))
+;;
+(add-hook 'find-file-hook 'flymake-find-file-hook)
+
+;; mini
+(defvar my-flymake-minor-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map "\M-p" 'flymake-goto-prev-error)
+    (define-key map "\M-n" 'flymake-goto-next-error)
+    map)
+  "Keymap for my flymake minor mode.")
+
+(defun my-flymake-err-at (pos)
+  (let ((overlays (overlays-at pos)))
+    (remove nil
+            (mapcar (lambda (overlay)
+                      (and (overlay-get overlay 'flymake-overlay)
+                           (overlay-get overlay 'help-echo)))
+                    overlays))))
+
+(defun my-flymake-err-echo ()
+  (message "%s" (mapconcat 'identity (my-flymake-err-at (point)) "\n")))
+
+(defadvice flymake-goto-next-error (after display-message activate compile)
+  (my-flymake-err-echo))
+
+(defadvice flymake-goto-prev-error (after display-message activate compile)
+  (my-flymake-err-echo))
+
+(define-minor-mode my-flymake-minor-mode
+  "Simple minor mode which adds some key bindings for moving to the next and previous errors.
+Key bindings:
+\\{my-flymake-minor-mode-map}"
+  nil
+  nil
+  :keymap my-flymake-minor-mode-map)
+
+;; Enable this keybinding (my-flymake-minor-mode) by default
+;; Added by Hartmut 2011-07-05
+(add-hook 'haskell-mode-hook 'my-flymake-minor-mode)
+(add-hook 'ats-mode-hook 'my-flymake-minor-mode)
+(add-hook 'tuareg-mode-hook 'my-flymake-minor-mode)
+
+;; ATS
+(require 'ats-mode)
 
 ; autocomplete
 ;(require 'auto-complete-config)
@@ -132,22 +224,6 @@
  	    (dolist (spec distel-shell-keys)
  	      (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
 
-
-;; Flymake
-(require 'flymake)
-(defun flymake-erlang-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-		     'flymake-create-temp-with-folder-structure))
-         ;;  		     'flymake-create-temp-inplace))
-  	 (local-file (file-relative-name
-  		      temp-file
-  		      (file-name-directory buffer-file-name))))
-    (list "~/bin/eflymake" (list local-file))))
-
-(add-to-list 'flymake-allowed-file-name-masks
- 	     '("\\.erl\\'" flymake-erlang-init))
-
-(add-hook 'find-file-hook 'flymake-find-file-hook)
 
 
 ;; Esense
