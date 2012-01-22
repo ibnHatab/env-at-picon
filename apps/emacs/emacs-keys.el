@@ -1,4 +1,3 @@
-
 (require                        'define-key-wise)
 
 ;; replace by bookmark system
@@ -18,18 +17,19 @@
 (global-set-key [(M-f11)]             'bookmark-bmenu-list )
 
 
-(global-set-key [(f2)]          'save-buffer) ;F2
-(global-set-key [(f3)]          'find-file) ;F3
-(global-set-key [(f4)]          'next-error)
-(global-set-key [(S-f4)]        'previous-error)
-(global-set-key [(f5)]          'speedbar-get-focus) ;F5
-                                        ; f7
-                                        ; f8
-(global-set-key [(f9)]          'compile)     ;F9
-(global-set-key [(f10)]         'grep)     ;F10
-(global-set-key [(C-f10)]       'nuke-trailing-whitespace) ;F11
-(global-set-key [(f12)]         'kill-this-buffer) ;F12
-(global-set-key [(C-f12)]       'server-edit) ;F12
+(global-set-key [(f2)]          'save-buffer)		    ;F2
+(global-set-key [(f3)]          'find-file)		    ;F3
+(global-set-key [(f4)]          'next-error)		    ;F4
+(global-set-key [(C-f4)]        'previous-error)	    ;Ctrl+F4
+
+(global-set-key [(f5)]          'speedbar-get-focus)	    ;F5
+							    ;F7
+							    ;F8
+(global-set-key [(f9)]          'compile)		    ;F9
+(global-set-key [(f10)]         'grep)			    ;F10
+(global-set-key [(C-f10)]       'nuke-trailing-whitespace)  ;F11
+(global-set-key [(f12)]         'kill-this-buffer)	    ;F12
+(global-set-key [(C-f12)]       'server-edit)		    ;F12
 
 
 ;; cscope
@@ -67,6 +67,10 @@ With argument ARG, do this that many times."
 (define-key minibuffer-local-map [C-backspace] 'backward-delete-word)
 
 ;; Move between visible windows
+(global-set-key [(C-tab)]	'other-window )
+(global-set-key [(C-S-tab)]	'previous-multiframe-window )
+(global-set-key [(s-tab)]	'complete-tag )
+
 (global-set-key [s-left]  'windmove-left)         ; move to left windnow
 (global-set-key [s-right] 'windmove-right)        ; move to right window
 (global-set-key [s-up]    'windmove-up)           ; move to upper window

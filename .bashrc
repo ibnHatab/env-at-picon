@@ -38,22 +38,13 @@ fi
 
 if [ "$color_prompt" = yes ]; then
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h[\W$(__git_ps1 " (%s)")]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h[\W$(__git_ps1 " (%s)")]\[\033[00m\]:\[\033[01;32m\]\w\[\033[00m\]
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h[\W$(__git_ps1 " (%s)")]\[\033[00m\]: \[\033[01;32m\]\w\[\033[00m\]
 $ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h: \w
 $ '
 fi
 unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -84,7 +75,7 @@ export OOO_FORCE_DESKTOP=gnome
 
 export LM_LICENSE_FILE=5555@135.86.206.75
 export LM_LICENSE_FILE=~/public_html/license.rvds.dat
-export PATH=$PATH:/udir/tools/CodeSourcery/Sourcery_G++_Lite/bin/
-export PATH=$PATH:/udir/tools/arm-2008q1/bin
+export PATH=$PATH:/udir/tools/arm-2008q3/bin
+export PATH=$PATH:/udir/tools/arm-linux-2008q3/bin
 
 

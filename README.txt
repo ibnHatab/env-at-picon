@@ -1,4 +1,6 @@
-
+0. Requirements:
+   ipython
+   bash-completion
 
 1. Link or copy following files to the $HOME
 	bin/             - some common scripts
@@ -12,7 +14,7 @@
 	.vimrc		 - vim config for trace reading :ic and :mounse
 
 You can adapt this command to do the job for you:
-for i in `find env/ -maxdepth 1 | sed -e '1d'`; do ln -s $i; done
+for i in `find env/ -maxdepth 1 | sed -e '1d' | grep -v .git`; do ln -sf $i; done
 
 2. Get Erlang test tools
 
