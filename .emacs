@@ -13,6 +13,8 @@
        '(expand-file-name "~/apps/emacs/packages/distel" )
        '(expand-file-name "~/apps/emacs/packages/wrangler" )
        '(expand-file-name "~/apps/emacs/packages/haskell-mode" )
+       '(expand-file-name "~/apps/emacs/packages/org/lisp")
+       '(expand-file-name "~/apps/emacs/packages/org/contrinlisp")
        load-path))
 
 ;;(setq mac-command-modifier 'meta) ;;Sets the command (Apple) key as Meta
@@ -48,8 +50,12 @@
 (when (fboundp 'winner-mode)
   (winner-mode 1))
 
+; winner-mode for restoring windows configuration C-c Left/Right
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
+
 ;; Delete trailing whitespace
-(add-hook 'write-file-functions 'delete-trailing-whitespace)
+;; (add-hook 'write-file-functions 'delete-trailing-whitespace)
 
 ;; Black Jeck
 ;; (set-background-color "black")
@@ -103,8 +109,9 @@
  '(truncate-partial-width-windows nil)
  '(vc-command-messages t)
  '(vc-initial-comment t)
- '(x-select-enable-clipboard t))
-
+ '(x-select-enable-clipboard t)
+ '(cscope-program-args '"-q")
+ '(cscope-use-relative-paths t))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -119,4 +126,3 @@
 
 (server-start)
 
-(put 'upcase-region 'disabled nil)

@@ -45,12 +45,37 @@
 		("\\.es$"                  . erlang-mode)
 		("\\.csp$"                 . csp-mode)
                 ("\\.\\(d\\|s\\)ats\\'"    . ats-two-mode-mode)
+		("\\.org\\'"               . org-mode)
                 )auto-mode-alist))
 
+;; Org-Mode
+(require 'org-install)
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(setq org-log-done 'time)
+
+;; Here is an example:
+(setq org-publish-project-alist
+      '(("org"
+	 :base-directory "~/org/org-files"
+	 :publishing-directory "~/public_html/org"
+	 :section-numbers nil
+	 :table-of-contents nil
+	 :style "<link rel=\"stylesheet\"
+                   href=\"../other/mystyle.css\"
+                   type=\"text/css\"/>")))
+
+;;(setq org-default-notes-file (concat org-directory "/notes.org"))
+;;(define-key global-map "\C-cc" 'org-capture)
+
+;; Git
+(require 'egg)
 
 ;; Flymake
 (require 'flymake)
-;; erlang
+; erlang
 (defun flymake-erlang-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
 		     'flymake-create-temp-with-folder-structure))
@@ -62,7 +87,7 @@
 
 (add-to-list 'flymake-allowed-file-name-masks
  	     '("\\.erl\\'" flymake-erlang-init))
-;; ats
+; ats
 (defun flymake-ats-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
 		     'flymake-create-temp-inplace))
@@ -76,28 +101,28 @@
 (push
  '("\\(syntax error: \\)?\\([^\n:]*\\): \\[?[0-9]*(line=\\([0-9]*\\), offs=\\([0-9]*\\))\\]?\\(.*\\)?"
    2 3 4 5) flymake-err-line-patterns)
-;; o'caml
+; o'caml
 (defun flymake-ocaml-init ()
-          (flymake-simple-make-init-impl
-            'flymake-create-temp-with-folder-structure nil nil
-            (file-name-nondirectory buffer-file-name)
-            'flymake-get-ocaml-cmdline))
-    (defun flymake-get-ocaml-cmdline (source base-dir)
-       (list "ocaml_flycheck.pl"
-            (list source base-dir)))
+  (flymake-simple-make-init-impl
+   'flymake-create-temp-with-folder-structure nil nil
+   (file-name-nondirectory buffer-file-name)
+   'flymake-get-ocaml-cmdline))
+(defun flymake-get-ocaml-cmdline (source base-dir)
+  (list "ocaml_flycheck.pl"
+	(list source base-dir)))
 
-    (push '(".+\\.ml[yilp]?$" flymake-ocaml-init flymake-simple-java-cleanup)
-          flymake-allowed-file-name-masks)
-    (push
-      '("^\\(\.+\.ml[yilp]?\\|\.lhs\\):\\([0-9]+\\):\\([0-9]+\\):\\(.+\\)"
-       1 2 3 4) flymake-err-line-patterns)
+(push '(".+\\.ml[yilp]?$" flymake-ocaml-init flymake-simple-java-cleanup)
+      flymake-allowed-file-name-masks)
+(push
+ '("^\\(\.+\.ml[yilp]?\\|\.lhs\\):\\([0-9]+\\):\\([0-9]+\\):\\(.+\\)"
+   1 2 3 4) flymake-err-line-patterns)
 
-    ;; optional setting
-    ;; if you want to use flymake always, then add the following hook.
-    ;; (add-hook
-    ;;  'tuareg-mode-hook
-    ;;  '(lambda ()
-    ;;     (if (not (null buffer-file-name)) (flymake-mode))))
+;; optional setting
+;; if you want to use flymake always, then add the following hook.
+;; (add-hook
+;;  'tuareg-mode-hook
+;;  '(lambda ()
+;;     (if (not (null buffer-file-name)) (flymake-mode))))
 ;;
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 
@@ -504,6 +529,5 @@ Key bindings:
   "For comparing ASN.1 specifications." t)
 (autoload 'asn1-mode "asn1-mode"
   "Major mode for editing ASN.1 specifications." t)
-
 
 
