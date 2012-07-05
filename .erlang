@@ -1,1 +1,2 @@
-code:load_abs("/exports/vlad/libs/femto_test/apps/eunit_tools/ebin/user_default").
+code:load_abs("/exports/vlad/libs/femto-test/apps/eunit_tools/ebin/user_default").
+code:add_pathz("/usr/local/share/distel/ebin/").

@@ -46,14 +46,29 @@
 		("\\.csp$"                 . csp-mode)
                 ("\\.\\(d\\|s\\)ats\\'"    . ats-two-mode-mode)
 		("\\.org\\'"               . org-mode)
+		("\\.m\\'"                 . octave-mode)
                 )auto-mode-alist))
+
+;; octave-mode
+(autoload 'octave-mode "octave-mod" nil t)
+(add-hook 'octave-mode-hook
+          (lambda ()
+            (abbrev-mode 1)
+            (auto-fill-mode 1)
+            (local-set-key '[(M-tab)] 'octave-complete-symbol)))
+
+(add-hook 'inferior-octave-mode-hook
+               (lambda ()
+                 (turn-on-font-lock)
+                 ;; (define-key inferior-octave-mode-map [up]
+                 ;;   'comint-previous-input)
+                 ;; (define-key inferior-octave-mode-map [down]
+                 ;;   'comint-next-input)
+	       ))
+
 
 ;; Org-Mode
 (require 'org-install)
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
 (setq org-log-done 'time)
 
 ;; Here is an example:
@@ -75,6 +90,7 @@
 
 ;; Flymake
 (require 'flymake)
+
 ; erlang
 (defun flymake-erlang-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
@@ -178,12 +194,18 @@ Key bindings:
 (require 'xcscope)
 (setq cscope-database-regexps
       '(
-        ( "^/local/cbadescu/femto_repo/metro_initial_callp/"
-          ( "/local/cbadescu/femto_repo/metro_initial_callp" ) )
-        ( "^/tmp/ccase"
-          ( "/tmp/ccase" ) )
+        ( "^/udir/vlad/repos/femto-henb"
+          ( t )
+          ( "/udir/vlad/repos/femto-cpe")
+          t
+          ( "/udir/vlad/repos/net/buildroot-2011.11/output/build/linux-3.1/"
+            ("-d" "-I/usr/include"))
+          )
+        ( "^/users/jdoe/sources/gnome/"
+          ( "/master/gnome/database" ("-d") ))
         )
-)
+      )
+
 
 (custom-set-variables
  '(cscope-truncate-lines t)
@@ -414,12 +436,13 @@ Key bindings:
 
 
 ;;C/C++
-(autoload 'elec-cr-mode "elec-cr" "High powered C editing mode." t)
-(add-hook 'elec-cr-mode-hook 'elec-par-install-electric)
-(autoload 'elec-par-install-electric "elec-par")
-
 (add-hook 'c-mode-hook       'elec-cr-mode)
 (add-hook 'c++-mode-hook     'elec-cr-mode)
+(add-hook 'elec-cr-mode-hook 'elec-par-install-electric)
+(add-hook 'elec-c-mode-hook 'turn-on-auto-fill)
+;; (autoload 'elec-par-install-electric "elec-par")
+(autoload 'elec-cr-mode "elec-cr" "High powered C editing mode." t)
+
 
 (autoload 'expand-member-functions "member-functions" "Expand C++ member function declarations" t)
 (add-hook 'c++-mode-hook (lambda ()
@@ -462,7 +485,7 @@ Key bindings:
                                    c-echo-syntactic-information-p nil
                                    fill-column 80
                                    comment-column 40
-                                   tab-width 4
+                                   tab-width 8
                                    c-basic-offset 4
                                    hs-minor-mode t ;; F6
                                    )

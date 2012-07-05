@@ -20,10 +20,10 @@
 ;;(setq mac-command-modifier 'meta) ;;Sets the command (Apple) key as Meta
 
 (load-library "emacs-general")
-(load-library "emacs-keys")
 (load-library "emacs-fontlock")
 (load-library "emacs-packages")
 (load-library "emacs-searchcurrent")
+(load-library "emacs-keys")
 
 ;; Remove unnecessary gui stuff
 (setq inhibit-startup-message t)    ; no stupid messages about who did what
@@ -88,13 +88,17 @@
  '(c-echo-syntactic-information-p nil)
  '(column-number-mode t)
  '(compilation-window-height 14)
+ '(cscope-program-args (quote "-q"))
  '(cscope-truncate-lines t)
+ '(cscope-use-relative-paths t)
  '(display-time-mode t)
  '(enable-local-variables :all)
+ '(flymake-no-changes-timeout 3.5)
  '(font-lock-global-modes t)
  '(global-font-lock-mode t nil (font-lock))
  '(haskell-program-name "ghci")
  '(inhibit-startup-screen t)
+ '(kill-whole-line t)
  '(menu-bar-mode nil)
  '(next-line-add-newlines nil)
  '(org-support-shift-select t)
@@ -109,9 +113,8 @@
  '(truncate-partial-width-windows nil)
  '(vc-command-messages t)
  '(vc-initial-comment t)
- '(x-select-enable-clipboard t)
- '(cscope-program-args '"-q")
- '(cscope-use-relative-paths t))
+ '(wrangler-search-paths (quote ("/udir/vlad/repos/erlang/snippets/apps")))
+ '(x-select-enable-clipboard t))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.

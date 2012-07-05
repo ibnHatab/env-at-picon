@@ -10,4 +10,5 @@ main([File_Name]) ->
 			     report,
 			     {i, "../include"},
 			     {i, "./include"},
+			     {i, "/exports/vlad/libs/femto_test/apps"},
 			     {outdir, "/tmp"}]).

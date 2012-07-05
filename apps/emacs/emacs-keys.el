@@ -19,7 +19,7 @@
 
 (global-set-key [(f2)]          'save-buffer)		    ;F2
 (global-set-key [(f3)]          'find-file)		    ;F3
-(global-set-key [(f4)]          'next-error)		    ;F4
+(global-set-key [(f4)]          'iswitchb-buffer)	    ;F4
 (global-set-key [(C-f4)]        'previous-error)	    ;Ctrl+F4
 
 (global-set-key [(f5)]          'speedbar-get-focus)	    ;F5
@@ -44,7 +44,7 @@
 (global-set-key [(M-tab)]	'complete-tag )
 
 ;; Compile mode
-(global-set-key [?\C-c ?b]    'compile)
+(global-set-key "\C-cb" 'compile)
 
 ;; Fast movements
 (global-set-key [M-right]       'forward-word)
@@ -75,6 +75,15 @@ With argument ARG, do this that many times."
 (global-set-key [s-right] 'windmove-right)        ; move to right window
 (global-set-key [s-up]    'windmove-up)           ; move to upper window
 (global-set-key [s-down]  'windmove-down)         ; move to downer window
+
+(global-set-key [s-S-up]   'delete-other-windows-vertically)
+(global-set-key [s-S-down] 'delete-other-windows-vertically)
+
+(require 'buffer-move)
+(global-set-key [M-s-up]     'buf-move-up)
+(global-set-key [M-s-down]   'buf-move-down)
+(global-set-key [M-s-left]   'buf-move-left)
+(global-set-key [M-s-right]  'buf-move-right)
 
 ;; Undo/Redo
 (global-set-key [M-backspace]    'undo)
@@ -118,3 +127,8 @@ With argument ARG, do this that many times."
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
 
+;; ORG
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+;;(global-set-key "\C-cb" 'org-iswitchb)
