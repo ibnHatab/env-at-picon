@@ -1,0 +1,7 @@
+
+setxkbmap -layout us,ru\(phonetic\) -option "grp:rwin_toggle,grp_led:scroll" 
+xmodmap -e "remove Lock = Caps_Lock" 
+xmodmap -e "keysym Caps_Lock = Control_L"
+xmodmap -e "add Control = Control_L"
+xset -b
+

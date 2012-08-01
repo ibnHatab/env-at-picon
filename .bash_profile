@@ -13,6 +13,7 @@ export MIBDIRS=+/usr/local/share/snmp/mibs/
 
 ALL_PROXY="http://cache.tm.alcatel.ro:8080"
 export http_proxy=$ALL_PROXY
+export https_proxy=$ALL_PROXY
 export HTTP_PROXY=$ALL_PROXY
 export ftp_proxy=$ALL_PROXY
 export FTP_PROXY=$ALL_PROXY

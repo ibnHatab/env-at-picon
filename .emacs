@@ -113,7 +113,7 @@
  '(truncate-partial-width-windows nil)
  '(vc-command-messages t)
  '(vc-initial-comment t)
- '(wrangler-search-paths (quote ("/udir/vlad/repos/erlang/snippets/apps")))
+ '(wrangler-search-paths (quote ("/local/vlad/repos/otp/tr69")))
  '(x-select-enable-clipboard t))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
