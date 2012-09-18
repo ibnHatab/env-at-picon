@@ -43,6 +43,7 @@
 		("\\.hrl$"                 . erlang-mode)
 		("\\.ie$"                  . erlang-mode)
 		("\\.es$"                  . erlang-mode)
+		("rebar.config"            . erlang-mode)
 		("\\.csp$"                 . csp-mode)
                 ("\\.\\(d\\|s\\)ats\\'"    . ats-two-mode-mode)
 		("\\.org\\'"               . org-mode)
@@ -176,7 +177,7 @@ Key bindings:
   :keymap my-flymake-minor-mode-map)
 
 ;; Enable this keybinding (my-flymake-minor-mode) by default
-;; Added by Hartmut 2011-07-05
+(add-hook 'erlang-mode-hook 'my-flymake-minor-mode)
 (add-hook 'haskell-mode-hook 'my-flymake-minor-mode)
 (add-hook 'ats-mode-hook 'my-flymake-minor-mode)
 (add-hook 'tuareg-mode-hook 'my-flymake-minor-mode)
@@ -244,8 +245,11 @@ Key bindings:
   (setq inferior-erlang-machine-options
         '("-sname" "emacs" "-pa" "../ebin" "-pa" "../test" "-pa" "../.eunit"))
   (imenu-add-to-menubar "imenu")
-  (local-set-key [return] 'newline-and-indent)
+  ;; (flyspell-prog-mode)
+  (local-set-key [return]   'newline-and-indent)
   (local-set-key "\C-c\C-m" 'erlang-man-function)
+  (local-set-key "\C-c\C-c" 'erlang-compile)
+  (local-set-key "\M-tab"   'erl-complete)
   )
 
 ;; EQC Emacs Mode -- Configuration Start
@@ -260,7 +264,7 @@ Key bindings:
 
 (defconst distel-shell-keys
   '(("\C-\M-i" erl-complete)
-    ("\M-?" erl-complete)
+    ("\M-tab" erl-complete)
     ("\M-." erl-find-source-under-point)
     ("\M-," erl-find-source-unwind)
     ("\M-*" erl-find-source-unwind)
@@ -270,8 +274,6 @@ Key bindings:
  	  (lambda ()
  	    (dolist (spec distel-shell-keys)
  	      (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
-
-
 
 ;; Esense
 (require 'esense-start)
@@ -293,7 +295,6 @@ Key bindings:
   'comint-next-input)
 (define-key comint-mode-map [(control meta p)]
   'comint-previous-input)
-
 
 ;; java script
 ;; javascript-mode
@@ -447,6 +448,18 @@ Key bindings:
 (autoload 'expand-member-functions "member-functions" "Expand C++ member function declarations" t)
 (add-hook 'c++-mode-hook (lambda ()
                            (local-set-key "\C-cm" #'expand-member-functions)))
+
+(add-hook 'c-mode-hook (lambda ()
+			 (local-set-key "\M-." 'cscope-find-global-definition-no-prompting)
+			 (local-set-key "\M-?" 'cscope-find-this-symbol)
+			 (local-set-key "\M-," 'cscope-pop-mark)
+			 (local-set-key [(control f4)] 'cscope-find-functions-calling-this-function) ;; f4 References
+			 (local-set-key [(control f6)] 'cscope-display-buffer)                       ;; f6 display buffer
+			 (local-set-key [(control f7)] 'cscope-prev-symbol)                          ;; f7 prev sym
+			 (local-set-key [(control f8)] 'cscope-next-symbol)                          ;; f8 next sym
+			 (local-set-key [(control f9)] 'cscope-set-initial-directory)                ;; f9 set initial dir
+			 (local-set-key [(M-tab)]	'complete-tag )
+			 ))
 
 
 (add-hook  'c-mode-common-hook '(lambda () "" (interactive)

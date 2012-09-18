@@ -92,14 +92,17 @@
 (require 'compile)
 (setq mode-compile-always-save-buffer-p t)
 (setq compilation-window-height 12)
+
 (setq compilation-finish-function
       (lambda (buf str)
- 	(unless (string-match "exited abnormally" str)
- 	  ;;no errors, make the compilation window go away in a few seconds
- 	  (run-at-time
- 	   "2 sec" nil 'delete-windows-on
- 	   (get-buffer-create "*compilation*"))
- 	  (message "No Compilation Errors!"))))
+        ))
+
+ 	;; (unless (string-match "exited abnormally" str)
+ 	;;   ;;no errors, make the compilation window go away in a few seconds
+ 	;;   (run-at-time
+ 	;;    "2 sec" nil 'delete-windows-on
+ 	;;    (get-buffer-create "*compilation*"))
+ 	;;   (message "No Compilation Errors!"))))
 
 (autoload 'nuke-trailing-whitespace "whitespace" nil t) ;remove trailing
 (autoload 'elec-par-install-electric "elec-par")

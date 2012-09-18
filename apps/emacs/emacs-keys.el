@@ -1,3 +1,4 @@
+
 (require                        'define-key-wise)
 
 ;; replace by bookmark system
@@ -8,40 +9,27 @@
 (global-set-key-wise            '[(C-f1)]   'gse-unbury-buffer)
 (global-set-key-wise            '[(C-tab)]   'other-window)
 
+(global-set-key [(f2)]          'save-buffer)		    
+(global-set-key [(f3)]          'find-file)		    
 
-;; bookmarks
+
+(global-set-key [(f4)]          'iswitchb-buffer)	    ;F4
+(global-set-key [(f5)]          'previous-error)	   
+;;(global-set-key [(f5)]          'speedbar-get-focus)	    ;F5
+							    ;F7
+					                    ;F8
+(global-set-key [(f9)]          'compile)		    ;F9
+(global-set-key [(f10)]         'grep)			    ;F10
+(global-set-key [(C-f10)]       'nuke-trailing-whitespace)  ;F10
+(global-set-key [(f12)]         'kill-this-buffer)	    ;F12
+(global-set-key [(C-f12)]       'server-edit)		    ;F12
+
+;; bookmarks                                                
 (global-set-key [(control f11)]       'af-bookmark-toggle )
 (global-set-key [f11]                 'af-bookmark-cycle-forward )
 (global-set-key [(shift f11)]         'af-bookmark-cycle-reverse )
 (global-set-key [(control shift f11)] 'af-bookmark-clear-all )
 (global-set-key [(M-f11)]             'bookmark-bmenu-list )
-
-
-(global-set-key [(f2)]          'save-buffer)		    ;F2
-(global-set-key [(f3)]          'find-file)		    ;F3
-(global-set-key [(f4)]          'iswitchb-buffer)	    ;F4
-(global-set-key [(C-f4)]        'previous-error)	    ;Ctrl+F4
-
-(global-set-key [(f5)]          'speedbar-get-focus)	    ;F5
-							    ;F7
-							    ;F8
-(global-set-key [(f9)]          'compile)		    ;F9
-(global-set-key [(f10)]         'grep)			    ;F10
-(global-set-key [(C-f10)]       'nuke-trailing-whitespace)  ;F11
-(global-set-key [(f12)]         'kill-this-buffer)	    ;F12
-(global-set-key [(C-f12)]       'server-edit)		    ;F12
-
-
-;; cscope
-(define-key global-map [(control f2)] 'cscope-find-global-definition-no-prompting)  ;; f2 Definition
-(define-key global-map [(control f3)] 'cscope-find-this-symbol)                     ;; f3 Symbols
-(define-key global-map [(control f4)] 'cscope-find-functions-calling-this-function) ;; f4 References
-(define-key global-map [(control f5)] 'cscope-pop-mark)                             ;; f5 Pop mark
-(define-key global-map [(control f6)] 'cscope-display-buffer)                       ;; f6 display buffer
-(define-key global-map [(control f7)] 'cscope-prev-symbol)                          ;; f7 prev sym
-(define-key global-map [(control f8)] 'cscope-next-symbol)                          ;; f8 next sym
-(define-key global-map [(control f9)] 'cscope-set-initial-directory)                ;; f9 set initial dir
-(global-set-key [(M-tab)]	'complete-tag )
 
 ;; Compile mode
 (global-set-key "\C-cb" 'compile)
@@ -71,10 +59,36 @@ With argument ARG, do this that many times."
 (global-set-key [(C-S-tab)]	'previous-multiframe-window )
 (global-set-key [(s-tab)]	'complete-tag )
 
-(global-set-key [s-left]  'windmove-left)         ; move to left windnow
-(global-set-key [s-right] 'windmove-right)        ; move to right window
-(global-set-key [s-up]    'windmove-up)           ; move to upper window
-(global-set-key [s-down]  'windmove-down)         ; move to downer window
+;; Windows Cycling
+(defun windmove-up-cycle()
+  (interactive)
+  (condition-case nil (windmove-up)
+    (error (condition-case nil (windmove-down)
+	     (error (condition-case nil (windmove-right) (error (condition-case nil (windmove-left) (error (windmove-up))))))))))
+
+(defun windmove-down-cycle()
+  (interactive)
+  (condition-case nil (windmove-down)
+    (error (condition-case nil (windmove-up)
+	     (error (condition-case nil (windmove-left) (error (condition-case nil (windmove-right) (error (windmove-down))))))))))
+
+(defun windmove-right-cycle()
+  (interactive)
+  (condition-case nil (windmove-right)
+    (error (condition-case nil (windmove-left)
+	     (error (condition-case nil (windmove-up) (error (condition-case nil (windmove-down) (error (windmove-right))))))))))
+
+(defun windmove-left-cycle()
+  (interactive)
+  (condition-case nil (windmove-left)
+    (error (condition-case nil (windmove-right)
+	     (error (condition-case nil (windmove-down) (error (condition-case nil (windmove-up) (error (windmove-left))))))))))
+
+
+(global-set-key [s-left]  'windmove-left-cycle)         ; move to left windnow
+(global-set-key [s-right] 'windmove-right-cycle)        ; move to right window
+(global-set-key [s-up]    'windmove-up-cycle)           ; move to upper window
+(global-set-key [s-down]  'windmove-down-cycle)         ; move to downer window
 
 (global-set-key [s-S-up]   'delete-other-windows-vertically)
 (global-set-key [s-S-down] 'delete-other-windows-vertically)
