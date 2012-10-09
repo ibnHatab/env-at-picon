@@ -44,6 +44,7 @@
 		("\\.ie$"                  . erlang-mode)
 		("\\.es$"                  . erlang-mode)
 		("rebar.config"            . erlang-mode)
+		("\\.app$"                 . erlang-mode)
 		("\\.csp$"                 . csp-mode)
                 ("\\.\\(d\\|s\\)ats\\'"    . ats-two-mode-mode)
 		("\\.org\\'"               . org-mode)
@@ -88,6 +89,39 @@
 
 ;; Git
 (require 'egg)
+
+;; magit
+(when (locate-library "magit")
+  (require 'magit)
+)
+(defcustom git-grep-switches "-E -I -nH -i --no-color"
+  "Switches to pass to `git grep'."
+  :type 'string)
+(defcustom git-grep-default-work-tree (expand-file-name "~/code/mything")
+  "Top of your favorite git working tree. \\[git-grep] will search from here if it cannot figure out where else to look."
+  :type 'directory)
+(when (require 'vc-git nil t)
+  (defun git-grep (regexp)
+    (interactive
+     (list (read-from-minibuffer
+            "Search git repo: "
+            (let ((thing (and buffer-file-name
+                              (thing-at-point 'symbol))))
+              (or (and thing
+                       (progn
+                         (set-text-properties 0 (length thing) nil thing)
+                         (shell-quote-argument (regexp-quote thing))))
+                  ""))
+            nil nil 'git-grep-history)))
+    (let ((grep-use-null-device nil)
+          (root (or (vc-git-root default-directory)
+                    (prog1 git-grep-default-work-tree
+                      (message "git-grep: %s doesn't look like a git working tree; searching from %s instead" default-directory root)))))
+      (grep (format "GIT_PAGER='' git grep %s -e %s -- %s" git-grep-switches regexp root)))))
+(global-set-key (kbd "C-x ?") 'git-grep)
+
+(global-set-key "\C-xg" 'magit-status)
+
 
 ;; Flymake
 (require 'flymake)
@@ -234,6 +268,8 @@ Key bindings:
 (setq erlang-root-dir   "/usr/lib/erlang")
 (add-to-list 'exec-path "/usr/lib/erlang/bin")
 (defvar inferior-erlang-prompt-timeout t)
+(add-hook 'erlang-new-file-hook 'tempo-template-erlang-normal-header)
+(add-hook 'erlang-mode-hook (lambda () (setq parens-require-spaces nil)))
 
 (add-hook 'erlang-load-hook 'my-erlang-load-hook)
 (defun my-erlang-load-hook ()

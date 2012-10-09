@@ -1,8 +1,8 @@
 
-alias panda='ssh root@135.247.145.98'
+alias panda='ssh root@192.168.10.120'
 alias earth='ssh vkinzers@135.86.200.84'
-alias test3='ssh axadmin@135.243.22.246'
-alias picon='ssh 135.247.145.84'
+alias test3='ssh axadmin@135.243.22.28'
+alias picon='ssh 135.247.145.123'
 
 alias grep='grep --colour=tty --binary-files=text'
 alias h='history 25'

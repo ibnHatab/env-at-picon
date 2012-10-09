@@ -1,6 +1,13 @@
 
 (require                        'define-key-wise)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Completion
+(setq completion-ignore-case t
+      pcomplete-ignore-case t
+      read-file-name-completion-ignore-case t)
+
+
 ;; replace by bookmark system
 (global-set-key-wise            '[(f1)];; 'switch-other-buffer		F1
                                 "Makes the same operation as C-x b RET."

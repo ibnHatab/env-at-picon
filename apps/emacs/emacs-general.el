@@ -1,4 +1,19 @@
 
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+(setq uniquify-separator "/")
+(setq uniquify-after-kill-buffer-p t) ;rename after killing uniquify
+(setq uniquify-ignore-buffers-re "^\\*")
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Ace jump mode
+(when (locate-library "ace-jump-mode")
+  (require 'ace-jump-mode)
+  (define-key global-map (kbd "C-0") 'ace-jump-mode)
+  )
+
+
 (autoload 'nuke-trailing-whitespace "whitespace" nil t) ;remove trailing
 (setq scroll-step 1)                    ; scrolling page
 (setq case-fold-search nil)             ; make searches case sensitive

@@ -1,5 +1,9 @@
 ;; unix.emacs
 
+;; Load default.el first.
+(load "default" t t)
+(setq inhibit-default-init t)
+
 (setq user-mail-address "lib.aca55a@gmail.com")
 
 (setq load-path
@@ -17,6 +21,7 @@
        '(expand-file-name "~/apps/emacs/packages/org/contrinlisp")
        load-path))
 
+(setq debug-on-error nil)
 ;;(setq mac-command-modifier 'meta) ;;Sets the command (Apple) key as Meta
 
 (load-library "emacs-general")
