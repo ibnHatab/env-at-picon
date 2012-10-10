@@ -1,5 +1,15 @@
 # .zshrc
 
+# Set up the prompt
+
+autoload -Uz promptinit
+promptinit
+prompt walters
+#prompt adam2
+
+# Use emacs keybindings even if our EDITOR is set to vi
+bindkey -e
+
 # History
 export HISTSIZE=5000000
 export SAVEHIST=$HISTSIZE
@@ -40,18 +50,12 @@ autoload -U compinit
 compinit -u
 
 # Completion control
-zstyle ':completion:*' use-compctl false
-
 # don't include current dir in completions involving `..'
 zstyle ':completion:*' ignore-parents parent pwd ..
-
-# show file completions with colors
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-
 # case insensetive file name completion
-zstyle ':completion:*' matcher-list '' \
-    'm:{a-zåäöA-ZÅÄÖ}={A-ZÅÄÖa-zåäö}' \
-    'r:|[._-]=** r:|=**'
+# zstyle ':completion:*' matcher-list '' \
+#     'm:{a-zåäöA-ZÅÄÖ}={A-ZÅÄÖa-zåäö}' \
+#     'r:|[._-]=** r:|=**'
 
 # allow completion for `..'
 zstyle ':completion:*' special-dirs ..
@@ -64,51 +68,29 @@ zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
 zstyle ':completion:*' group-name ''
 
-PROMPT="%S%n@%m:%2~%s"                         # left prompt: user@host:path
-RPROMPT='%S%(?..?%?)%s'                        # right prompt: last exit code
-WPROMPT='%~'                                   # window prompt: last path dir
-if [[ $HOST != molly(.*|) ]]; then             # if not on molly [2003-10-11]
-    WPROMPT="%m:$WPROMPT"                      #   host name in window prompt
-fi                                             #
-if [[ $USERNAME != luna ]]; then               # if not luna     [2003-10-11]
-    WPROMPT="%n@$WPROMPT"                      #   user name in window prompt
-fi                                             #
-if [[ $UID -eq 0 ]]; then                      # if root
-    PROMPT=$'%{\e[31m%}'$PROMPT$'%{\e[0m%}'    #   use red prompts
-    RPROMPT=$'%{\e[31m%}'$RPROMPT$'%{\e[0m%}'  #
-#elif [[ $TTY == /dev/pts/* ]]; then            # on remote terminal
-#    PROMPT=$'%{\e[34;47m%}'$PROMPT$'%{\e[0m%}' #   use blue/white prompt
-#    RPROMPT=$'%{\e[34;47m%}'$RPROMPT$'%{\e[0m%}'
-elif [[ $USERNAME != luna ]]; then            # if any other but luna
-    PROMPT=$'%{\e[33m%}'$PROMPT$'%{\e[0m%}'    #   use yellow prompt
-    RPROMPT=$'%{\e[33m%}'$RPROMPT$'%{\e[0m%}'  #
-fi                                             #
-if [[ $TERM == (xterm|ansi) ]]; then           # in xterm/MacSSH   [2003-10-08]
-    PROMPT="%B${PROMPT}%b"                     #   boldify prompt text
-    RPROMPT="%B$RPROMPT%b"                     #
-fi                                             #
-export PROMPT="$PROMPT "
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' menu select=2
+eval "$(dircolors -b)"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' verbose true
 
-if [[ $TERM = (xterm|rxvt(|-*)|screen(|.*)) ]];
-then # graphic mode terminal
-    precmd() {
-        local T
-        [[ -n $STY ]] && T="screen $STY" || T=${0#-}
-        echo -En $'\e]0;'"$T [${(%)WPROMPT}]"$'\a'
-    }
-    preexec() {
-        echo -En $'\e]0;'"$1 [${(%)WPROMPT}]"$'\a'
-    }
-fi
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
 
 # for laziness
 alias     al='alias'                # alias-alias                  [2003-12-11]
-alias   cvsq='cvs -q -f -n update'
-alias  cvsqd='cvs -q -f -n update -d'
-alias   cvsd='cvs diff -Dnow'
 alias       d='date -I'
 alias       e='emacs'
-#alias    grp='grep $* **/*rl **/*yaws' # HOW?
 alias     nd='mkdir `date -I` && cd `date -I`'
 alias     ng='noglob '              # shorter noglob command       [2001­08­16]
 alias   open='xdg-open'             # remember the command name    [2012-08-09]
@@ -120,29 +102,22 @@ alias      t='date +"%H.%M"'        # time in HH.MM format         [2001­07­05]
 alias  unzip='noglob unzip'         # don't use globs with unzip   [2001­10­16]
 alias    utf='file apps/*/src/*erl apps/*/include/*hrl Makefile | grep "UTF"'
 alias   word='sed `perl -e "print int rand(99999)"`"q;d" /usr/share/dict/words'
-
-alias   aoeu='xmodmap ~/.Xmodmap.se'
-alias   asdf='xmodmap ~/.Xmodmap'
-
 alias     pu='pushd'
 alias     po='popd'
 
-if [[ $(uname) == Darwin ]]; then
-    alias emacs=Emacs
-fi
+alias     grep='grep --colour=tty --binary-files=text'
+alias        h='history 25'
+alias       js='jumpstat'
+alias    kdiff='kdiff3'
+alias        l='ls -CF --color=tty '
+alias       l.='ls .[a-zA-Z]* --color=tty -d'
+alias       ll='ls -l --color=tty '
+alias      ltr='ls -ltr --color=tty '
+alias       pu=' ps -fu $USER'
+alias        t='. title'
+alias       vi='vim'
 
-# ls
-if [[ $(uname) == SunOS ]]; then
-    alias ls='ls -F'
-elif whence -p gls >& /dev/null; then
-    alias ls='gls --color=auto'
-elif ls --version |& grep -q 'Free Software Foundation'; then
-    alias ls='ls --color=auto'
-elif [[ $(uname) == FreeBSD ]]; then
-    alias ls='ls -G'
-else
-    alias ls='ls -F'
-fi
+
 
 # alias expand after these commands
 alias      noglob='noglob '         #                              [2003­06­14]
@@ -158,22 +133,14 @@ fi
 
 typeset -A account                             # "account" associative array
 account=(
-    amanda        dalu7049@amanda.it.uu.se
-    cling         cl9dluna@starship.cling.gu.se
-    fan           dalu7049@fan.it.uu.se
-    grrowl        d98luna@grrowl.dtek.chalmers.se
-    harpo         dalu7049@harpo.it.uu.se
-    licia         d98luna@licia.dtek.chalmers.se
-    mdstud        d98luna@lab.mdstud.chalmers.se
-    pson          luna@pson.dyndns.org
-    puck          luna@calliope.dyndns.org
-    rackarberget  dalu7049@rackarberget.it.uu.se
-    rama          dalu7049@rama.it.uu.se
-    spikklubban   dalu7049@spikklubban.it.uu.se
-    sshcd         luna@boris.cd.chalmers.se
-    tempo         luna@tempo.update.uu.se
-    psilo         luna@psilo.update.uu.se
-    lal           luna@lal.dyndns.org
+    caprica       vkinzers@caprica.mrc.alcatel.ro
+    leonis        vkinzers@leonis.mrc.alcatel.ro
+    mrclte80      vkinzers@mrclte80.mrc.alcatel.ro
+    mrclte186     vkinzers@mrclte186.mrc.alcatel.ro
+    panda         root@192.168.10.120
+    earth         vkinzers@135.86.200.84
+    test3         axadmin@135.243.22.28
+    picon         135.247.145.123
 )
 
 # create ssh aliases

@@ -43,7 +43,6 @@
 		("\\.hrl$"                 . erlang-mode)
 		("\\.ie$"                  . erlang-mode)
 		("\\.es$"                  . erlang-mode)
-		("rebar.config"            . erlang-mode)
 		("\\.app$"                 . erlang-mode)
 		("\\.csp$"                 . csp-mode)
                 ("\\.\\(d\\|s\\)ats\\'"    . ats-two-mode-mode)

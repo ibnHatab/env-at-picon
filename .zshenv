@@ -1,18 +1,15 @@
 typeset -U path fpath manpath
-if [[ $(uname) == Darwin ]]; then
-    path=(~/devel/otp/bin ~/usr/bin /opt/local/bin /opt/local/sbin
-        /Applications/Emacs.app/Contents/MacOS/ $path)
-else
-    path=(~/devel/otp/bin ~/usr/bin ~/usr/RealPlayer $path)
-fi
+
+path=(~/bin /sbin $path)
+
 fpath=(~/.zsh $fpath)
 manpath=(~/usr/man $manpath)
 
 #export LANG=C
 #export LC_ALL=C
 export MANWIDTH=80
-export VISUAL='~/bin/emacs-nw'
-export EDITOR='~/bin/emacs-nw'
+export VISUAL='less'
+export EDITOR='vi'
 export PAGER=less
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='41'
@@ -35,6 +32,10 @@ export LESSBINFMT='*s\%o'
 export JLESSKEYCHARSET='latin1'
 
 export CRACKLIB_DICTPATH=/var/cache/cracklib/cracklib_dict
+
+export OOO_FORCE_DESKTOP=gnome
+export LM_LICENSE_FILE=5555@135.86.206.75
+export ERL_LIBS=$HOME/libs/femto_test/deps:$HOME/libs/femto_test/apps
 
 limit coredumpsize 0
 
