@@ -8,6 +8,8 @@ main([File_Name]) ->
 			     warn_export_vars,
 			     strong_validation,
 			     report,
+			     {i, "../deps"},
+			     {i, "../../../deps"},
 			     {i, "../include"},
 			     {i, "./include"},
 			     {i, "/exports/vlad/libs/femto_test/apps"},

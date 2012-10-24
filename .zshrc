@@ -4,11 +4,15 @@
 
 autoload -Uz promptinit
 promptinit
-prompt walters
-#prompt adam2
+#prompt walters
+prompt adam2
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
+bindkey ";5D" backward-word
+bindkey ";5C" forward-word
+bindkey ";3D" backward-word
+bindkey ";3C" forward-word
 
 # History
 export HISTSIZE=5000000
@@ -69,7 +73,8 @@ zstyle ':completion:*:warnings' format 'No matches for: %d'
 zstyle ':completion:*' group-name ''
 
 zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:match:*' original only
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
@@ -86,11 +91,13 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
+# word/by/word/break
+export WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
 
 # for laziness
 alias     al='alias'                # alias-alias                  [2003-12-11]
 alias       d='date -I'
-alias       e='emacs'
+alias       e='ec'
 alias     nd='mkdir `date -I` && cd `date -I`'
 alias     ng='noglob '              # shorter noglob command       [2001­08­16]
 alias   open='xdg-open'             # remember the command name    [2012-08-09]
@@ -107,15 +114,17 @@ alias     po='popd'
 
 alias     grep='grep --colour=tty --binary-files=text'
 alias        h='history 25'
-alias       js='jumpstat'
 alias    kdiff='kdiff3'
+alias       ls='ls --color=tty '
 alias        l='ls -CF --color=tty '
 alias       l.='ls .[a-zA-Z]* --color=tty -d'
 alias       ll='ls -l --color=tty '
 alias      ltr='ls -ltr --color=tty '
-alias       pu=' ps -fu $USER'
-alias        t='. title'
+alias       pu='ps -fu $USER'
+
+# speling
 alias       vi='vim'
+alias       gti='git'
 
 
 
@@ -187,6 +196,12 @@ alias -g  X='|tr -s " " "\t" |cut -f' # cut on tabs and spaces     [2002­04­27]
 alias -g  Y='&>/dev/null &; disown' # fork process (`Y' is a fork) [2002­08­27]
 alias -g  Z='|tail'           # tail (also Z<n> were <n> is 1-30)  [2001­10­20]
 
+#dyslexia
+alias -g gti=git
+alias -g umlet="/udir/tools/Umlet/umlet.sh"
+
+# archives
+alias -s txt='less -rE'
 
 # aliases A<n> and Z<n> (where <n> is 1-30)
 for ((i=1; i<=30; i++)); do     #
@@ -195,3 +210,11 @@ for ((i=1; i<=30; i++)); do     #
 done                            #
 unset i                         #
 
+# ~ places
+hash -d repo=/local/vlad/repos/
+
+# builtin functions
+autoload -U zargs    ## zargs **/*~ -- rm
+autoload -U zmv      ## zmv '(**/)(*) - (*) - (*) - (*).ogg' '$1/$2/$2 - $3/$2 - $3 - $4 - $5.ogg'
+autoload -U run-help ## key sequence: ALT-h (aka ESC-h).
+                     ## cd foo [TAB]

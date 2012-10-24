@@ -1,18 +1,19 @@
 #!/bin/sh
 
-EXT=$1
 # echo $EXT
 
-shift
-CMD=$@
-
+CMD=$1
 echo $CMD
+
+shift
+FILES=$@
+echo $FILES
 
 # exit
 
 while true
 do
-    inotifywait -r -q --exclude ".*_flymake.*" --exclude "\.#.*"  $EXT
+    inotifywait -r -q --exclude ".*_flymake.*" --exclude "\.#.*"  $FILES
     if [ $? -eq 0 ]; then
 	eval "$CMD"
 	RES=$?

@@ -9,7 +9,7 @@ manpath=(~/usr/man $manpath)
 #export LC_ALL=C
 export MANWIDTH=80
 export VISUAL='less'
-export EDITOR='vi'
+export EDITOR='vim'
 export PAGER=less
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='41'
