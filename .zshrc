@@ -25,6 +25,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 ZSH_THEME="robbyrussell"
+ZSH_THEME="af-magic"
 
 DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
@@ -34,7 +35,7 @@ plugins=(git-flow git debian lighthouse)
 
 source $ZSH/oh-my-zsh.sh
 
-#source env/prompt.sh
+#Alternative PROMPT source env/prompt.sh
 
 # word/by/word/break
 export WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
