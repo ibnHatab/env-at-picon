@@ -1,12 +1,5 @@
 # .zshrc
 
-# Set up the prompt
-
-autoload -Uz promptinit
-promptinit
-#prompt walters
-prompt adam2
-
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 bindkey ";5D" backward-word
@@ -26,70 +19,22 @@ setopt   hist_find_no_dups
 setopt   inc_append_history
 setopt   share_history
 
-# completion
-setopt   complete_in_word
-setopt   list_packed
-unsetopt list_types
-setopt   mark_dirs
 
-# globbing
-unsetopt auto_menu
-unsetopt auto_remove_slash
-setopt   nomatch
-setopt   numeric_glob_sort
-setopt   extended_glob
+# Path to your OH-MY-ZSH configuration.
+ZSH=$HOME/.oh-my-zsh
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+ZSH_THEME="robbyrussell"
 
-# job processing
-unsetopt check_jobs
-unsetopt hup
+DISABLE_AUTO_UPDATE="true"
+COMPLETION_WAITING_DOTS="true"
 
-# miscellaneous
-setopt   auto_cd
-unsetopt clobber
-setopt   dvorak
-unsetopt flow_control
-setopt   interactive_comments
+# Example format: plugins=(git-flow rails git textmate ruby lighthouse)
+plugins=(git-flow git debian lighthouse)
 
-autoload -U compinit
-compinit -u
+source $ZSH/oh-my-zsh.sh
 
-# Completion control
-# don't include current dir in completions involving `..'
-zstyle ':completion:*' ignore-parents parent pwd ..
-# case insensetive file name completion
-# zstyle ':completion:*' matcher-list '' \
-#     'm:{a-zåäöA-ZÅÄÖ}={A-ZÅÄÖa-zåäö}' \
-#     'r:|[._-]=** r:|=**'
-
-# allow completion for `..'
-zstyle ':completion:*' special-dirs ..
-
-# from: ~/usr/tmp/zsh-completion/zsh-completion-intro.html
-# (an introduction to zsh completion from www.linux-mag.com)
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*:descriptions' format '%B%d%b'
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:warnings' format 'No matches for: %d'
-zstyle ':completion:*' group-name ''
-
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _complete _match _approximate
-zstyle ':completion:*:match:*' original only
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
-
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+#source env/prompt.sh
 
 # word/by/word/break
 export WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
@@ -122,24 +67,18 @@ alias       ll='ls -l --color=tty '
 alias      ltr='ls -ltr --color=tty '
 alias       pu='ps -fu $USER'
 
-# speling
-alias       vi='vim'
-alias       gti='git'
-
-
+# speling | dyslexia
+alias -g     vi='vim'
+alias -g   gti=git
+alias -g umlet="/udir/tools/Umlet/umlet.sh"
 
 # alias expand after these commands
 alias      noglob='noglob '         #                              [2003­06­14]
 alias        sudo='sudo '           #                              [2003-04-23]
 alias       watch='watch '          #                              [2003-06-14]
 
-# for safety (make backups if destination already exists)
-if [[ ! $(uname) == Darwin ]]; then
-    alias -g    cp='cp -b'          # back up                      [2002­01­16]
-    alias -g    ln='ln -b'          # back up                      [2001­01­16]
-    alias       mv='mv -b'          # back up                      [2002­01­16]
-fi
 
+# create ssh aliases
 typeset -A account                             # "account" associative array
 account=(
     caprica       vkinzers@caprica.mrc.alcatel.ro
@@ -151,15 +90,12 @@ account=(
     test3         axadmin@135.243.22.28
     picon         135.247.145.123
 )
-
-# create ssh aliases
 for k (${(k)account}) {                         # for each key in account
     alias $k="ssh $account[$k]"                 #   create an ssh alias
     alias ${k}xterm="$k -f 'xterm -T $k -n $k'" #   and an xterm alias
 }; unset k                                      #
 
 # TAPS:
-
 # common pipe­ending commands (taps)
 alias -g  A='|head'           # head (also A<n> were <n> is 1-30)  [2001­10­20]
 alias -g  B='|grep -v "^[       ]*$"' # kill blank rows            [2002­05­21]
@@ -196,13 +132,6 @@ alias -g  X='|tr -s " " "\t" |cut -f' # cut on tabs and spaces     [2002­04­27]
 alias -g  Y='&>/dev/null &; disown' # fork process (`Y' is a fork) [2002­08­27]
 alias -g  Z='|tail'           # tail (also Z<n> were <n> is 1-30)  [2001­10­20]
 
-#dyslexia
-alias -g gti=git
-alias -g umlet="/udir/tools/Umlet/umlet.sh"
-
-# archives
-alias -s txt='less -rE'
-
 # aliases A<n> and Z<n> (where <n> is 1-30)
 for ((i=1; i<=30; i++)); do     #
     alias -g A$i="|head -n$i"   # head (1-30 rows)                 [2002­05­20]
@@ -210,11 +139,22 @@ for ((i=1; i<=30; i++)); do     #
 done                            #
 unset i                         #
 
+# autojump
+[[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
+
 # ~ places
 hash -d repo=/local/vlad/repos/
+
+# archives
+alias -s txt='less -rE'
 
 # builtin functions
 autoload -U zargs    ## zargs **/*~ -- rm
 autoload -U zmv      ## zmv '(**/)(*) - (*) - (*) - (*).ogg' '$1/$2/$2 - $3/$2 - $3 - $4 - $5.ogg'
 autoload -U run-help ## key sequence: ALT-h (aka ESC-h).
                      ## cd foo [TAB]
+
+# Customize to your needs...
+export PATH=/exports/vlad/bin:/sbin:/usr/local/bin:/usr/bin:/bin
+
+

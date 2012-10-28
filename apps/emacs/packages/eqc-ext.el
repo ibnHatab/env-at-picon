@@ -241,7 +241,7 @@
 (defun eqc-mode-init ()
   "Initialize the eqc-mode"
   (require 'tempo)
-  (setq debug-on-error t)
+  ;; (setq debug-on-error t)
   (setq tempo-interactive t)
   (setq max-lisp-eval-depth 500)
   (unless (boundp 'eqc-max-menu-length)
