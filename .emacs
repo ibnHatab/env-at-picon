@@ -119,7 +119,10 @@
  '(vc-command-messages t)
  '(vc-initial-comment t)
  '(wrangler-search-paths (quote ("/local/vlad/repos/otp/tr69/src" "/local/vlad/repos/otp/tr69/include")))
- '(x-select-enable-clipboard t))
+ '(x-select-enable-clipboard t)
+ '(debug-on-error nil)
+ )
+
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -131,9 +134,5 @@
 
 ;; (set-default-font "-apple-Monaco-medium-normal-normal-*-18-*-*-*-m-0-iso10646-1")
 (modify-frame-parameters nil '((wait-for-wm . nil)))
-
-
-(setq debug-on-error nil)
-
 (server-start)
 

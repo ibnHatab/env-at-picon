@@ -25,17 +25,20 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 ZSH_THEME="robbyrussell"
-ZSH_THEME="af-magic"
+ZSH_THEME="alanpeabody"
+ZSH_THEME="funky"
+ZSH_THEME="af-magic"   
 
 DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
 
-# Example format: plugins=(git-flow rails git textmate ruby lighthouse)
-plugins=(git-flow git debian lighthouse)
+# Example format: plugins=(debian git-flow compleat rails git textmate ruby lighthouse)
+plugins=(git git-flow  dircycle)
 
 source $ZSH/oh-my-zsh.sh
 
-#Alternative PROMPT source env/prompt.sh
+#For alternative PROMPT 
+#source env/prompt.sh
 
 # word/by/word/break
 export WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
@@ -44,6 +47,7 @@ export WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
 alias     al='alias'                # alias-alias                  [2003-12-11]
 alias       d='date -I'
 alias       e='ec'
+alias       o='open '
 alias     nd='mkdir `date -I` && cd `date -I`'
 alias     ng='noglob '              # shorter noglob command       [2001­08­16]
 alias   open='xdg-open'             # remember the command name    [2012-08-09]
@@ -154,6 +158,7 @@ autoload -U zargs    ## zargs **/*~ -- rm
 autoload -U zmv      ## zmv '(**/)(*) - (*) - (*) - (*).ogg' '$1/$2/$2 - $3/$2 - $3 - $4 - $5.ogg'
 autoload -U run-help ## key sequence: ALT-h (aka ESC-h).
                      ## cd foo [TAB]
+
 
 # Customize to your needs...
 export PATH=/exports/vlad/bin:/sbin:/usr/local/bin:/usr/bin:/bin
