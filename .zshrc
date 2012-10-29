@@ -1,5 +1,30 @@
 # .zshrc
 
+# completion
+setopt   complete_in_word
+setopt   list_packed
+unsetopt list_types
+setopt   mark_dirs
+
+# globbing
+unsetopt auto_menu
+unsetopt auto_remove_slash
+setopt   nomatch
+setopt   numeric_glob_sort
+setopt   extended_glob
+
+# job processing
+unsetopt check_jobs
+unsetopt hup
+
+# miscellaneous
+setopt   auto_cd
+unsetopt clobber
+setopt   dvorak
+unsetopt flow_control
+setopt   interactive_comments
+
+
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 bindkey ";5D" backward-word
@@ -82,6 +107,12 @@ alias      noglob='noglob '         #                              [2003­06­14]
 alias        sudo='sudo '           #                              [2003-04-23]
 alias       watch='watch '          #                              [2003-06-14]
 
+alias       ping="grc ping"
+alias       make="grc make"
+alias traceroute="grc traceroute"
+alias       diff="grc diff"
+alias    netstat="grc netstat"
+
 
 # create ssh aliases
 typeset -A account                             # "account" associative array
@@ -139,8 +170,8 @@ alias -g  Z='|tail'           # tail (also Z<n> were <n> is 1-30)  [2001­10­20]
 
 # aliases A<n> and Z<n> (where <n> is 1-30)
 for ((i=1; i<=30; i++)); do     #
-    alias -g A$i="|head -n$i"   # head (1-30 rows)                 [2002­05­20]
-    alias -g Z$i="|tail -n$i"   # tail (1-30 rows)                 [2002­05­20]
+    alias -g A$i="|grc head -n$i"   # head (1-30 rows)                 [2002­05­20]
+    alias -g Z$i="|grc tail -n$i"   # tail (1-30 rows)                 [2002­05­20]
 done                            #
 unset i                         #
 
