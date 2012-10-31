@@ -1,5 +1,25 @@
 # .zshrc
 
+# Path to your OH-MY-ZSH configuration.
+ZSH=$HOME/.oh-my-zsh
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+ZSH_THEME="robbyrussell"
+ZSH_THEME="alanpeabody"
+ZSH_THEME="funky"
+ZSH_THEME="af-magic"   
+
+DISABLE_AUTO_UPDATE="true"
+COMPLETION_WAITING_DOTS="true"
+
+# Example format: plugins=(debian git-flow compleat rails git textmate ruby lighthouse)
+plugins=(git git-flow  dircycle)
+
+source $ZSH/oh-my-zsh.sh
+
+#For alternative PROMPT 
+#source env/prompt.sh
+
 # completion
 setopt   complete_in_word
 setopt   list_packed
@@ -24,6 +44,10 @@ setopt   dvorak
 unsetopt flow_control
 setopt   interactive_comments
 
+# correctio
+unsetopt correct
+unsetopt correctall
+
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
@@ -44,26 +68,6 @@ setopt   hist_find_no_dups
 setopt   inc_append_history
 setopt   share_history
 
-
-# Path to your OH-MY-ZSH configuration.
-ZSH=$HOME/.oh-my-zsh
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-ZSH_THEME="robbyrussell"
-ZSH_THEME="alanpeabody"
-ZSH_THEME="funky"
-ZSH_THEME="af-magic"   
-
-DISABLE_AUTO_UPDATE="true"
-COMPLETION_WAITING_DOTS="true"
-
-# Example format: plugins=(debian git-flow compleat rails git textmate ruby lighthouse)
-plugins=(git git-flow  dircycle)
-
-source $ZSH/oh-my-zsh.sh
-
-#For alternative PROMPT 
-#source env/prompt.sh
 
 # word/by/word/break
 export WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
@@ -108,7 +112,6 @@ alias        sudo='sudo '           #                              [2003-04-23]
 alias       watch='watch '          #                              [2003-06-14]
 
 alias       ping="grc ping"
-alias       make="grc make"
 alias traceroute="grc traceroute"
 alias       diff="grc diff"
 alias    netstat="grc netstat"
