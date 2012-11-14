@@ -103,6 +103,7 @@ alias       pu='ps -fu $USER'
 
 # speling | dyslexia
 alias -g     vi='vim'
+alias -g     c='cat'
 alias -g   gti=git
 alias -g umlet="/udir/tools/Umlet/umlet.sh"
 

@@ -290,7 +290,7 @@ Key bindings:
 (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
 (defun my-erlang-mode-hook ()
   (setq inferior-erlang-machine-options
-        '("-sname" "emacs" "-pa" "../ebin" "-pa" "../test" "-pa" "../.eunit"))
+        '("-sname" "emacs" "-pa" "../ebin" "-pa" "../test" "-pa" "../.eunit" "-pa" "../deps/*/ebin"))
   (imenu-add-to-menubar "imenu")
   ;; (flyspell-prog-mode)
   (local-set-key [return]   'newline-and-indent)

@@ -8,7 +8,7 @@ manpath=(~/usr/man $manpath)
 #export LANG=C
 #export LC_ALL=C
 export MANWIDTH=80
-export VISUAL='less'
+export VISUAL='vim'
 export EDITOR='vim'
 export PAGER=less
 export GREP_OPTIONS='--color=auto'
