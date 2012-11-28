@@ -70,7 +70,8 @@ setopt   share_history
 
 
 # word/by/word/break
-export WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
+export WORDCHARS='*?_-[]~&;=!#$%^(){}<>'
+export WORDCHARS='*?_-[]~&;!#$%^(){}<>'
 
 # for laziness
 alias     al='alias'                # alias-alias                  [2003-12-11]
@@ -102,7 +103,7 @@ alias      ltr='ls -ltr --color=tty '
 alias       pu='ps -fu $USER'
 
 # speling | dyslexia
-alias -g     vi='vim'
+alias -g    vi='vim'
 alias -g     c='cat'
 alias -g   gti=git
 alias -g umlet="/udir/tools/Umlet/umlet.sh"
@@ -184,6 +185,7 @@ unset i                         #
 
 # ~ places
 hash -d repo=/local/vlad/repos/
+hash -d sc=/net/pluto/vol/vol3/timco/SmallCells
 
 # archives
 alias -s txt='less -rE'
@@ -195,7 +197,10 @@ autoload -U run-help ## key sequence: ALT-h (aka ESC-h).
                      ## cd foo [TAB]
 
 
+# keys
+bindkey -s '^[l' "ls -CF --color=tty\n"
+
 # Customize to your needs...
-export PATH=/exports/vlad/bin:/sbin:/usr/local/bin:/usr/bin:/bin
+export PATH=/exports/vlad/bin:/sbin:/usr/bin:/bin
 
 

@@ -3,7 +3,7 @@
 code:load_abs("/exports/vlad/libs/femto-test/apps/eunit_tools/ebin/user_default").
 code:add_pathz("/usr/local/share/distel/ebin/").
 
-[code:add_pathz("/local/vlad/repos/superdeps" ++ Path) ||
+[code:add_pathz("/local/vlad/repos/superdeps/" ++ Path) ||
     Path <- ["edown/ebin",
 	     "gen_leader_revival/ebin",
 	     "ibrowse/ebin",
