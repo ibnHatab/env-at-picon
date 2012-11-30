@@ -22,6 +22,7 @@ compile(File_Name, Options) ->
 						    {i, "./include"}
 						    | Options]
 						  ),
-
+    %% io:format(user, "Pos: ~p~n", [Pos]),
+    %% io:format(user, "Neg: ~p~n", [Neg]),
     Automata = bluefringe:qsm({Pos,Neg}),
     bluefringe_dot:visualize(Automata).
