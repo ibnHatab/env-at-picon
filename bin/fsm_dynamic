@@ -10,17 +10,21 @@ main([]) ->
 main([File_Name]) ->
     compile(File_Name, []);
 main([File_Name, EUnit_Dir]) ->
+    code:add_pathz(EUnit_Dir),
     compile(File_Name, [{i, EUnit_Dir}]).
 
 compile(File_Name, Options) ->
-    {{Pos,Neg},CleanupTree} = eunit_to_fsm:dynamic(File_Name,
-						   [{i, ".."},
-						    {i, "../.."},
-						    {i, "../deps"},
-						    {i, "../../../deps"},
-						    {i, "../include"},
-						    {i, "./include"}
-						    | Options]
+    {{Pos,Neg},_CleanupTree} = eunit_to_fsm:dynamic(File_Name,
+						    [
+						     {i, "ebin"},
+						     {i, "../.."},
+						     {i, "deps/*/ebin"},
+						     {i, "../deps"},
+						     {i, "../../../deps"},
+						     {i, "../include"},
+						     {i, "./include"}
+						     | Options
+						    ]
 						  ),
     %% io:format(user, "Pos: ~p~n", [Pos]),
     %% io:format(user, "Neg: ~p~n", [Neg]),
