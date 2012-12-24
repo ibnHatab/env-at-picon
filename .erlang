@@ -1,6 +1,7 @@
 %%-*- mode: erlang -*-
 
 code:load_abs(os:getenv("HOME") ++ "/libs/femto_test/ebin/user_default").
+code:add_pathz(os:getenv("HOME") ++ "/libs/femto_test/ebin").
 code:add_pathz("/usr/local/share/distel/ebin/").
 
 %% [code:add_pathz("/local/vlad/repos/superdeps/" ++ Path) ||

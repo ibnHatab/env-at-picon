@@ -20,7 +20,8 @@
 (global-set-key [(f3)]          'find-file)		    
 
 
-(global-set-key [(f4)]          'iswitchb-buffer)	    ;F4
+;;(global-set-key [(f4)]          'iswitchb-buffer)	    ;F4
+(global-set-key [(f4)]          'ido-switch-buffer)	    ;F4
 (global-set-key [(f5)]          'previous-error)	   
 ;;(global-set-key [(f5)]          'speedbar-get-focus)	    ;F5
 							    ;F7
@@ -153,3 +154,6 @@ With argument ARG, do this that many times."
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
 ;;(global-set-key "\C-cb" 'org-iswitchb)
+
+;; Backspace Key
+(global-set-key (kbd "C-h") 'delete-backward-char)

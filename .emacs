@@ -119,7 +119,7 @@
  '(truncate-partial-width-windows nil)
  '(vc-command-messages t)
  '(vc-initial-comment t)
- '(wrangler-search-paths (quote ("/local/vlad/repos/otp/cwmp/src" "/local/vlad/repos/otp/cwmp/include" "/local/vlad/repos/otp/cwmp/test")))
+ '(wrangler-search-paths (quote ("/local/vlad/repos/otp/tr69/src" "/local/vlad/repos/otp/tr69/include" "/local/vlad/repos/otp/tr69/test")))
  '(x-select-enable-clipboard t))
 
 (custom-set-faces

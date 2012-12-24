@@ -71,7 +71,7 @@ setopt   share_history
 
 # word/by/word/break
 export WORDCHARS='*?_-[]~&;=!#$%^(){}<>'
-export WORDCHARS='*?_-[]~&;!#$%^(){}<>'
+export WORDCHARS='*?-[]~&;!#$%^(){}<>'
 
 # for laziness
 alias     al='alias'                # alias-alias                  [2003-12-11]

@@ -35,7 +35,7 @@ export CRACKLIB_DICTPATH=/var/cache/cracklib/cracklib_dict
 
 export OOO_FORCE_DESKTOP=gnome
 export LM_LICENSE_FILE=5555@135.86.206.75
-export ERL_LIBS=$HOME/libs/femto_test/deps:$HOME/libs:/local/vlad/repos/superdeps/
+export ERL_LIBS=/usr/lib/erlang/lib:$HOME/libs/femto_test/deps:$HOME/libs:/local/$USER/repos/superdeps/
 
 limit coredumpsize 0
 

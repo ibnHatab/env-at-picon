@@ -50,6 +50,17 @@
 		("\\.m\\'"                 . octave-mode)
                 )auto-mode-alist))
 
+;; IDO mode
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
+
+(setq ido-use-filename-at-point 'guess)
+;(setq ido-create-new-buffer 'always)
+
+(setq ido-file-extensions-order
+      '(".erl" ".hrl" ".org" ".txt" ".py" ".emacs" ".xml" ".rebar" ))
+
 ;; octave-mode
 (autoload 'octave-mode "octave-mod" nil t)
 (add-hook 'octave-mode-hook
@@ -297,6 +308,7 @@ Key bindings:
   (local-set-key "\C-c\C-m" 'erlang-man-function)
   (local-set-key "\C-c\C-c" 'erlang-compile)
   (local-set-key "\M-tab"   'erl-complete)
+  (local-set-key "\C-c\C-v" 'erl-reload-module)
   )
 
 ;; EQC Emacs Mode -- Configuration Start

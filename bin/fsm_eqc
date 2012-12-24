@@ -37,10 +37,13 @@ compile(FileName, Options) ->
     %% third transform automata into QuickCheck template
     String = bluefringe_fsm:eqc_fsm(Automata,ModName,CleanupTree),    
 
+    %% io:format(user, ">> EqcFileName: ~p~n", [EqcFileName]),
+ 
     ok = file:write_file(EqcFileName,String),
 
     %% Compile the QuickCheck code
     code:purge(EqcName),
     compile:file(EqcFileName),
     code:load_file(EqcName),
-    eqc_fsm:visualize(EqcName).
+    eqc_fsm:visualize(EqcName),
+    ok.
