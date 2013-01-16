@@ -1,1 +1,6 @@
-code:load_abs("/exports/vlad/libs/femto_test/apps/eunit_tools/ebin/user_default").
+%%-*- mode: erlang -*-
+
+code:load_abs(os:getenv("HOME") ++ "/libs/femto_test/ebin/user_default").
+code:add_pathz(os:getenv("HOME") ++ "/libs/femto_test/ebin").
+code:add_pathz("/usr/local/share/distel/ebin/").
+
