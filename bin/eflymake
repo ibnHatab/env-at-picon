@@ -8,6 +8,8 @@ main([File_Name]) ->
 			     warn_export_vars,
 			     strong_validation,
 			     report,
+			     {i, ".."},
+			     {i, "../.."},
 			     {i, "../deps"},
 			     {i, "../../../deps"},
 			     {i, "../include"},

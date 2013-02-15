@@ -50,6 +50,17 @@
 		("\\.m\\'"                 . octave-mode)
                 )auto-mode-alist))
 
+;; IDO mode
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
+
+(setq ido-use-filename-at-point 'guess)
+;(setq ido-create-new-buffer 'always)
+
+(setq ido-file-extensions-order
+      '(".erl" ".hrl" ".org" ".txt" ".py" ".emacs" ".xml" ".rebar" ))
+
 ;; octave-mode
 (autoload 'octave-mode "octave-mod" nil t)
 (add-hook 'octave-mode-hook
@@ -85,6 +96,18 @@
 
 ;;(setq org-default-notes-file (concat org-directory "/notes.org"))
 ;;(define-key global-map "\C-cc" 'org-capture)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(
+   (ditaa . t)
+   (python . t)
+   (dot . t)
+   (haskell . t)
+   )) ; this line activates ditaa
+
+(defun my-org-confirm-babel-evaluate (lang body)
+  (not (string= lang "ditaa")))  ; don't ask for ditaa
+(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
 ;; Git
 (require 'egg)
@@ -278,13 +301,14 @@ Key bindings:
 (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
 (defun my-erlang-mode-hook ()
   (setq inferior-erlang-machine-options
-        '("-sname" "emacs" "-pa" "../ebin" "-pa" "../test" "-pa" "../.eunit"))
+        '("-sname" "emacs" "-pa" "../ebin" "-pa" "../test" "-pa" "../.eunit" "-pa" "../deps/*/ebin"))
   (imenu-add-to-menubar "imenu")
   ;; (flyspell-prog-mode)
   (local-set-key [return]   'newline-and-indent)
   (local-set-key "\C-c\C-m" 'erlang-man-function)
   (local-set-key "\C-c\C-c" 'erlang-compile)
   (local-set-key "\M-tab"   'erl-complete)
+  (local-set-key "\C-c\C-v" 'erl-reload-module)
   )
 
 ;; EQC Emacs Mode -- Configuration Start

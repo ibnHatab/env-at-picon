@@ -1,5 +1,54 @@
 # .zshrc
 
+# Path to your OH-MY-ZSH configuration.
+ZSH=$HOME/.oh-my-zsh
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+ZSH_THEME="robbyrussell"
+ZSH_THEME="alanpeabody"
+ZSH_THEME="funky"
+ZSH_THEME="af-magic"   
+
+DISABLE_AUTO_UPDATE="true"
+COMPLETION_WAITING_DOTS="true"
+
+# Example format: plugins=(debian git-flow compleat rails git textmate ruby lighthouse)
+plugins=(git git-flow  dircycle)
+
+source $ZSH/oh-my-zsh.sh
+
+#For alternative PROMPT 
+#source env/prompt.sh
+
+# completion
+setopt   complete_in_word
+setopt   list_packed
+unsetopt list_types
+setopt   mark_dirs
+
+# globbing
+unsetopt auto_menu
+unsetopt auto_remove_slash
+setopt   nomatch
+setopt   numeric_glob_sort
+setopt   extended_glob
+
+# job processing
+unsetopt check_jobs
+unsetopt hup
+
+# miscellaneous
+setopt   auto_cd
+unsetopt clobber
+setopt   dvorak
+unsetopt flow_control
+setopt   interactive_comments
+
+# correctio
+unsetopt correct
+unsetopt correctall
+
+
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 bindkey ";5D" backward-word
@@ -20,29 +69,15 @@ setopt   inc_append_history
 setopt   share_history
 
 
-# Path to your OH-MY-ZSH configuration.
-ZSH=$HOME/.oh-my-zsh
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-ZSH_THEME="robbyrussell"
-
-DISABLE_AUTO_UPDATE="true"
-COMPLETION_WAITING_DOTS="true"
-
-# Example format: plugins=(git-flow rails git textmate ruby lighthouse)
-plugins=(git-flow git debian lighthouse)
-
-source $ZSH/oh-my-zsh.sh
-
-#source env/prompt.sh
-
 # word/by/word/break
-export WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
+export WORDCHARS='*?_-[]~&;=!#$%^(){}<>'
+export WORDCHARS='*?-[]~&;!#$%^(){}<>'
 
 # for laziness
 alias     al='alias'                # alias-alias                  [2003-12-11]
 alias       d='date -I'
 alias       e='ec'
+alias       o='open '
 alias     nd='mkdir `date -I` && cd `date -I`'
 alias     ng='noglob '              # shorter noglob command       [2001­08­16]
 alias   open='xdg-open'             # remember the command name    [2012-08-09]
@@ -68,7 +103,8 @@ alias      ltr='ls -ltr --color=tty '
 alias       pu='ps -fu $USER'
 
 # speling | dyslexia
-alias -g     vi='vim'
+alias -g    vi='vim'
+alias -g     c='cat'
 alias -g   gti=git
 alias -g umlet="/udir/tools/Umlet/umlet.sh"
 
@@ -76,6 +112,11 @@ alias -g umlet="/udir/tools/Umlet/umlet.sh"
 alias      noglob='noglob '         #                              [2003­06­14]
 alias        sudo='sudo '           #                              [2003-04-23]
 alias       watch='watch '          #                              [2003-06-14]
+
+alias       ping="grc ping"
+alias traceroute="grc traceroute"
+alias       diff="grc diff"
+alias    netstat="grc netstat"
 
 
 # create ssh aliases
@@ -134,8 +175,8 @@ alias -g  Z='|tail'           # tail (also Z<n> were <n> is 1-30)  [2001­10­20]
 
 # aliases A<n> and Z<n> (where <n> is 1-30)
 for ((i=1; i<=30; i++)); do     #
-    alias -g A$i="|head -n$i"   # head (1-30 rows)                 [2002­05­20]
-    alias -g Z$i="|tail -n$i"   # tail (1-30 rows)                 [2002­05­20]
+    alias -g A$i="|grc head -n$i"   # head (1-30 rows)                 [2002­05­20]
+    alias -g Z$i="|grc tail -n$i"   # tail (1-30 rows)                 [2002­05­20]
 done                            #
 unset i                         #
 
@@ -144,6 +185,7 @@ unset i                         #
 
 # ~ places
 hash -d repo=/local/vlad/repos/
+hash -d sc=/net/pluto/vol/vol3/timco/SmallCells
 
 # archives
 alias -s txt='less -rE'
@@ -154,7 +196,11 @@ autoload -U zmv      ## zmv '(**/)(*) - (*) - (*) - (*).ogg' '$1/$2/$2 - $3/$2 -
 autoload -U run-help ## key sequence: ALT-h (aka ESC-h).
                      ## cd foo [TAB]
 
+
+# keys
+bindkey -s '^[l' "ls -CF --color=tty\n"
+
 # Customize to your needs...
-export PATH=/exports/vlad/bin:/sbin:/usr/local/bin:/usr/bin:/bin
+export PATH=/exports/vlad/bin:/sbin:/usr/bin:/bin
 
 

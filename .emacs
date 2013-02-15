@@ -95,6 +95,7 @@
  '(cscope-program-args (quote "-q"))
  '(cscope-truncate-lines t)
  '(cscope-use-relative-paths t)
+ '(debug-on-error nil)
  '(display-time-mode t)
  '(enable-local-variables :all)
  '(flymake-no-changes-timeout 3.5)
@@ -118,8 +119,9 @@
  '(truncate-partial-width-windows nil)
  '(vc-command-messages t)
  '(vc-initial-comment t)
- '(wrangler-search-paths (quote ("/local/vlad/repos/otp/tr69/src" "/local/vlad/repos/otp/tr69/include")))
+ '(wrangler-search-paths (quote ("/local/vlad/repos/otp/tr69/src" "/local/vlad/repos/otp/tr69/include" "/local/vlad/repos/otp/tr69/test")))
  '(x-select-enable-clipboard t))
+
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -131,9 +133,5 @@
 
 ;; (set-default-font "-apple-Monaco-medium-normal-normal-*-18-*-*-*-m-0-iso10646-1")
 (modify-frame-parameters nil '((wait-for-wm . nil)))
-
-
-(setq debug-on-error nil)
-
 (server-start)
 
