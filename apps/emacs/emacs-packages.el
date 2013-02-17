@@ -80,29 +80,29 @@
 
 
 ;; Org-Mode
-(require 'org-install)
+(require 'org)
 (setq org-log-done 'time)
 
 ;; Here is an example:
-(setq org-publish-project-alist
-      '(("org"
-	 :base-directory "~/org/org-files"
-	 :publishing-directory "~/public_html/org"
-	 :section-numbers nil
-	 :table-of-contents nil
-	 :style "<link rel=\"stylesheet\"
-                   href=\"../other/mystyle.css\"
-                   type=\"text/css\"/>")))
+;; (setq org-publish-project-alist
+;;       '(("org"
+;; 	 :base-directory "~/org/org-files"
+;; 	 :publishing-directory "~/public_html/org"
+;; 	 :section-numbers nil
+;; 	 :table-of-contents nil
+;; 	 :style "<link rel=\"stylesheet\"
+;;                    href=\"../other/mystyle.css\"
+;;                    type=\"text/css\"/>")))
 
-;;(setq org-default-notes-file (concat org-directory "/notes.org"))
-;;(define-key global-map "\C-cc" 'org-capture)
+;; (setq org-default-notes-file (concat org-directory "/notes.org"))
+(define-key global-map "\C-cc" 'org-capture)
 (org-babel-do-load-languages
  'org-babel-load-languages
  '(
    (ditaa . t)
    (python . t)
-   (dot . t)
-   (haskell . t)
+   ;; (dot . t)
+   ;; (haskell . t)
    )) ; this line activates ditaa
 
 (defun my-org-confirm-babel-evaluate (lang body)
@@ -190,6 +190,23 @@
  '("^\\(\.+\.ml[yilp]?\\|\.lhs\\):\\([0-9]+\\):\\([0-9]+\\):\\(.+\\)"
    1 2 3 4) flymake-err-line-patterns)
 
+; python
+(defun flymake-create-temp-in-system-tempdir (filename prefix)
+  (make-temp-file (or prefix "flymake")))
+
+(when (load "flymake" t)
+  (defun flymake-pyflakes-init ()
+    ;; Make sure it's not a remote buffer or flymake would not work
+     ;; (when (not (subsetp (list (current-buffer)) (tramp-list-remote-buffers)))
+      (let* ((temp-file (flymake-init-create-temp-buffer-copy
+			 'flymake-create-temp-in-system-tempdir))
+             (local-file (file-relative-name
+			  temp-file
+			  (file-name-directory buffer-file-name))))
+	(list "pyflakes" (list temp-file))))
+  (add-to-list 'flymake-allowed-file-name-masks
+	       '("\\.py\\'" flymake-pyflakes-init)))
+
 ;; optional setting
 ;; if you want to use flymake always, then add the following hook.
 ;; (add-hook
@@ -237,6 +254,7 @@ Key bindings:
 (add-hook 'haskell-mode-hook 'my-flymake-minor-mode)
 (add-hook 'ats-mode-hook 'my-flymake-minor-mode)
 (add-hook 'tuareg-mode-hook 'my-flymake-minor-mode)
+(add-hook 'python-mode-hook 'my-flymake-minor-mode)
 
 ;; ATS
 (require 'ats-mode)
@@ -477,16 +495,16 @@ Key bindings:
 (yas/load-directory "~/apps/emacs/packages/yasnippet/snippets")
 
 ;; Python
-(autoload 'python-mode "python-mode" "Python Mode." t)
-(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-(add-to-list 'interpreter-mode-alist '("python" . python-mode))
+(require 'python-mode)
+(require 'pymacs)
 
-(require 'anything)
-(require 'anything-ipython)
-(add-hook 'python-mode-hook #'(lambda ()
-  				(define-key py-mode-map (kbd "M-\'") 'anything-ipython-complete)))
-(add-hook 'ipython-shell-hook #'(lambda ()
-  				  (define-key py-mode-map (kbd "M-\'") 'anything-ipython-complete)))
+(pymacs-load "ropemacs" "rope-")
+(setq ropemacs-enable-autoimport 't)
+    
+(add-hook 'python-mode-hook (lambda ()
+			      (define-key python-mode-map (kbd "C-c |")
+				'py-execute-region-python)))
+
 
 ;; Yang
 ;(autoload 'yang-mode "yang-mode" "Major mode for editing YANG spec." t)

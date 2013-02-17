@@ -16,6 +16,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.Tabbed
 import XMonad.Layout.WindowArranger
+import XMonad.Layout.ThreeColumns
 import XMonad.Prompt
 import XMonad.Prompt.Shell
 import XMonad.Prompt.Ssh
@@ -31,8 +32,8 @@ main = do
   xmonad defaultConfig
          { workspaces         = ["1.con", "2.dev", "3.web", "4.doc", "5.mail"] ++
                                 map show [6 .. 9 :: Int]
-         , logHook            = myDynLog xmobar -- REMOVE this line if you do not have xmobar installed!
-	     , modMask 			  = mod4Mask
+         , logHook            = myDynLog xmobar -- REMOVE this line if you do not have xmobar installed!        
+         , modMask 	          = mod4Mask
          , manageHook         = myManageHooks
          , layoutHook         = avoidStruts $
                                 --decorated        |||
@@ -52,17 +53,19 @@ main = do
       -- decorated = simpleFloat' shrinkText (theme smallClean)
       tiled     = Tall 1 (3/100) (1/2)
       otherLays = windowArrange   $
-          --        magnifier tiled |||
-          --        noBorders Full  -- |||
-                  Mirror tiled  --  |||
-                  ||| tiled
-          --        Accordion
+                  --  magnifier tiled |||
+                  --                  noBorders Full  -- |||
+                  Mirror tiled  |||
+                         tiled
+      -- ||| ThreeCol 1 (3/100) (1/2) ||| ThreeColMid 1 (3/100) (1/2)
+      -- ||| Accordion
 
       myManageHooks = composeAll
                       [ className =? "Do"      --> doFloat
                       , className =? "Gimp"      --> doFloat
                       , className =? "Xmessage"  --> doFloat
                       , className =? "Iceweasel"  --> doFloat
+                      , className =? "Gkrellm"  --> doFloat
                         --    , className =? "Vncviewer" --> doShift "6:vnc"
                         --    , className =? "rdesktop"  --> doShift "5:rds"
                       , className =? "Rhythmbox" --> doShift "8:rth"
@@ -82,11 +85,13 @@ main = do
       newKeys x  = foldr (uncurry M.insert) (delKeys x) (toAdd    x)
       -- remove some of the default key bindings
       toRemove x =
-          [ (modMask x              , xK_j)
-          , (modMask x              , xK_k)
-          --, (modMask x              , xK_p)
+          [ 
+			-- (modMask x              , xK_j)
+
+          -- , (modMask x              , xK_k)
+          -- , (modMask x              , xK_p)
           --, (modMask x .|. shiftMask, xK_p)
-          , (modMask x .|. shiftMask, xK_q)
+          	(modMask x .|. shiftMask, xK_q)
           , (modMask x              , xK_q)
           ]
       -- I want modMask .|. shiftMask 1-9 to be free!
@@ -107,6 +112,7 @@ main = do
           -- , ((modMask x              , xK_F2    ), spawn "gedit ~/scratchpad.txt" )
           -- , ((modMask x .|. shiftMask, xK_F4    ), spawn "~/bin/dict.sh"                 )
           , ((modMask x .|. shiftMask, xK_F5    ), spawn "gnome-screenshot -a -e shadow")
+          , ((modMask x .|. shiftMask, xK_F12    ), spawn "sudo hibernate-ram")
             -- softfone shortcuts
           , ((modMask x, xK_KP_Multiply), spawn "twinkle --cmd answer")
           , ((modMask x, xK_KP_Subtract),    spawn "twinkle --cmd bye")
@@ -145,5 +151,5 @@ main = do
           , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]] ++
           
 		  [((m .|. mod4Mask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-          | (key, sc) <- zip [xK_q, xK_w] [1,0] -- was [0..]
+          | (key, sc) <- zip [xK_e, xK_w] [0,1] -- was [0..]
           , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]

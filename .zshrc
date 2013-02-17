@@ -9,7 +9,7 @@ ZSH_THEME="alanpeabody"
 ZSH_THEME="funky"
 ZSH_THEME="af-magic"   
 
-DISABLE_AUTO_UPDATE="true"
+#DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
 
 # Example format: plugins=(debian git-flow compleat rails git textmate ruby lighthouse)
@@ -45,8 +45,8 @@ unsetopt flow_control
 setopt   interactive_comments
 
 # correctio
-unsetopt correct
-unsetopt correctall
+#unsetopt correct
+#unsetopt correctall
 
 
 # Use emacs keybindings even if our EDITOR is set to vi
@@ -123,7 +123,7 @@ alias    netstat="grc netstat"
 typeset -A account                             # "account" associative array
 account=(
     caprica       vkinzers@caprica.mrc.alcatel.ro
-    leonis        vkinzers@leonis.mrc.alcatel.ro
+    leonis        vkinzers@135.243.22.84
     mrclte80      vkinzers@mrclte80.mrc.alcatel.ro
     mrclte186     vkinzers@mrclte186.mrc.alcatel.ro
     panda         root@192.168.10.120
