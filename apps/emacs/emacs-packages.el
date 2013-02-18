@@ -495,16 +495,29 @@ Key bindings:
 (yas/load-directory "~/apps/emacs/packages/yasnippet/snippets")
 
 ;; Python
-(require 'python-mode)
+;; (require 'python-mode)
+(require 'python)
 (require 'pymacs)
 
 (pymacs-load "ropemacs" "rope-")
 (setq ropemacs-enable-autoimport 't)
     
-(add-hook 'python-mode-hook (lambda ()
-			      (define-key python-mode-map (kbd "C-c |")
-				'py-execute-region-python)))
+(add-hook 'python-mode-hook
+	  #'(lambda ()
+	      (setq
+	       python-shell-interpreter "ipython"
+	       python-shell-interpreter-args ""
+	       python-shell-prompt-regexp "In \[[0-9]+\]: "
+	       python-shell-prompt-output-regexp "Out\[[0-9]+\]: "
+	       python-shell-completion-string-code "';'.join(__IP.complete('''%s'''))\n"
+	       python-shell-completion-module-string-code "")
 
+	      (define-key python-mode-map "\C-m" 'newline-and-indent)
+	      (define-key python-mode-map (kbd "C-c |") 'python-shell-send-region)
+	      (define-key python-mode-map (kbd "C-c !") 'python-shell)
+	      (define-key python-mode-map (quote [f8]) `python-shell-send-region)
+	      (define-key python-mode-map (quote [f9]) 'py-execute-statement-and-step)
+	      ))
 
 ;; Yang
 ;(autoload 'yang-mode "yang-mode" "Major mode for editing YANG spec." t)
