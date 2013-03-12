@@ -181,6 +181,7 @@ for ((i=1; i<=30; i++)); do     #
 done                            #
 unset i                         #
 
+autoload -U compinit && compinit -u
 # autojump
 [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
 
@@ -202,6 +203,6 @@ autoload -U run-help ## key sequence: ALT-h (aka ESC-h).
 bindkey -s '^[l' "ls -CF --color=tty\n"
 
 # Customize to your needs...
-export PATH=/exports/vlad/bin:/sbin:/usr/bin:/bin
+export PATH=$HOME/bin:/sbin:/usr/bin:/bin
 
 
