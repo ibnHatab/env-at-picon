@@ -36,16 +36,34 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+
+CC=`which cleartool 2>/dev/null`
+
 if [ "$color_prompt" = yes ]; then
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h[\W$(__git_ps1 " (%s)")]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h[\W$(__git_ps1 " (%s)")]\[\033[00m\]: \[\033[01;32m\]\w\[\033[00m\]
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h[\W$(__git_ps1 " (%s)")]\[\033[00m\]:\[\033[01;34m\] \w\[\033[00m\]
+
+if [ -z "${CC}" ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h[\W$(__git_ps1 " (%s)")]\[\033[00m\]: \[\033[01;32m\]\w\[\033[00m\]
 $ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h[$(cleartool pwv -s)]\[\033[00m\]: \[\033[01;32m\]\w\[\033[00m\]
+$ '
+
+fi
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h: \w
 $ '
 fi
 unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+##    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -74,8 +92,9 @@ source ~/bin/autojump.bash
 export OOO_FORCE_DESKTOP=gnome
 #export LM_LICENSE_FILE=$HOME/libs/license.dat
 
-export LM_LICENSE_FILE=5555@135.86.206.75
+export PATH=$PATH:/udir/tools/arm-2008q3/bin
+export PATH=$PATH:/udir/tools/arm-linux-2008q3/bin
 
-export ERL_LIBS=$HOME/libs/femto_test/deps:$HOME/libs/femto_test/apps
+
 
 
