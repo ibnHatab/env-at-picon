@@ -48,6 +48,7 @@
                 ("\\.\\(d\\|s\\)ats\\'"    . ats-two-mode-mode)
 		("\\.org\\'"               . org-mode)
 		("\\.m\\'"                 . octave-mode)
+		("\\.mustache\\'"          . mustache-mode)
                 )auto-mode-alist))
 
 ;; IDO mode
@@ -495,13 +496,8 @@ Key bindings:
 (yas/load-directory "~/apps/emacs/packages/yasnippet/snippets")
 
 ;; Python
-;; (require 'python-mode)
-(require 'python)
+(require 'python)  
 (require 'pymacs)
-
-(pymacs-load "ropemacs" "rope-")
-(setq ropemacs-enable-autoimport 't)
-    
 (add-hook 'python-mode-hook
 	  #'(lambda ()
 	      (setq
@@ -515,9 +511,17 @@ Key bindings:
 	      (define-key python-mode-map "\C-m" 'newline-and-indent)
 	      (define-key python-mode-map (kbd "C-c |") 'python-shell-send-region)
 	      (define-key python-mode-map (kbd "C-c !") 'python-shell)
-	      (define-key python-mode-map (quote [f8]) `python-shell-send-region)
-	      (define-key python-mode-map (quote [f9]) 'py-execute-statement-and-step)
+
+	      ;; rope
+	      (pymacs-load "ropemacs" "rope-")
+	      (setq ropemacs-enable-shortcuts nil)
+	      (setq ropemacs-local-prefix "C-c C-p")
+	      (setq ropemacs-enable-autoimport 't)
 	      ))
+
+
+;; mustache
+(require 'mustache-mode)
 
 ;; Yang
 ;(autoload 'yang-mode "yang-mode" "Major mode for editing YANG spec." t)

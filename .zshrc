@@ -45,8 +45,8 @@ unsetopt flow_control
 setopt   interactive_comments
 
 # correctio
-#unsetopt correct
-#unsetopt correctall
+unsetopt correct
+unsetopt correctall
 
 
 # Use emacs keybindings even if our EDITOR is set to vi
@@ -83,13 +83,12 @@ alias     ng='noglob '              # shorter noglob command       [2001­08­16]
 alias   open='xdg-open'             # remember the command name    [2012-08-09]
 alias     po='popd'
 alias    psu='ps -u$USER'           # all my processes             [2003-12-16]
-alias     pu='pushd'
 alias  rwget='noglob wget -nc -p --no-parent -r -l0'
 alias      t='date +"%H.%M"'        # time in HH.MM format         [2001­07­05]
 alias  unzip='noglob unzip'         # don't use globs with unzip   [2001­10­16]
 alias    utf='file apps/*/src/*erl apps/*/include/*hrl Makefile | grep "UTF"'
 alias   word='sed `perl -e "print int rand(99999)"`"q;d" /usr/share/dict/words'
-alias     pu='pushd'
+alias     pd='pushd'
 alias     po='popd'
 
 alias     grep='grep --colour=tty --binary-files=text'
@@ -130,6 +129,8 @@ account=(
     earth         vkinzers@135.86.200.84
     test3         axadmin@135.243.22.28
     picon         135.247.145.123
+	mrclte182     vkinzers@mrclte182.mrc.alcatel.ro
+	warp 		  axadmin@172.18.12.110
 )
 for k (${(k)account}) {                         # for each key in account
     alias $k="ssh $account[$k]"                 #   create an ssh alias

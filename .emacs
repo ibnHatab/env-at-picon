@@ -80,7 +80,6 @@
 (set-foreground-color "white")
 (set-cursor-color "#dddddd")
 
-
 ;; end
 
 (custom-set-variables
@@ -112,17 +111,10 @@
  '(org-support-shift-select t)
  '(pc-selection-mode f nil (pc-select))
  '(pdb-path (quote /usr/lib/python2\.6/pdb\.py))
- '(py-load-pymacs-p t)
- '(py-set-complete-keymap-p t)
- '(py-shell-name "ipython")
- '(py-shell-switch-buffers-on-execute nil)
- '(py-shell-switch-buffers-on-execute-p nil)
- '(py-split-windows-on-execute-p nil)
- '(py-start-run-ipython-shell t)
- '(py-start-run-py-shell nil)
  '(python-default-interpreter (quote cpython))
- '(python-shell-interpreter "python" t)
- '(python-shell-interpreter-args "-i" t)
+ '(python-shell-interpreter "python")
+ '(python-shell-interpreter-args "-i")
+ ; '(ropemacs-enable-shortcuts nil)
  '(safe-local-variable-values (quote ((c-set-style "linux"))))
  '(show-paren-mode t nil (paren))
  '(show-paren-ring-bell-on-mismatch t)
@@ -136,21 +128,6 @@
  '(vc-initial-comment t)
  '(wrangler-search-paths (quote ("/local/vlad/repos/otp/tr69/src" "/local/vlad/repos/otp/tr69/include" "/local/vlad/repos/otp/tr69/test")))
  '(x-select-enable-clipboard t))
-
- ;; '(pc-selection-mode f nil (pc-select))
- ;; '(pdb-path (quote /usr/lib/python2\.6/pdb\.py))
- ;; '(ipython-complete-function (quote py-complete))
- ;; '(ipython-complete-use-separate-shell-p nil)
- ;; '(py-load-pymacs-p t)
- ;; '(py-set-complete-keymap-p t)
- ;; '(py-shell-name "ipython")
- ;; '(py-shell-switch-buffers-on-execute nil)
- ;; '(py-shell-switch-buffers-on-execute-p nil)
- ;; '(py-split-windows-on-execute-p nil)
- ;; '(py-start-run-ipython-shell t)
- ;; '(py-start-run-py-shell nil)
- ;; '(python-shell-interpreter "python")
- ;; '(python-shell-interpreter-args "-i")
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
