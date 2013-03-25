@@ -137,6 +137,8 @@ for k (${(k)account}) {                         # for each key in account
     alias ${k}xterm="$k -f 'xterm -T $k -n $k'" #   and an xterm alias
 }; unset k                                      #
 
+alias test1='ssh -f -N -L work;ssh test1'
+
 # TAPS:
 # common pipe­ending commands (taps)
 alias -g  A='|head'           # head (also A<n> were <n> is 1-30)  [2001­10­20]

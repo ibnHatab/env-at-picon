@@ -14,6 +14,7 @@
      # Configuration. Common proxy ports are 3128, 8123, 8000.
 
 _proxy=global.proxy.lucent.com
+#_proxy=cache.tm.alcatel.ro
 _proxyport=8000
 
 socat STDIO PROXY:$_proxy:$1:$2,proxyport=$_proxyport
