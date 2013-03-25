@@ -5,9 +5,9 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 ZSH_THEME="robbyrussell"
-ZSH_THEME="alanpeabody"
 ZSH_THEME="funky"
 ZSH_THEME="af-magic"   
+ZSH_THEME="alanpeabody"
 
 #DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
@@ -183,6 +183,7 @@ for ((i=1; i<=30; i++)); do     #
 done                            #
 unset i                         #
 
+autoload -U compinit && compinit -u
 # autojump
 [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
 
@@ -204,6 +205,6 @@ autoload -U run-help ## key sequence: ALT-h (aka ESC-h).
 bindkey -s '^[l' "ls -CF --color=tty\n"
 
 # Customize to your needs...
-export PATH=/exports/vlad/bin:/sbin:/usr/bin:/bin
+export PATH=$HOME/bin:/sbin:/usr/bin:/bin
 
 
