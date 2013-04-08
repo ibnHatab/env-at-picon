@@ -6,8 +6,8 @@ ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 ZSH_THEME="robbyrussell"
 ZSH_THEME="funky"
-ZSH_THEME="af-magic"   
 ZSH_THEME="alanpeabody"
+ZSH_THEME="af-magic"   
 
 #DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
