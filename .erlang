@@ -1,16 +1,11 @@
 %%-*- mode: erlang -*-
 
 code:load_abs(os:getenv("HOME") ++ "/libs/femto_test/ebin/user_default").
+
+%% project local deps
+[code:add_patha(Path ++ "/ebin") || Path <-  filelib:wildcard("deps/*")
+					++ filelib:wildcard("../deps/*")].
+
+%% test framework and emacs support
 code:add_pathz(os:getenv("HOME") ++ "/libs/femto_test/ebin").
 code:add_pathz("/usr/local/share/distel/ebin/").
-
-%% [code:add_pathz("/local/vlad/repos/superdeps/" ++ Path) ||
-%%     Path <- ["edown/ebin",
-%% 	     "gen_leader_revival/ebin",
-%% 	     "ibrowse/ebin",
-%% 	     "jsonerl/ebin",
-%% 	     "lager/ebin",
-%% 	     "mochiweb/ebin",
-%% 	     "tmp/mochiweb/ebin",
-%% 	     "webmachine/deps/mochiweb/ebin",
-%% 	     "webmachine/ebin/"]].
