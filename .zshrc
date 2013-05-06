@@ -122,6 +122,7 @@ alias    netstat="grc netstat"
 typeset -A account                             # "account" associative array
 account=(
     caprica       vkinzers@caprica.mrc.alcatel.ro
+    tauron       axadmin@tauron.mrc.alcatel.ro
     leonis        vkinzers@135.243.22.84
     mrclte80      vkinzers@mrclte80.mrc.alcatel.ro
     mrclte186     vkinzers@mrclte186.mrc.alcatel.ro
@@ -131,9 +132,10 @@ account=(
     picon         135.247.145.123
 	mrclte182     vkinzers@mrclte182.mrc.alcatel.ro
 	warp 		  axadmin@172.18.12.110
+	iceccase3	  vkinzers@135.86.206.143
 )
 for k (${(k)account}) {                         # for each key in account
-    alias $k="ssh $account[$k]"                 #   create an ssh alias
+    alias $k="ssh -X $account[$k]"                 #   create an ssh alias
     alias ${k}xterm="$k -f 'xterm -T $k -n $k'" #   and an xterm alias
 }; unset k                                      #
 
