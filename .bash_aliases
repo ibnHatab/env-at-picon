@@ -39,7 +39,7 @@
 # echo "\\033]0;$*\\007\\c"
 # }
 #LTE_ENB_OAM_DESIGN_BEGIN
-[ -f /net/pluto/vol/vol7/lte_oam_rep/oam_profile/profile/bash_aliases ] && source /net/pluto/vol/vol7/lte_oam_rep/oam_profile/profile/bash_aliases
+#[ -f /net/pluto/vol/vol7/lte_oam_rep/oam_profile/profile/bash_aliases ] && source /net/pluto/vol/vol7/lte_oam_rep/oam_profile/profile/bash_aliases
 #LTE_ENB_OAM_DESIGN_END
 
 alias l="ls -l"

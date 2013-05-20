@@ -87,7 +87,7 @@ if [ -f ~/.clipboard ]; then
 fi
 
 # Added by autojump install.sh
-source ~/bin/autojump.bash
+source ~/.autojump/etc/profile.d/autojump.bash
 
 export OOO_FORCE_DESKTOP=gnome
 #export LM_LICENSE_FILE=$HOME/libs/license.dat
@@ -95,6 +95,8 @@ export OOO_FORCE_DESKTOP=gnome
 export PATH=$PATH:/udir/tools/arm-2008q3/bin
 export PATH=$PATH:/udir/tools/arm-linux-2008q3/bin
 
-
-
+#Switch to ZSH if any
+if [ -f /usr/bin/zsh ]; then
+/usr/bin/zsh
+fi
 

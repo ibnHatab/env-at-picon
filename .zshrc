@@ -109,7 +109,7 @@ alias -g umlet="/udir/tools/Umlet/umlet.sh"
 
 # alias expand after these commands
 alias      noglob='noglob '         #                              [2003­06­14]
-alias        sudo='sudo '           #                              [2003-04-23]
+alias        sudo='sudo'           #                              [2003-04-23]
 alias       watch='watch '          #                              [2003-06-14]
 
 alias       ping="grc ping"
