@@ -109,7 +109,7 @@
  '(menu-bar-mode nil)
  '(next-line-add-newlines nil)
  '(org-support-shift-select t)
- '(pc-selection-mode f nil (pc-select))
+ ;; '(pc-selection-mode f nil (pc-select))
  '(pdb-path (quote /usr/lib/python2\.6/pdb\.py))
  '(python-default-interpreter (quote cpython))
  '(python-shell-interpreter "python")

@@ -1,13 +1,15 @@
 xrandr --output LVDS1 --off 
-xrandr --output DVI1 --auto --rotate normal --pos 0x0 --output VGA1 --auto --rotate normal --right-of DVI1
+xrandr --output DP3 --auto --rotate normal --pos 0x0 --output VGA1 --auto --rotate normal --right-of DP3
 
 #if [ -x /usr/bin/nm-applet ] ; then
 #   nm-applet --sm-disable &
 #fi
 
-gnome-power-manager > /dev/null &
-sudo cpufreq-set --cpu 1 --governor ondemand
-sudo cpufreq-set --cpu 0 --governor ondemand
+#gnome-power-manager > /dev/null &
+#sudo cpufreq-set --cpu 1 --governor ondemand
+#sudo cpufreq-set --cpu 0 --governor ondemand
+
+gnome-settings-daemon > /dev/null &
 
 xrdb $HOME/.Xdefaults
 xset -b
@@ -16,8 +18,8 @@ xset r 130
 xset r 103
 
 
-xsetroot -solid midnightblue
-xsetroot -cursor_name left_ptr
+#xsetroot -solid midnightblue
+#xsetroot -cursor_name left_ptr
 
 #xscreensaver -no-splash &
 

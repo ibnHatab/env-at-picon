@@ -9,11 +9,17 @@ ZSH_THEME="funky"
 ZSH_THEME="alanpeabody"
 ZSH_THEME="af-magic"   
 
+declare -A viewmap
+viewmap["leonis"]="alanpeabody"
+viewmap["marvel"]="af-magic"
+
+ZSH_THEME="${hashmap["$HOST"]}"
+
 #DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
 
 # Example format: plugins=(debian git-flow compleat rails git textmate ruby lighthouse)
-plugins=(git git-flow  dircycle)
+plugins=(git git-flow  dircycle rebar debian)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -117,13 +123,14 @@ alias traceroute="grc traceroute"
 alias       diff="grc diff"
 alias    netstat="grc netstat"
 
+alias         st="/local/tools/Sublime_Text_2/sublime_text"
 
 # create ssh aliases
 typeset -A account                             # "account" associative array
 account=(
     caprica       vkinzers@caprica.mrc.alcatel.ro
-    tauron       axadmin@tauron.mrc.alcatel.ro
-    leonis        vkinzers@135.243.22.84
+    tauron        axadmin@135.243.22.64
+    leonis        vkinzers@135.243.22.61
     mrclte80      vkinzers@mrclte80.mrc.alcatel.ro
     mrclte186     vkinzers@mrclte186.mrc.alcatel.ro
     panda         root@192.168.10.120
