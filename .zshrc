@@ -11,7 +11,7 @@ ZSH_THEME="af-magic"
 
 declare -A viewmap
 viewmap["aeries"]="3den"
-viewmap["caprica"]="soliah"
+viewmap["caprica"]="afowler"
 viewmap["tauron"]="robbyrussell"
 viewmap["leonis"]="alanpeabody"
 viewmap["marvel"]="af-magic"
