@@ -13,7 +13,7 @@ declare -A viewmap
 viewmap["leonis"]="alanpeabody"
 viewmap["marvel"]="af-magic"
 
-ZSH_THEME="${hashmap["$HOST"]}"
+ZSH_THEME="${viewmap["$HOST"]}"
 
 #DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
