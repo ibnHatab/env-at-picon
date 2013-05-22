@@ -10,6 +10,9 @@ ZSH_THEME="alanpeabody"
 ZSH_THEME="af-magic"   
 
 declare -A viewmap
+viewmap["aeries"]="3den"
+viewmap["caprica"]="soliah"
+viewmap["tauron"]="robbyrussell"
 viewmap["leonis"]="alanpeabody"
 viewmap["marvel"]="af-magic"
 
@@ -128,22 +131,22 @@ alias         st="/local/tools/Sublime_Text_2/sublime_text"
 # create ssh aliases
 typeset -A account                             # "account" associative array
 account=(
-    caprica       vkinzers@caprica.mrc.alcatel.ro
-    tauron        axadmin@135.243.22.64
+    aeries        vkinzers@135.243.22.59
     leonis        vkinzers@135.243.22.61
+    caprica       vkinzers@135.243.22.63
+    tauron        vkinzers@135.243.22.64
+
     mrclte80      vkinzers@mrclte80.mrc.alcatel.ro
+    mrclte182     vkinzers@mrclte182.mrc.alcatel.ro
     mrclte186     vkinzers@mrclte186.mrc.alcatel.ro
-    panda         root@192.168.10.120
+
     earth         vkinzers@135.86.200.84
-    test3         axadmin@135.243.22.28
-    picon         135.247.145.123
-	mrclte182     vkinzers@mrclte182.mrc.alcatel.ro
-	warp 		  axadmin@172.18.12.110
-	iceccase3	  vkinzers@135.86.206.143
+    iceccase3	  vkinzers@135.86.206.143
+
 )
 for k (${(k)account}) {                         # for each key in account
     alias $k="ssh -X $account[$k]"                 #   create an ssh alias
-    alias ${k}xterm="$k -f 'xterm -T $k -n $k'" #   and an xterm alias
+#    alias ${k}xterm="$k -f 'xterm -T $k -n $k'" #   and an xterm alias
 }; unset k                                      #
 
 alias test1='ssh -f -N -L work;ssh test1'
