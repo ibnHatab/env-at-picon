@@ -70,13 +70,13 @@ export HISTSIZE=5000000
 export SAVEHIST=$HISTSIZE
 export HISTFILE=~/.zsh_history
 
-unsetopt bang_hist
+#unsetopt bang_hist
 setopt   hist_ignore_space
 setopt   extended_history
 setopt   hist_find_no_dups
 setopt   inc_append_history
 setopt   share_history
-
+setopt   histignoredups
 
 # word/by/word/break
 export WORDCHARS='*?_-[]~&;=!#$%^(){}<>'
@@ -101,7 +101,7 @@ alias     pd='pushd'
 alias     po='popd'
 
 alias     grep='grep --colour=tty --binary-files=text'
-alias        h='history 25'
+alias        h='fc -l -25'
 alias    kdiff='kdiff3'
 alias       ls='ls --color=tty '
 alias        l='ls -CF --color=tty '
@@ -188,6 +188,8 @@ alias -g  X='|tr -s " " "\t" |cut -f' # cut on tabs and spaces     [2002­04­27]
 alias -g  Y='&>/dev/null &; disown' # fork process (`Y' is a fork) [2002­08­27]
 alias -g  Z='|tail'           # tail (also Z<n> were <n> is 1-30)  [2001­10­20]
 
+alias -s txt='less -rE'
+
 # aliases A<n> and Z<n> (where <n> is 1-30)
 for ((i=1; i<=30; i++)); do     #
     alias -g A$i="|grc head -n$i"   # head (1-30 rows)                 [2002­05­20]
@@ -203,15 +205,12 @@ autoload -U compinit && compinit -u
 hash -d repo=/local/vlad/repos/
 hash -d sc=/net/pluto/vol/vol3/timco/SmallCells
 
-# archives
-alias -s txt='less -rE'
 
 # builtin functions
 autoload -U zargs    ## zargs **/*~ -- rm
 autoload -U zmv      ## zmv '(**/)(*) - (*) - (*) - (*).ogg' '$1/$2/$2 - $3/$2 - $3 - $4 - $5.ogg'
 autoload -U run-help ## key sequence: ALT-h (aka ESC-h).
                      ## cd foo [TAB]
-
 
 # keys
 bindkey -s '^[l' "ls -CF --color=tty\n"
