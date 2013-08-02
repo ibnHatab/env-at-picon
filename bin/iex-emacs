@@ -1,0 +1,3 @@
+# !/bin/sh
+
+/usr/local/bin/iex --sname "emacs" -pa ebin -pz ../ebin

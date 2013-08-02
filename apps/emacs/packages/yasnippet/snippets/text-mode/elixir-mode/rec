@@ -1,0 +1,4 @@
+#name : defrecord
+#group : definitions
+# --
+defrecord ${1:Record}, ${2:field}: ${3:nil}, $0 

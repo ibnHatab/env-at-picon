@@ -1,0 +1,6 @@
+#name : test assert do
+#group : definitions
+# --
+test "${1:the truth}" do
+  assert(${2:true})
+end
