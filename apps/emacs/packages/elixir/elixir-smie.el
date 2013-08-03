@@ -242,36 +242,54 @@ Return non-nil if any line breaks were skipped."
     value))
 
 (defun elixir-smie-rules (kind token)
-  (pcase (cons kind token)
-    (`(:elem . basic)
-     (if (smie-rule-hanging-p)
-         0
-       elixir-smie-indent-basic))
-    (`(:after . "OP")
-     (unless (smie-rule-sibling-p)
-       elixir-smie-indent-basic))
-    (`(:before. "OP")
-     ;; FIXME: Issue #5: This should prevent comments on lines before
-     ;; continuation lines from causing indentation messed-upness, but
-     ;; for some reason SMIE doesn't look this far when there's a
-     ;; comment terminating the previous line. Ugh.
-     nil)
-    (`(:after . "->")
-     (when (smie-rule-hanging-p)
-       elixir-smie-indent-basic))
-    (`(,_ . ,(or `"COMMA")) (smie-rule-separator kind))
-    (`(:after . "=") elixir-smie-indent-basic)
-    (`(:after . ,(or `"do"))
-     elixir-smie-indent-basic)
-    (`(:list-intro . ,(or `"do"))
-     t)))
+  ;; (pcase (cons kind token)
+  ;;   (`(:elem . basic)
+  ;;    (if (smie-rule-hanging-p)
+  ;;        0
+  ;;      elixir-smie-indent-basic))
+  ;;   (`(:after . "OP")
+  ;;    (unless (smie-rule-sibling-p)
+  ;;      elixir-smie-indent-basic))
+  ;;   (`(:before. "OP")
+  ;;    ;; FIXME: Issue #5: This should prevent comments on lines before
+  ;;    ;; continuation lines from causing indentation messed-upness, but
+  ;;    ;; for some reason SMIE doesn't look this far when there's a
+  ;;    ;; comment terminating the previous line. Ugh.
+  ;;    nil)
+  ;;   (`(:after . "->")
+  ;;    (when (smie-rule-hanging-p)
+  ;;      elixir-smie-indent-basic))
+  ;;   ;; (`(,_ . ,(or `"COMMA")) (smie-rule-separator kind))
+  ;;   (`(:after . "=") elixir-smie-indent-basic)
+  ;;   ;; (`(:after . ,(or `"do"))
+  ;;   ;;  elixir-smie-indent-basic)
+  ;;   ;; (`(:list-intro . ,(or `"do")) 
+  ;;   ;;  t)
+  ;;   ))
+  )
+(defun vki-elixir-smie-rules (kind token)
+  (case kind
+    (:elem
+     (cond
+      ((equal basic) elixir-smie-indent-basic)))
+    (:after
+     (cond
+      ((equal token "OP") elixir-smie-indent-basic)
+      ((equal token "->") elixir-smie-indent-basic)))
+    (:before
+     (cond
+      ((equal token "OP") elixir-smie-indent-basic)
+      ))
+    ))
 
 (define-minor-mode elixir-smie-mode
   "SMIE-based indentation and syntax for Elixir"
   nil nil nil nil
   (set (make-local-variable 'comment-start) "# ")
   (set (make-local-variable 'comment-end) "")
-  (smie-setup elixir-smie-grammar 'elixir-smie-rules ; 'verbose-elixir-smie-rules
+  (smie-setup elixir-smie-grammar 
+              'vki-elixir-smie-rules
+              ;; 'verbose-elixir-smie-rules
               :forward-token 'elixir-smie-forward-token
               :backward-token 'elixir-smie-backward-token))
 

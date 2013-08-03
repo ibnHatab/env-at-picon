@@ -1,4 +1,31 @@
 
+;; replace buffer-menu with ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+(global-set-key "\M- " 'hippie-expand)
+
+;; Align your code in a pretty way.
+(global-set-key (kbd "C-x \\") 'align-regexp)
+
+;; Perform general cleanup.
+(global-set-key (kbd "C-c n") 'cleanup-buffer)
+
+;; Font size
+(define-key global-map (kbd "C-+") 'text-scale-increase)
+(define-key global-map (kbd "C--") 'text-scale-decrease)
+
+
+(require 'multiple-cursors)
+
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+;; You can scroll the screen to center on each cursor with `C-v` and `M-v`.
+(global-unset-key (kbd "M-<down-mouse-1>"))
+(global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
+
 (require                        'define-key-wise)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -26,7 +53,7 @@
 ;;(global-set-key [(f5)]          'speedbar-get-focus)	    ;F5
 							    ;F7
 					                    ;F8
-(global-set-key [(f9)]          'compile)		    ;F9
+;; org hijack(global-set-key [(f9)]          'compile)		    ;F9
 (global-set-key [(f10)]         'grep)			    ;F10
 (global-set-key [(C-f10)]       'nuke-trailing-whitespace)  ;F10
 (global-set-key [(f12)]         'kill-this-buffer)	    ;F12
@@ -149,11 +176,41 @@ With argument ARG, do this that many times."
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
 
+;; Backspace Key
+(global-set-key (kbd "C-h") 'delete-backward-char)
+
 ;; ORG
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
-;;(global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key "\C-cf" 'cfw:open-org-calendar)
 
-;; Backspace Key
-(global-set-key (kbd "C-h") 'delete-backward-char)
+
+(global-set-key (kbd "<f9> <f9>") 'org-cycle-agenda-files)
+(global-set-key (kbd "<f9> c") 'cfw:open-org-calendar)
+(global-set-key (kbd "<f9> w") 'widen)
+(global-set-key (kbd "<f9> v") 'visible-mode)
+(global-set-key (kbd "<f9> r") 'org-refile)
+(global-set-key (kbd "<f9> m") 'org-manage)
+(global-set-key (kbd "<f9> j") 'vki:open-default-notes-file)
+
+(global-set-key (kbd "<f9> s") 'org-todo)
+(global-set-key (kbd "<f9> d") 'org-deadline)
+(global-set-key (kbd "<f9> t") 'org-time-stamp-inactive)
+(global-set-key (kbd "<f9> T") 'org-toggle-timestamp-type)
+(global-set-key (kbd "<f9> SPC") 'org-clock-in)
+(global-set-key (kbd "<f9> s-SPC") 'org-clock-goto)
+
+(global-set-key (kbd "M-<f9>") 'org-toggle-inline-images)
+
+(defun vki:open-default-notes-file ()
+ "Open a file containing refil collection"
+ (interactive)
+ (find-file org-default-notes-file))
+
+(require 'breadcrumb)
+(global-set-key [(control f2)]          'bc-set)
+(global-set-key [(f2)]                  'bc-previous)
+(global-set-key [(shift f2)]            'bc-next)
+(global-set-key [(meta f2)]             'bc-list)

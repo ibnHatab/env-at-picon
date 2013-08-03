@@ -1,5 +1,5 @@
-xrandr --output LVDS1 --off 
-xrandr --output DP3 --auto --rotate normal --pos 0x0 --output VGA1 --auto --rotate normal --right-of DP3
+#xrandr --output LVDS1 --off 
+#xrandr --output DP3 --auto --rotate normal --pos 0x0 --output VGA1 --auto --rotate normal --right-of DP3
 
 #if [ -x /usr/bin/nm-applet ] ; then
 #   nm-applet --sm-disable &
@@ -19,7 +19,7 @@ xset r 103
 
 
 #xsetroot -solid midnightblue
-#xsetroot -cursor_name left_ptr
+xsetroot -cursor_name left_ptr
 
 #xscreensaver -no-splash &
 

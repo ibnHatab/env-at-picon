@@ -39,5 +39,9 @@ export ERL_LIBS=/usr/lib/erlang/lib:$HOME/libs/femto_test/deps:$HOME/libs:/local
 
 limit coredumpsize 0
 
-export http_proxy=cache.tm.alcatel.ro:8080
-export https_proxy=cache.tm.alcatel.ro:8080
+export http_proxy=http://cache.tm.alcatel.ro:8080
+export HTTP_PROXY=http://cache.tm.alcatel.ro:8080
+export https_proxy=http://cache.tm.alcatel.ro:8080
+
+#Carton for Emacs is what Bundler is to Ruby.
+export PATH=/local/home/vlad/.carton/bin:$PATH
