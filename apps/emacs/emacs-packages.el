@@ -53,7 +53,29 @@
                 ("\\.groovy$"              . groovy-mode)
                 ("\\.scala$"               . scala-mode)
                 ("\\.dot"                  . graphviz-dot-mode)
+                ("\\.tjp"                  . taskjuggler-mode)
                 )auto-mode-alist))
+
+
+
+;; Trello
+;;(require 'org-trello)
+;; ELPA
+;; (require 'package)
+;; (add-to-list 'package-archives 
+;;              '("marmalade" .
+;;                "http://marmalade-repo.org/packages/"))
+;; (package-initialize)
+
+;; taskjuggler                             
+;; C-c C-s	check syntax using taskjuggler backend
+;; C-c C-c	compile using taskjuggler backend
+;; C-c C-d	Insert dependency with completion and (hopefully) correct relative path
+;; C-c C-r	Insert resource (with completion and context keywords)
+;; C-c r	Rescan current buffer completely
+;; C-c i t	Insert task template
+;; C-c i r	Insert resource template
+(require 'taskjuggler-mode)
 
 ;; DOT
 (load-library "graphviz-dot-mode")
@@ -221,36 +243,49 @@
 (require 'calfw-org)
 (require 'org-manage)
 (require 'org-protocol)
+(require 'ox-taskjuggler)
+(require 'ox-freemind)
 
 (setq org-log-done 'time)
 (setq org-agenda-include-diary nil)
 (setq org-agenda-dim-blocked-tasks nil)
 (setq org-agenda-compact-blocks t)
 (setq org-agenda-span 'week)
-
+(setq org-export-with-toc t)
+(setq org-export-headline-levels 4)
+;; Manage .org files
 (setq org-manage-directory-org "~/public_html/ib-home") ; M-x org-manage
 (setq org-agenda-files (quote ("~/public_html/ib-home/calendar/")))
 
-(setq org-default-notes-file "~/public_html/ib-home/journal.org")
+(setq org-default-notes-file "~/public_html/ib-home/calendar/journal.org")
+(setq org-default-calendar-file "~/public_html/ib-home/calendar/calendar.org")
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline org-default-notes-file "Tasks")
-         "* TODO %?\n  %i\n  %a")
+      '(
+        ;; Someday, references, jornal
+        ("t" "Todo" entry (file+headline org-default-notes-file "Refill")
+         "* TODO %?\n  %i\n  %a\n")
         ("i" "Idea" entry (file+headline org-default-notes-file "Idea")
-         "* %? :IDEA:\n  %i\n  %a")
+         "* %? :PLANING:\n  %i\n  %a\n")
         ("j" "Journal" entry (file+datetree org-default-notes-file)
-         "* %?\nEntered on %U\n  %i\n  %a")
-        ("n" "note" entry (file+headline org-default-notes-file "Notes")
-         "* %? :NOTE:\n%U\n%x\n" :clock-in t :clock-resume t)
-        ("m" "Meeting" entry (file+headline org-default-notes-file "Meeting")
-         "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-        ("p" "Phone call" entry (file+headline org-default-notes-file "Phone call")
-         "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-        ("w" "org-protocol" entry (file+headline org-default-notes-file "Review")
-         "* TODO Review %c\n%U\n" :immediate-finish t)
-        ("h" "Habit" entry (file+headline org-default-notes-file "Habit")
+         "* %?\nEntered on %U\n  %i\n  %a\n")
+        ("n" "Note" entry (file+headline org-default-notes-file "Notes")
+         "* %? :DOCS:\n%U\n%x\n" :clock-in t :clock-resume t)
+
+        ;; Calendar, Meeting, Phone, Habits
+        ("m" "Meeting" entry (file+headline org-default-calendar-file "Meeting")
+         "* MEETING with %? :MEETING:\n%U\n" :clock-in t :clock-resume t)
+        ("p" "Phone call" entry (file+headline org-default-calendar-file "Phone-call")
+         "* PHONE %? :PHONE:\n%U\n" :clock-in t :clock-resume t)
+        ("h" "Habit" entry (file+headline org-default-calendar-file "Habit")
          "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n")
         ))
-
+;; smart links
+(setq org-link-abbrev-alist
+       '(("lte"  . "http://www.quintillion.co.jp/3GPP/NAMAZU_R8/namazu.cgi?query=%s&submit=Search%21&max=20&result=normal&sort=score")
+         ("google"    . "http://www.google.com/search?q=")
+         ("gmap"      . "http://maps.google.com/maps?q=%s")
+         ("omap"      . "http://nominatim.openstreetmap.org/search?q=%s&polygon=1")))
+;; Agenda 
 (setq org-stuck-projects (quote ("+LEVEL=2/-DONE" ("TODO" "NEXT" "NEXTACTION") ("DOC" "wiki") "")))
 
 (setq org-todo-keywords
@@ -266,15 +301,14 @@
               ("MEETING" :foreground "forest green" :weight bold)
               ("PHONE" :foreground "forest green" :weight bold))))
 
+(setq org-tag-alist '(("doc"    . ?h)
+                      ("dev"    . ?d)
+                      ("devops" . ?o)
+                      ("test"   . ?t)
+                      ("plan"   . ?p)
+                      ("linux"  . ?l)))
 
 ;;;; Refile settings
-
-;; When I want to refile something I do F9-r to start the refile
-;; process, then type something to get some matching targets, then
-;; C-SPC to restrict the matches to the current list, then continue
-;; searching with some other text to find the target I need. C-j
-;; also selects the current completion as the final target.
-
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9))))
 (setq org-refile-use-outline-path t)
@@ -295,16 +329,18 @@
 
 ;; Babel
 (org-babel-do-load-languages
-'org-babel-load-languages
-'(
-  (ditaa . t)
-  (python . t)
-  (dot . t)
-  (haskell . t)
-  (org . t)
-  (plantuml . t)
-  )) 
-; this line activates ditaa etc.
+ 'org-babel-load-languages
+ '(
+   (ditaa    . t)
+   (python   . t)
+   (dot      . t)
+   (haskell  . t)
+   (org      . t)
+   (plantuml . t) 
+   (sh       . t)  
+   )) 
+
+; don't ask for confirmation
 (defun my-org-confirm-babel-evaluate (lang body)
   (or
    (not (string= lang "ditaa"))
@@ -312,12 +348,20 @@
    (not (string= lang "dot"))
    )
   ) 
-; don't ask for ditaa
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
 
 ;; Git
-(require 'egg)
+;; (require 'egg)
+;; git-gutter 
+(require 'git-gutter)
+(global-git-gutter-mode t)
+;; - (add-hook 'ruby-mode-hook 'git-gutter-mode)
+(global-set-key (kbd "C-x C-g") 'git-gutter:toggle)
+(global-set-key (kbd "C-x v =") 'git-gutter:popup-hunk)
+(global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+(global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
+(global-set-key (kbd "C-x r") 'git-gutter:revert-hunk)
 
 ;; magit
 (when (locate-library "magit")

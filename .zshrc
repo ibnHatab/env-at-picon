@@ -206,6 +206,7 @@ autoload -U compinit && compinit -u
 
 # ~ places
 hash -d repo=/local/vlad/repos/
+hash -d store=/net/aeries/local/storage/
 hash -d sc=/net/pluto/vol/vol3/timco/SmallCells
 
 

@@ -1,3 +1,4 @@
+(require 'define-key-wise)
 
 ;; replace buffer-menu with ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -18,17 +19,15 @@
 (require 'multiple-cursors)
 
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C->")         'mc/mark-next-like-this)
+(global-set-key (kbd "C-<")         'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<")     'mc/mark-all-like-this)
 
 ;; You can scroll the screen to center on each cursor with `C-v` and `M-v`.
 (global-unset-key (kbd "M-<down-mouse-1>"))
 (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
 
-(require                        'define-key-wise)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Completion
 (setq completion-ignore-case t
       pcomplete-ignore-case t
@@ -194,13 +193,15 @@ With argument ARG, do this that many times."
 (global-set-key (kbd "<f9> r") 'org-refile)
 (global-set-key (kbd "<f9> m") 'org-manage)
 (global-set-key (kbd "<f9> j") 'vki:open-default-notes-file)
+(global-set-key (kbd "<f9> S") 'org-todo)
 
-(global-set-key (kbd "<f9> s") 'org-todo)
 (global-set-key (kbd "<f9> d") 'org-deadline)
+(global-set-key (kbd "<f9> s") 'org-schedule)
 (global-set-key (kbd "<f9> t") 'org-time-stamp-inactive)
 (global-set-key (kbd "<f9> T") 'org-toggle-timestamp-type)
 (global-set-key (kbd "<f9> SPC") 'org-clock-in)
 (global-set-key (kbd "<f9> s-SPC") 'org-clock-goto)
+(global-set-key (kbd "<f9> p") 'org-taskjuggler-export-and-process)
 
 (global-set-key (kbd "M-<f9>") 'org-toggle-inline-images)
 
@@ -210,7 +211,8 @@ With argument ARG, do this that many times."
  (find-file org-default-notes-file))
 
 (require 'breadcrumb)
-(global-set-key [(control f2)]          'bc-set)
-(global-set-key [(f2)]                  'bc-previous)
-(global-set-key [(shift f2)]            'bc-next)
-(global-set-key [(meta f2)]             'bc-list)
+(global-set-key [(control f2)]       'bc-set)
+(global-set-key [(shift control f2)] 'bc-clear)
+(global-set-key [(meta f2)]          'bc-previous)
+(global-set-key [(shift f2)]         'bc-next)
+(global-set-key [(shift meta f2)]    'bc-list)

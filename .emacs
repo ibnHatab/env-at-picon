@@ -19,7 +19,10 @@
        '(expand-file-name "~/apps/emacs/packages/python" )
        '(expand-file-name "~/apps/emacs/packages/scala" )
        '(expand-file-name "~/apps/emacs/packages/groovy" )
+       '(expand-file-name "~/apps/emacs/packages/org-mode/lisp" )
+       '(expand-file-name "~/apps/emacs/packages/org-mode/contrib/lisp" )
        '(expand-file-name "~/apps/emacs/packages/multiple-cursors.el" )
+       '(expand-file-name "~/apps/emacs/packages/emacs-elixir" )
        load-path))
 
 (setq-default indent-tabs-mode nil)
@@ -111,7 +114,7 @@
  '(menu-bar-mode nil)
  '(next-line-add-newlines nil)
  '(org-support-shift-select t)
- ;; '(pc-selection-mode t nil (pc-select))
+ '(pc-selection-mode t nil (pc-select))
  '(pdb-path (quote /usr/lib/python2\.6/pdb\.py))
  '(python-default-interpreter (quote cpython))
  '(python-shell-interpreter "python")
@@ -128,8 +131,7 @@
  '(vc-command-messages t)
  '(vc-initial-comment t)
  '(wrangler-search-paths (quote ("/local/vlad/repos/elixir/exdsl/exdsl_ct")))
- '(x-select-enable-clipboard t)
-)
+ '(x-select-enable-clipboard t))
 
 
 (custom-set-faces
