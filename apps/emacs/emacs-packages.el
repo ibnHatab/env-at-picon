@@ -226,8 +226,8 @@
 
 ;; Org-Mode
 (require 'org)
-(require 'calfw)
-(require 'calfw-org)
+;;(require 'calfw)
+;;(require 'calfw-org)
 (require 'org-manage)
 (require 'org-protocol)
 (require 'ox-taskjuggler)
