@@ -1,14 +1,15 @@
-# !/bin/sh
-#
+#!/bin/bash
 
-for i in $@
-do
 
-        FILE=`echo $i | cut -d':' -f1`
-        LINE=`echo $i | cut -d':' -f2`
+FILE=`echo $1 | cut -d':' -f1`
+LINE=`echo $1 | cut -d':' -f2`
+	
+echo "${LINE} == ${FILE}"
 
-        if [ "${LINE}" == "${FILE}" ]; then LINE=0; fi
+if [ "${LINE}" == "${FILE}" ] 
+then 
+     LINE=0
+fi
 
-        emacsclient --no-wait +$LINE $FILE
-done
-# > /dev/null &
+emacsclient --no-wait +$LINE $FILE
+

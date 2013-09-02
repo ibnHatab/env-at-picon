@@ -64,7 +64,7 @@
   (define-key csp-mode-map "\C-cs"   'electric-csp-channel-set)
 
 ;  (define-key csp-mode-map "\M-\C-h"  'csp-mark-defun)
-  (define-key csp-mode-map "\C-c\C-c" 'csp-comment-area)
+  (define-key csp-mode-map "\C-c\C-z" 'csp-comment-area)
   (define-key csp-mode-map "\C-c\C-u" 'csp-uncomment-area)
   (define-key csp-mode-map "\C-c\C-v" 'csp-validate)
 ;  (define-key csp-mode-map "\M-\C-a"  'csp-beg-of-defun)

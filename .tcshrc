@@ -1,0 +1,4 @@
+
+#LTE_ENB_OAM_DESIGN_BEGIN
+[ -f /net/pluto/vol/vol7/lte_oam_rep/oam_profile/profile/tcshrc ] && source /net/pluto/vol/vol7/lte_oam_rep/oam_profile/profile/tcshrc
+#LTE_ENB_OAM_DESIGN_END

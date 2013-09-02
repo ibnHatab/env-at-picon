@@ -1,10 +1,26 @@
 
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+(setq uniquify-separator "/")
+(setq uniquify-after-kill-buffer-p t) ;rename after killing uniquify
+(setq uniquify-ignore-buffers-re "^\\*")
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Ace jump mode
+(when (locate-library "ace-jump-mode")
+  (require 'ace-jump-mode)
+  (define-key global-map (kbd "C-0") 'ace-jump-mode)
+  )
+
+
 (autoload 'nuke-trailing-whitespace "whitespace" nil t) ;remove trailing
 (setq scroll-step 1)                    ; scrolling page
 (setq case-fold-search nil)             ; make searches case sensitive
 
 
 (custom-set-variables
+ '(kill-whole-line t)
  '(show-paren-style (quote parenthesis))
  '(compilation-window-height 14)
  '(transient-mark-mode t)
@@ -91,14 +107,17 @@
 (require 'compile)
 (setq mode-compile-always-save-buffer-p t)
 (setq compilation-window-height 12)
-;; (setq compilation-finish-function
-;;       (lambda (buf str)
-;; 	(unless (string-match "exited abnormally" str)
-;; 	  ;;no errors, make the compilation window go away in a few seconds
-;; 	  (run-at-time
-;; 	   "2 sec" nil 'delete-windows-on
-;; 	   (get-buffer-create "*compilation*"))
-;; 	  (message "No Compilation Errors!"))))
+
+(setq compilation-finish-function
+      (lambda (buf str)
+        ))
+
+ 	;; (unless (string-match "exited abnormally" str)
+ 	;;   ;;no errors, make the compilation window go away in a few seconds
+ 	;;   (run-at-time
+ 	;;    "2 sec" nil 'delete-windows-on
+ 	;;    (get-buffer-create "*compilation*"))
+ 	;;   (message "No Compilation Errors!"))))
 
 (autoload 'nuke-trailing-whitespace "whitespace" nil t) ;remove trailing
 (autoload 'elec-par-install-electric "elec-par")

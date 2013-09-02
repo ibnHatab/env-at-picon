@@ -1,1 +1,5 @@
-google-chrome --proxy-pac-url=http://gautoconf.alcatel.fr/proxy.pac
+
+#/opt/google/chrome/google-chrome --proxy-server="cache.tm.alcatel.ro:8080"
+
+/usr/bin/google-chrome --proxy-pac-url=http://gautoconf.alcatel.fr/proxy.pac
+#/usr/bin/chromium --proxy-pac-url=http://gautoconf.alcatel.fr/proxy.pac

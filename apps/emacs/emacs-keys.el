@@ -1,4 +1,38 @@
-(require                        'define-key-wise)
+(require 'define-key-wise)
+
+;; replace buffer-menu with ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+(global-set-key "\M- " 'hippie-expand)
+
+;; Align your code in a pretty way.
+(global-set-key (kbd "C-x \\") 'align-regexp)
+
+;; Perform general cleanup.
+(global-set-key (kbd "C-c n") 'cleanup-buffer)
+
+;; Font size
+(define-key global-map (kbd "C-+") 'text-scale-increase)
+(define-key global-map (kbd "C--") 'text-scale-decrease)
+
+
+(require 'multiple-cursors)
+
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->")         'mc/mark-next-like-this)
+(global-set-key (kbd "C-<")         'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<")     'mc/mark-all-like-this)
+
+;; You can scroll the screen to center on each cursor with `C-v` and `M-v`.
+(global-unset-key (kbd "M-<down-mouse-1>"))
+(global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
+
+
+;; Completion
+(setq completion-ignore-case t
+      pcomplete-ignore-case t
+      read-file-name-completion-ignore-case t)
+
 
 ;; replace by bookmark system
 (global-set-key-wise            '[(f1)];; 'switch-other-buffer		F1
@@ -8,43 +42,31 @@
 (global-set-key-wise            '[(C-f1)]   'gse-unbury-buffer)
 (global-set-key-wise            '[(C-tab)]   'other-window)
 
+(global-set-key [(f2)]          'save-buffer)		    
+(global-set-key [(f3)]          'find-file)		    
 
-;; bookmarks
+
+;;(global-set-key [(f4)]          'iswitchb-buffer)	    ;F4
+(global-set-key [(f4)]          'ido-switch-buffer)	    ;F4
+(global-set-key [(f5)]          'previous-error)	   
+;;(global-set-key [(f5)]          'speedbar-get-focus)	    ;F5
+							    ;F7
+					                    ;F8
+;; org hijack(global-set-key [(f9)]          'compile)		    ;F9
+(global-set-key [(f10)]         'grep)			    ;F10
+(global-set-key [(C-f10)]       'nuke-trailing-whitespace)  ;F10
+(global-set-key [(f12)]         'kill-this-buffer)	    ;F12
+(global-set-key [(C-f12)]       'server-edit)		    ;F12
+
+;; bookmarks                                                
 (global-set-key [(control f11)]       'af-bookmark-toggle )
 (global-set-key [f11]                 'af-bookmark-cycle-forward )
 (global-set-key [(shift f11)]         'af-bookmark-cycle-reverse )
 (global-set-key [(control shift f11)] 'af-bookmark-clear-all )
 (global-set-key [(M-f11)]             'bookmark-bmenu-list )
 
-
-(global-set-key [(f2)]          'save-buffer)		    ;F2
-(global-set-key [(f3)]          'find-file)		    ;F3
-(global-set-key [(f4)]          'next-error)		    ;F4
-(global-set-key [(C-f4)]        'previous-error)	    ;Ctrl+F4
-
-(global-set-key [(f5)]          'speedbar-get-focus)	    ;F5
-							    ;F7
-							    ;F8
-(global-set-key [(f9)]          'compile)		    ;F9
-(global-set-key [(f10)]         'grep)			    ;F10
-(global-set-key [(C-f10)]       'nuke-trailing-whitespace)  ;F11
-(global-set-key [(f12)]         'kill-this-buffer)	    ;F12
-(global-set-key [(C-f12)]       'server-edit)		    ;F12
-
-
-;; cscope
-(define-key global-map [(control f2)] 'cscope-find-global-definition-no-prompting)  ;; f2 Definition
-(define-key global-map [(control f3)] 'cscope-find-this-symbol)                     ;; f3 Symbols
-(define-key global-map [(control f4)] 'cscope-find-functions-calling-this-function) ;; f4 References
-(define-key global-map [(control f5)] 'cscope-pop-mark)                             ;; f5 Pop mark
-(define-key global-map [(control f6)] 'cscope-display-buffer)                       ;; f6 display buffer
-(define-key global-map [(control f7)] 'cscope-prev-symbol)                          ;; f7 prev sym
-(define-key global-map [(control f8)] 'cscope-next-symbol)                          ;; f8 next sym
-(define-key global-map [(control f9)] 'cscope-set-initial-directory)                ;; f9 set initial dir
-(global-set-key [(M-tab)]	'complete-tag )
-
 ;; Compile mode
-(global-set-key [?\C-c ?b]    'compile)
+(global-set-key "\C-cb" 'compile)
 
 ;; Fast movements
 (global-set-key [M-right]       'forward-word)
@@ -71,10 +93,45 @@ With argument ARG, do this that many times."
 (global-set-key [(C-S-tab)]	'previous-multiframe-window )
 (global-set-key [(s-tab)]	'complete-tag )
 
-(global-set-key [s-left]  'windmove-left)         ; move to left windnow
-(global-set-key [s-right] 'windmove-right)        ; move to right window
-(global-set-key [s-up]    'windmove-up)           ; move to upper window
-(global-set-key [s-down]  'windmove-down)         ; move to downer window
+;; Windows Cycling
+(defun windmove-up-cycle()
+  (interactive)
+  (condition-case nil (windmove-up)
+    (error (condition-case nil (windmove-down)
+	     (error (condition-case nil (windmove-right) (error (condition-case nil (windmove-left) (error (windmove-up))))))))))
+
+(defun windmove-down-cycle()
+  (interactive)
+  (condition-case nil (windmove-down)
+    (error (condition-case nil (windmove-up)
+	     (error (condition-case nil (windmove-left) (error (condition-case nil (windmove-right) (error (windmove-down))))))))))
+
+(defun windmove-right-cycle()
+  (interactive)
+  (condition-case nil (windmove-right)
+    (error (condition-case nil (windmove-left)
+	     (error (condition-case nil (windmove-up) (error (condition-case nil (windmove-down) (error (windmove-right))))))))))
+
+(defun windmove-left-cycle()
+  (interactive)
+  (condition-case nil (windmove-left)
+    (error (condition-case nil (windmove-right)
+	     (error (condition-case nil (windmove-down) (error (condition-case nil (windmove-up) (error (windmove-left))))))))))
+
+
+(global-set-key [s-left]  'windmove-left-cycle)         ; move to left windnow
+(global-set-key [s-right] 'windmove-right-cycle)        ; move to right window
+(global-set-key [s-up]    'windmove-up-cycle)           ; move to upper window
+(global-set-key [s-down]  'windmove-down-cycle)         ; move to downer window
+
+(global-set-key [s-S-up]   'delete-other-windows-vertically)
+(global-set-key [s-S-down] 'delete-other-windows-vertically)
+
+(require 'buffer-move)
+(global-set-key [M-s-up]     'buf-move-up)
+(global-set-key [M-s-down]   'buf-move-down)
+(global-set-key [M-s-left]   'buf-move-left)
+(global-set-key [M-s-right]  'buf-move-right)
 
 ;; Undo/Redo
 (global-set-key [M-backspace]    'undo)
@@ -118,3 +175,44 @@ With argument ARG, do this that many times."
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
 
+;; Backspace Key
+(global-set-key (kbd "C-h") 'delete-backward-char)
+
+;; ORG
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key "\C-cf" 'cfw:open-org-calendar)
+
+
+(global-set-key (kbd "<f9> <f9>") 'org-cycle-agenda-files)
+(global-set-key (kbd "<f9> c") 'cfw:open-org-calendar)
+(global-set-key (kbd "<f9> w") 'widen)
+(global-set-key (kbd "<f9> v") 'visible-mode)
+(global-set-key (kbd "<f9> r") 'org-refile)
+(global-set-key (kbd "<f9> m") 'org-manage)
+(global-set-key (kbd "<f9> j") 'vki:open-default-notes-file)
+(global-set-key (kbd "<f9> S") 'org-todo)
+
+(global-set-key (kbd "<f9> d") 'org-deadline)
+(global-set-key (kbd "<f9> s") 'org-schedule)
+(global-set-key (kbd "<f9> t") 'org-time-stamp-inactive)
+(global-set-key (kbd "<f9> T") 'org-toggle-timestamp-type)
+(global-set-key (kbd "<f9> SPC") 'org-clock-in)
+(global-set-key (kbd "<f9> s-SPC") 'org-clock-goto)
+(global-set-key (kbd "<f9> p") 'org-taskjuggler-export-and-process)
+
+(global-set-key (kbd "M-<f9>") 'org-toggle-inline-images)
+
+(defun vki:open-default-notes-file ()
+ "Open a file containing refil collection"
+ (interactive)
+ (find-file org-default-notes-file))
+
+(require 'breadcrumb)
+(global-set-key [(control f2)]       'bc-set)
+(global-set-key [(shift control f2)] 'bc-clear)
+(global-set-key [(meta f2)]          'bc-previous)
+(global-set-key [(shift f2)]         'bc-next)
+(global-set-key [(shift meta f2)]    'bc-list)

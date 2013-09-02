@@ -43,38 +43,380 @@
 		("\\.hrl$"                 . erlang-mode)
 		("\\.ie$"                  . erlang-mode)
 		("\\.es$"                  . erlang-mode)
+		("\\.app$"                 . erlang-mode)
 		("\\.csp$"                 . csp-mode)
                 ("\\.\\(d\\|s\\)ats\\'"    . ats-two-mode-mode)
 		("\\.org\\'"               . org-mode)
+		("\\.m\\'"                 . octave-mode)
+		("\\.mustache\\'"          . mustache-mode)
+                ("\\.md\\'"                . markdown-mode)
+                ("\\.groovy$"              . groovy-mode)
+                ("\\.scala$"               . scala-mode)
+                ("\\.dot"                  . graphviz-dot-mode)
+                ("\\.tjp"                  . taskjuggler-mode)
                 )auto-mode-alist))
 
+
+
+;; Trello
+;;(require 'org-trello)
+;; ELPA
+;; (require 'package)
+;; (add-to-list 'package-archives 
+;;              '("marmalade" .
+;;                "http://marmalade-repo.org/packages/"))
+;; (package-initialize)
+
+;; taskjuggler                             
+;; C-c C-s	check syntax using taskjuggler backend
+;; C-c C-c	compile using taskjuggler backend
+;; C-c C-d	Insert dependency with completion and (hopefully) correct relative path
+;; C-c C-r	Insert resource (with completion and context keywords)
+;; C-c r	Rescan current buffer completely
+;; C-c i t	Insert task template
+;; C-c i r	Insert resource template
+(require 'taskjuggler-mode)
+
+;; DOT
+(load-library "graphviz-dot-mode")
+
+;; Scala-lang
+(require 'scala-mode-auto)
+(add-hook 'scala-mode-hook
+          '(lambda ()
+             (yas/minor-mode-on)
+             (local-set-key "\C-c\C-c" 'run-current-file)
+             ))
+
+;; Groovy
+(autoload 'groovy-mode "groovy-mode"
+  "Mode for editing groovy source files" t)
+(setq interpreter-mode-alist (append '(("groovy" . groovy-mode))
+   				     interpreter-mode-alist))
+
+(autoload 'groovy-mode "groovy-mode" "Groovy mode." t)
+(autoload 'run-groovy "inf-groovy" "Run an inferior Groovy process")
+(autoload 'inf-groovy-keys "inf-groovy" "Set local key defs for inf-groovy in groovy-mode")
+
+(add-hook 'groovy-mode-hook
+          '(lambda ()
+             (inf-groovy-keys)
+             (local-set-key "\C-c\C-c" 'run-current-file)
+             ))
+
+;; can set groovy-home here, if not in environment
+(setq inferior-groovy-mode-hook
+      '(lambda()
+         (setq groovy-home "/local/tools/scala/groovy")
+         ))
+
+;; Markdown
+(autoload 'markdown-mode "markdown-mode.el"
+  "Major mode for editing Markdown files" t)
+
+;; Elixir
+(add-to-list 'load-path "~/.emacs.d/emacs-elixir")
+(require 'elixir-mode-setup)
+(elixir-mode-setup)
+
+;; preload
+(require 'elixir-mode)
+
+(add-hook 'elixir-mode-hook 'my-elixir-mode-hook)
+(defun my-elixir-mode-hook ()
+  (setq comint-scroll-to-bottom-on-output t)
+  (setq elixir-iex-command "iex-emacs")
+  (local-set-key "\C-c\C-r" 'elixir-mode-iex)
+  (local-set-key "\C-c\C-z" 'iex-switch-to-process-buffer)
+  (local-set-key "\C-c\C-e" 'iex-send-line-or-region-and-step)
+  (local-set-key "\C-c\C-c" 'run-current-file)
+  )
+
+;;;
+(defun run-current-file ()
+  "Execute the current file.
+   File suffix is used to determine what program to run.
+   If the file is emacs lisp, run the byte compiled version if exist."
+  (interactive)
+  (let* (
+         (suffixMap
+          `(
+            ("pl"     . "perl")
+            ("py"     . "python")
+            ("rb"     . "ruby")
+            ("sh"     . "bash")
+            ("ml"     . "ocaml")
+            ("ex"     . "elixir")
+            ("exs"    . "elixir --sname 'elixir' -pz ../ebin")
+            ("groovy" . "groovy")
+            )
+          )
+         (fName (buffer-file-name))
+         (fSuffix (file-name-extension fName))
+         (progName (cdr (assoc fSuffix suffixMap)))
+         (cmdStr (concat progName " \""   fName "\""))
+         )
+
+    (when (buffer-modified-p)
+      (when (y-or-n-p "Buffer modified. Do you want to save first?")
+          (save-buffer) ) )
+
+    (if (string-equal fSuffix "el") ; special case for emacs lisp
+        (load (file-name-sans-extension fName))
+      (if progName
+          (progn
+            (message "Running…")
+            (shell-command cmdStr "*run-current-file output*" )
+            )
+        (message "No recognized program file suffix for this file.")
+        ) ) ))
+
+(defun iex-send-line-or-region (&optional step)
+  (interactive ())
+  (let ((proc (get-process "IEX"))
+        pbuf min max command)
+    (unless proc
+      (let ((currbuff (current-buffer)))
+        (shell)
+        (switch-to-buffer currbuff)
+        (setq proc (get-process "IEX"))
+        ))
+    (setq pbuff (process-buffer proc))
+    (if (use-region-p)
+        (setq min (region-beginning)
+              max (region-end))
+      (setq min (point-at-bol)
+            max (point-at-eol)))
+    (setq command (concat (buffer-substring min max) "\n"))
+    (with-current-buffer pbuff
+      (goto-char (process-mark proc))
+      (insert command)
+      (move-marker (process-mark proc) (point))
+      ) ;;pop-to-buffer does not work with save-current-buffer -- bug?
+    (process-send-string  proc command)
+    (display-buffer (process-buffer proc) t)
+    (when step 
+      (goto-char max)
+      (next-line))
+    ))
+
+(defun iex-send-line-or-region-and-step ()
+  (interactive)
+  (iex-send-line-or-region t))
+(defun iex-switch-to-process-buffer ()
+  (interactive)
+  (pop-to-buffer (process-buffer (get-process "IEX"
+)) t))
+
+
+;; IDO mode
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
+(setq ido-use-filename-at-point 'guess)
+;(setq ido-create-new-buffer 'always)
+
+(setq ido-file-extensions-order
+      '(".erl" ".hrl" ".org" ".txt" ".py" ".emacs" ".xml" ".rebar" ))
+
+;; octave-mode
+(autoload 'octave-mode "octave-mod" nil t)
+(add-hook 'octave-mode-hook
+          (lambda ()
+            (abbrev-mode 1)
+            (auto-fill-mode 1)
+            (local-set-key '[(M-tab)] 'octave-complete-symbol)))
+
+(add-hook 'inferior-octave-mode-hook
+               (lambda ()
+                 (turn-on-font-lock)
+                 ;; (define-key inferior-octave-mode-map [up]
+                 ;;   'comint-previous-input)
+                 ;; (define-key inferior-octave-mode-map [down]
+                 ;;   'comint-next-input)
+	       ))
+
+
 ;; Org-Mode
-(require 'org-install)
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
+(require 'org)
+(require 'calfw)
+(require 'calfw-org)
+(require 'org-manage)
+(require 'org-protocol)
+(require 'ox-taskjuggler)
+(require 'ox-freemind)
+
 (setq org-log-done 'time)
+(setq org-agenda-include-diary nil)
+(setq org-agenda-dim-blocked-tasks nil)
+(setq org-agenda-compact-blocks t)
+(setq org-agenda-span 'week)
+(setq org-export-with-toc t)
+(setq org-export-headline-levels 4)
+;; Manage .org files
+(setq org-manage-directory-org "~/public_html/ib-home") ; M-x org-manage
+(setq org-agenda-files (quote ("~/public_html/ib-home/calendar/")))
 
-;; Here is an example:
-(setq org-publish-project-alist
-      '(("org"
-	 :base-directory "~/org/org-files"
-	 :publishing-directory "~/public_html/org"
-	 :section-numbers nil
-	 :table-of-contents nil
-	 :style "<link rel=\"stylesheet\"
-                   href=\"../other/mystyle.css\"
-                   type=\"text/css\"/>")))
+(setq org-default-notes-file "~/public_html/ib-home/calendar/journal.org")
+(setq org-default-calendar-file "~/public_html/ib-home/calendar/calendar.org")
+(setq org-capture-templates
+      '(
+        ;; Someday, references, jornal
+        ("t" "Todo" entry (file+headline org-default-notes-file "Refill")
+         "* TODO %?\n  %i\n  %a\n")
+        ("i" "Idea" entry (file+headline org-default-notes-file "Idea")
+         "* %? :PLANING:\n  %i\n  %a\n")
+        ("j" "Journal" entry (file+datetree org-default-notes-file)
+         "* %?\nEntered on %U\n  %i\n  %a\n")
+        ("n" "Note" entry (file+headline org-default-notes-file "Notes")
+         "* %? :DOCS:\n%U\n%x\n" :clock-in t :clock-resume t)
 
-;;(setq org-default-notes-file (concat org-directory "/notes.org"))
-;;(define-key global-map "\C-cc" 'org-capture)
+        ;; Calendar, Meeting, Phone, Habits
+        ("m" "Meeting" entry (file+headline org-default-calendar-file "Meeting")
+         "* MEETING with %? :MEETING:\n%U\n" :clock-in t :clock-resume t)
+        ("p" "Phone call" entry (file+headline org-default-calendar-file "Phone-call")
+         "* PHONE %? :PHONE:\n%U\n" :clock-in t :clock-resume t)
+        ("h" "Habit" entry (file+headline org-default-calendar-file "Habit")
+         "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n")
+        ))
+;; smart links
+(setq org-link-abbrev-alist
+       '(("lte"  . "http://www.quintillion.co.jp/3GPP/NAMAZU_R8/namazu.cgi?query=%s&submit=Search%21&max=20&result=normal&sort=score")
+         ("google"    . "http://www.google.com/search?q=")
+         ("gmap"      . "http://maps.google.com/maps?q=%s")
+         ("omap"      . "http://nominatim.openstreetmap.org/search?q=%s&polygon=1")))
+;; Agenda 
+(setq org-stuck-projects (quote ("+LEVEL=2/-DONE" ("TODO" "NEXT" "NEXTACTION") ("DOC" "wiki") "")))
+
+(setq org-todo-keywords
+      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
+(setq org-todo-keyword-faces
+      (quote (("TODO" :foreground "red" :weight bold)
+              ("NEXT" :foreground "blue" :weight bold)
+              ("DONE" :foreground "forest green" :weight bold)
+              ("WAITING" :foreground "orange" :weight bold)
+              ("HOLD" :foreground "magenta" :weight bold)
+              ("CANCELLED" :foreground "forest green" :weight bold)
+              ("MEETING" :foreground "forest green" :weight bold)
+              ("PHONE" :foreground "forest green" :weight bold))))
+
+(setq org-tag-alist '(("doc"    . ?h)
+                      ("dev"    . ?d)
+                      ("devops" . ?o)
+                      ("test"   . ?t)
+                      ("plan"   . ?p)
+                      ("linux"  . ?l)))
+
+;;;; Refile settings
+(setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                 (org-agenda-files :maxlevel . 9))))
+(setq org-refile-use-outline-path t)
+(setq org-outline-path-complete-in-steps nil)
+(setq org-refile-allow-creating-parent-nodes (quote confirm))
+(setq org-completion-use-ido t)
+(setq ido-everywhere t)
+(setq ido-max-directory-size 100000)
+(ido-mode (quote both))
+(setq ido-default-file-method 'selected-window)
+(setq ido-default-buffer-method 'selected-window)
+(setq org-indirect-buffer-display 'current-window)
+
+(defun bh/verify-refile-target ()
+  "Exclude todo keywords with a done state from refile targets"
+  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+(setq org-refile-target-verify-function 'bh/verify-refile-target)
+
+;; Babel
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(
+   (ditaa    . t)
+   (python   . t)
+   (dot      . t)
+   (haskell  . t)
+   (org      . t)
+   (plantuml . t) 
+   (sh       . t)  
+   )) 
+
+; don't ask for confirmation
+(defun my-org-confirm-babel-evaluate (lang body)
+  (or
+   (not (string= lang "ditaa"))
+   (not (string= lang "pantuml"))
+   (not (string= lang "dot"))
+   )
+  ) 
+(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+(setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
 
 ;; Git
-(require 'egg)
+;; (require 'egg)
+;; git-gutter 
+(require 'git-gutter)
+(global-git-gutter-mode t)
+;; - (add-hook 'ruby-mode-hook 'git-gutter-mode)
+(global-set-key (kbd "C-x C-g") 'git-gutter:toggle)
+(global-set-key (kbd "C-x v =") 'git-gutter:popup-hunk)
+(global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+(global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
+(global-set-key (kbd "C-x r") 'git-gutter:revert-hunk)
+
+;; magit
+(when (locate-library "magit")
+  (require 'magit)
+)
+(defcustom git-grep-switches "-E -I -nH -i --no-color"
+  "Switches to pass to `git grep'."
+  :type 'string)
+(defcustom git-grep-default-work-tree (expand-file-name "~/code/mything")
+  "Top of your favorite git working tree. \\[git-grep] will search from here if it cannot figure out where else to look."
+  :type 'directory)
+(when (require 'vc-git nil t)
+  (defun git-grep (regexp)
+    (interactive
+     (list (read-from-minibuffer
+            "Search git repo: "
+            (let ((thing (and buffer-file-name
+                              (thing-at-point 'symbol))))
+              (or (and thing
+                       (progn
+                         (set-text-properties 0 (length thing) nil thing)
+                         (shell-quote-argument (regexp-quote thing))))
+                  ""))
+            nil nil 'git-grep-history)))
+    (let ((grep-use-null-device nil)
+          (root (or (vc-git-root default-directory)
+                    (prog1 git-grep-default-work-tree
+                      (message "git-grep: %s doesn't look like a git working tree; searching from %s instead" default-directory root)))))
+      (grep (format "GIT_PAGER='' git grep %s -e %s -- %s" git-grep-switches regexp root)))))
+(global-set-key (kbd "C-x ?") 'git-grep)
+
+(global-set-key "\C-xg" 'magit-status)
+
 
 ;; Flymake
 (require 'flymake)
+
+; elixir
+(defun flymake-elixir-init ()
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                     'flymake-create-temp-with-folder-structure))
+                     ;;'flymake-create-temp-inplace))
+  	 (local-file (file-relative-name
+  		      temp-file
+  		      (file-name-directory buffer-file-name))))
+    (list "elixirc.wrap" (list local-file))))
+    ;; (list "/usr/local/bin/elixirc --ignore-module-conflict -o /tmp" (list local-file))))
+
+(add-to-list 'flymake-allowed-file-name-masks
+ 	     '("\\.ex\\'" flymake-elixir-init))
+(push
+ '("** (.*) \\([^:]+\\):\\([0-9]+\\): \\(.*\\)"
+   1 2 nil 3) flymake-err-line-patterns)
+; file-idx line-idx col-idx (optional) text-idx(optional)
+
 ; erlang
 (defun flymake-erlang-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
@@ -87,6 +429,8 @@
 
 (add-to-list 'flymake-allowed-file-name-masks
  	     '("\\.erl\\'" flymake-erlang-init))
+
+
 ; ats
 (defun flymake-ats-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
@@ -116,6 +460,23 @@
 (push
  '("^\\(\.+\.ml[yilp]?\\|\.lhs\\):\\([0-9]+\\):\\([0-9]+\\):\\(.+\\)"
    1 2 3 4) flymake-err-line-patterns)
+
+; python
+(defun flymake-create-temp-in-system-tempdir (filename prefix)
+  (make-temp-file (or prefix "flymake")))
+
+(when (load "flymake" t)
+  (defun flymake-pyflakes-init ()
+    ;; Make sure it's not a remote buffer or flymake would not work
+     ;; (when (not (subsetp (list (current-buffer)) (tramp-list-remote-buffers)))
+      (let* ((temp-file (flymake-init-create-temp-buffer-copy
+			 'flymake-create-temp-in-system-tempdir))
+             (local-file (file-relative-name
+			  temp-file
+			  (file-name-directory buffer-file-name))))
+	(list "pyflakes" (list temp-file))))
+  (add-to-list 'flymake-allowed-file-name-masks
+	       '("\\.py\\'" flymake-pyflakes-init)))
 
 ;; optional setting
 ;; if you want to use flymake always, then add the following hook.
@@ -160,10 +521,12 @@ Key bindings:
   :keymap my-flymake-minor-mode-map)
 
 ;; Enable this keybinding (my-flymake-minor-mode) by default
-;; Added by Hartmut 2011-07-05
+(add-hook 'elixir-mode-hook 'my-flymake-minor-mode)
+(add-hook 'erlang-mode-hook 'my-flymake-minor-mode)
 (add-hook 'haskell-mode-hook 'my-flymake-minor-mode)
 (add-hook 'ats-mode-hook 'my-flymake-minor-mode)
 (add-hook 'tuareg-mode-hook 'my-flymake-minor-mode)
+(add-hook 'python-mode-hook 'my-flymake-minor-mode)
 
 ;; ATS
 (require 'ats-mode)
@@ -178,12 +541,18 @@ Key bindings:
 (require 'xcscope)
 (setq cscope-database-regexps
       '(
-        ( "^/local/cbadescu/femto_repo/metro_initial_callp/"
-          ( "/local/cbadescu/femto_repo/metro_initial_callp" ) )
-        ( "^/tmp/ccase"
-          ( "/tmp/ccase" ) )
+        ( "^/udir/vlad/repos/femto-henb"
+          ( t )
+          ( "/udir/vlad/repos/femto-cpe")
+          t
+          ( "/udir/vlad/repos/net/buildroot-2011.11/output/build/linux-3.1/"
+            ("-d" "-I/usr/include"))
+          )
+        ( "^/users/jdoe/sources/gnome/"
+          ( "/master/gnome/database" ("-d") ))
         )
-)
+      )
+
 
 (custom-set-variables
  '(cscope-truncate-lines t)
@@ -211,6 +580,8 @@ Key bindings:
 (setq erlang-root-dir   "/usr/lib/erlang")
 (add-to-list 'exec-path "/usr/lib/erlang/bin")
 (defvar inferior-erlang-prompt-timeout t)
+(add-hook 'erlang-new-file-hook 'tempo-template-erlang-normal-header)
+(add-hook 'erlang-mode-hook (lambda () (setq parens-require-spaces nil)))
 
 (add-hook 'erlang-load-hook 'my-erlang-load-hook)
 (defun my-erlang-load-hook ()
@@ -220,10 +591,13 @@ Key bindings:
 (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
 (defun my-erlang-mode-hook ()
   (setq inferior-erlang-machine-options
-        '("-sname" "emacs" "-pa" "../ebin" "-pa" "../test" "-pa" "../.eunit"))
+        '("-sname" "emacs" "-pa" "../ebin" "-pa" "../test" "-pa" "../.eunit" "-pa" "../deps/*/ebin"))
   (imenu-add-to-menubar "imenu")
-  (local-set-key [return] 'newline-and-indent)
+  (local-set-key [return]   'newline-and-indent)
   (local-set-key "\C-c\C-m" 'erlang-man-function)
+  (local-set-key "\C-c\C-c" 'erlang-compile)
+  (local-set-key "\M-tab"   'erl-complete)
+  (local-set-key "\C-c\C-v" 'erl-reload-module)
   )
 
 ;; EQC Emacs Mode -- Configuration Start
@@ -238,7 +612,7 @@ Key bindings:
 
 (defconst distel-shell-keys
   '(("\C-\M-i" erl-complete)
-    ("\M-?" erl-complete)
+    ("\M-tab" erl-complete)
     ("\M-." erl-find-source-under-point)
     ("\M-," erl-find-source-unwind)
     ("\M-*" erl-find-source-unwind)
@@ -248,8 +622,6 @@ Key bindings:
  	  (lambda ()
  	    (dolist (spec distel-shell-keys)
  	      (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
-
-
 
 ;; Esense
 (require 'esense-start)
@@ -271,7 +643,6 @@ Key bindings:
   'comint-next-input)
 (define-key comint-mode-map [(control meta p)]
   'comint-previous-input)
-
 
 ;; java script
 ;; javascript-mode
@@ -395,16 +766,32 @@ Key bindings:
 (yas/load-directory "~/apps/emacs/packages/yasnippet/snippets")
 
 ;; Python
-(autoload 'python-mode "python-mode" "Python Mode." t)
-(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-(add-to-list 'interpreter-mode-alist '("python" . python-mode))
+(require 'python)  
+(require 'pymacs)
+(add-hook 'python-mode-hook
+	  #'(lambda ()
+	      (setq
+	       python-shell-interpreter "ipython"
+	       python-shell-interpreter-args ""
+	       python-shell-prompt-regexp "In \[[0-9]+\]: "
+	       python-shell-prompt-output-regexp "Out\[[0-9]+\]: "
+	       python-shell-completion-string-code "';'.join(__IP.complete('''%s'''))\n"
+	       python-shell-completion-module-string-code "")
 
-(require 'anything)
-(require 'anything-ipython)
-(add-hook 'python-mode-hook #'(lambda ()
-  				(define-key py-mode-map (kbd "M-\'") 'anything-ipython-complete)))
-(add-hook 'ipython-shell-hook #'(lambda ()
-  				  (define-key py-mode-map (kbd "M-\'") 'anything-ipython-complete)))
+	      (define-key python-mode-map "\C-m" 'newline-and-indent)
+	      (define-key python-mode-map (kbd "C-c |") 'python-shell-send-region)
+	      (define-key python-mode-map (kbd "C-c !") 'python-shell)
+
+	      ;; rope
+	      (pymacs-load "ropemacs" "rope-")
+	      (setq ropemacs-enable-shortcuts nil)
+	      (setq ropemacs-local-prefix "C-c C-p")
+	      (setq ropemacs-enable-autoimport 't)
+	      ))
+
+
+;; mustache
+;(require 'mustache-mode)
 
 ;; Yang
 ;(autoload 'yang-mode "yang-mode" "Major mode for editing YANG spec." t)
@@ -414,16 +801,29 @@ Key bindings:
 
 
 ;;C/C++
-(autoload 'elec-cr-mode "elec-cr" "High powered C editing mode." t)
-(add-hook 'elec-cr-mode-hook 'elec-par-install-electric)
-(autoload 'elec-par-install-electric "elec-par")
-
 (add-hook 'c-mode-hook       'elec-cr-mode)
 (add-hook 'c++-mode-hook     'elec-cr-mode)
+(add-hook 'elec-cr-mode-hook 'elec-par-install-electric)
+(add-hook 'elec-c-mode-hook 'turn-on-auto-fill)
+;; (autoload 'elec-par-install-electric "elec-par")
+(autoload 'elec-cr-mode "elec-cr" "High powered C editing mode." t)
+
 
 (autoload 'expand-member-functions "member-functions" "Expand C++ member function declarations" t)
 (add-hook 'c++-mode-hook (lambda ()
                            (local-set-key "\C-cm" #'expand-member-functions)))
+
+(add-hook 'c-mode-hook (lambda ()
+			 (local-set-key "\M-." 'cscope-find-global-definition-no-prompting)
+			 (local-set-key "\M-?" 'cscope-find-this-symbol)
+			 (local-set-key "\M-," 'cscope-pop-mark)
+			 (local-set-key [(control f4)] 'cscope-find-functions-calling-this-function) ;; f4 References
+			 (local-set-key [(control f6)] 'cscope-display-buffer)                       ;; f6 display buffer
+			 (local-set-key [(control f7)] 'cscope-prev-symbol)                          ;; f7 prev sym
+			 (local-set-key [(control f8)] 'cscope-next-symbol)                          ;; f8 next sym
+			 (local-set-key [(control f9)] 'cscope-set-initial-directory)                ;; f9 set initial dir
+			 (local-set-key [(M-tab)]	'complete-tag )
+			 ))
 
 
 (add-hook  'c-mode-common-hook '(lambda () "" (interactive)
@@ -462,7 +862,7 @@ Key bindings:
                                    c-echo-syntactic-information-p nil
                                    fill-column 80
                                    comment-column 40
-                                   tab-width 4
+                                   tab-width 8
                                    c-basic-offset 4
                                    hs-minor-mode t ;; F6
                                    )

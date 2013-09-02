@@ -1,0 +1,40 @@
+# Ajoutez vos variables d'environnement personnelles dans
+# ce fichier.
+# Ajoutez ici si necessaire les quelques PATH particuliers
+# dont vous auriez besoin comme par exemple:
+# ${HOME}/bin ou autre ${HOME}/bin/sun
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Retirez les '#' si vous avez des executables personnels sous
+# votre repertoire $HOME/bin
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PATH=$PATH:$HOME/bin:/usr/sbin:/sbin
+export PATH
+
+
+# Preferences:
+# Remplacez la valeur de ces variables par
+# votre preference et retirez le '#' 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+EDITOR=vi
+export EDITOR
+WINEDITOR=gedit
+export WINEDITOR
+
+
+# Localisation:
+# Remplacez le nom d'imprimante par celui de
+# celle qui est la plus proche de votre 
+# bureau et retirez le '#'
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# LPDEST=lp0075
+# export LPDEST
+# PRINTER=lp0075
+# export PRINTER
+#LTE_ENB_OAM_DESIGN_BEGIN
+[ -f /net/pluto/vol/vol7/lte_oam_rep/oam_profile/profile/myprofile ] && source /net/pluto/vol/vol7/lte_oam_rep/oam_profile/profile/myprofile
+#LTE_ENB_OAM_DESIGN_END
+
+export PS1='${debian_chroot:+($debian_chroot)}\u@\h: \w
+$ '
+

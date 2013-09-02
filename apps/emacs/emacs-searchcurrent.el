@@ -265,19 +265,5 @@ e.g. `HelloWorldString'."
 ;; (require 'compile)
 ;;  (add-hook 'c-mode-hook (lambda () (set (make-local-variable 'compile-command) (format "make -f %s" (get-closest-pathname)))))
 
-(defun reb-copy-strip ()
-  "Copy current RE into the kill ring without quotes and single
-backslashes for later insertion."
-  (interactive)
-  (reb-update-regexp)
-  (let* ((re (with-output-to-string
-               (print (reb-target-binding reb-regexp))))
-         (str (substring re 2 (- (length re) 2))))
-    (with-temp-buffer
-      (insert str)
-      (goto-char (point-min))
-      (while (search-forward "\\\\" nil t)
-        (replace-match "\\" nil t))
-      (kill-new (buffer-substring (point-min) (point-max))))
-    (message "Regexp copied to kill-ring")))
+
 

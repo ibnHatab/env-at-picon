@@ -1,0 +1,10 @@
+#name : def method ... end
+#group : definitions
+# --
+@doc """
+   Returns $1  
+"""
+@spec ${2:method}($3) :: any
+def $2($3) do
+  $0
+end

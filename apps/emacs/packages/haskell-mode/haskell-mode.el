@@ -246,7 +246,7 @@ be set to the preferred literate style."
     (define-key map [?\C-c ?\C-b] 'switch-to-haskell)
     ;; (define-key map [?\C-c ?\C-s] 'inferior-haskell-start-process)
     ;; That's what M-; is for.
-    ;; (define-key map "\C-c\C-c" 'comment-region)
+    (define-key map "\C-c\C-z" 'comment-region)
 
     (define-key map (kbd "C-c C-t") 'inferior-haskell-type)
     (define-key map (kbd "C-c C-i") 'inferior-haskell-info)
