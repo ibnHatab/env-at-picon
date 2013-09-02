@@ -205,11 +205,8 @@ autoload -U compinit && compinit -u
 [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
 
 # ~ places
-<<<<<<< HEAD
-=======
 hash -d repo=/local/vlad/repos/
 hash -d store=/net/aeries/local/storage/
->>>>>>> b9541a34e50204a7326e0bd0f3c6370207f03287
 hash -d sc=/net/pluto/vol/vol3/timco/SmallCells
 
 
@@ -238,17 +235,13 @@ export JAVA_HOME=/local/tools/jdk1.7.0_21/
 export SCALA_HOME=/local/tools/scala/scala
 export GROOVY_HOME=/local/tools/scala/groovy
 # Customize to your needs...
-<<<<<<< HEAD
-export PATH=$HOME/bin:/sbin:/usr/bin:/bin:$HOME/libs/ib-utils/bin:/sbin:/usr/sbin:$HOME/.autojump/bin
 
-source $HOME/libs/ib-utils/ib-platform.rc
-=======
 export PATH=$HOME/bin:/sbin:/usr/bin:/bin:/usr/local/bin:$GROOVY_HOME/bin:$SCALA_HOME/bin:/local/tools/scala/sbt/bin:$JAVA_HOME/bin
+source $HOME/libs/ib-utils/ib-platform.rc
 
 # Android
 export ADT_HOME=/local/tools/scala/adt-bundle-linux-x86-20130522/sdk
 export PATH=$PATH:$ADT_HOME/tools:$ADT_HOME/platform-tools
->>>>>>> b9541a34e50204a7326e0bd0f3c6370207f03287
 
 #CLANG
 export PATH=$PATH:/local/tools/clang/bin:/local/tools/clang/share/scan-view
