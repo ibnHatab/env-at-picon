@@ -1,0 +1,8 @@
+#name : defmacro ... end
+#group : definitions
+# --
+defmacro ${2:macro}(${3:args}) do
+  quote do
+    $0
+  end
+end

@@ -1,0 +1,6 @@
+#name : def method spec and doc
+#group : definitions
+# --
+def ${1:method}(${2:args}) do
+  $0
+end

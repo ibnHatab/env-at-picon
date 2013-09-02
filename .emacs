@@ -13,15 +13,23 @@
        '(expand-file-name "~/apps/emacs/packages/yasnippet" )
        '(expand-file-name "~/apps/emacs/packages/ensime/elisp" )
        '(expand-file-name "~/apps/emacs/packages/esense" )
-       '(expand-file-name "~/apps/emacs/packages/erlang-mode" )
        '(expand-file-name "~/apps/emacs/packages/distel" )
        '(expand-file-name "~/apps/emacs/packages/wrangler" )
        '(expand-file-name "~/apps/emacs/packages/haskell-mode" )
-       '(expand-file-name "~/apps/emacs/packages/org/lisp")
-       '(expand-file-name "~/apps/emacs/packages/org/contrinlisp")
        '(expand-file-name "~/apps/emacs/packages/python" )
+<<<<<<< HEAD
        '(expand-file-name "~/apps/emacs/packages/elixir" )
+=======
+       '(expand-file-name "~/apps/emacs/packages/scala" )
+       '(expand-file-name "~/apps/emacs/packages/groovy" )
+       '(expand-file-name "~/apps/emacs/packages/org-mode/lisp" )
+       '(expand-file-name "~/apps/emacs/packages/org-mode/contrib/lisp" )
+       '(expand-file-name "~/apps/emacs/packages/multiple-cursors.el" )
+       '(expand-file-name "~/apps/emacs/packages/emacs-elixir" )
+>>>>>>> b9541a34e50204a7326e0bd0f3c6370207f03287
        load-path))
+
+(setq-default indent-tabs-mode nil)
 
 ;;(setq mac-command-modifier 'meta) ;;Sets the command (Apple) key as Meta
 
@@ -110,12 +118,11 @@
  '(menu-bar-mode nil)
  '(next-line-add-newlines nil)
  '(org-support-shift-select t)
- ;; '(pc-selection-mode f nil (pc-select))
+ '(pc-selection-mode t nil (pc-select))
  '(pdb-path (quote /usr/lib/python2\.6/pdb\.py))
  '(python-default-interpreter (quote cpython))
  '(python-shell-interpreter "python")
  '(python-shell-interpreter-args "-i")
- ; '(ropemacs-enable-shortcuts nil)
  '(safe-local-variable-values (quote ((c-set-style "linux"))))
  '(show-paren-mode t nil (paren))
  '(show-paren-ring-bell-on-mismatch t)
@@ -127,8 +134,9 @@
  '(truncate-partial-width-windows nil)
  '(vc-command-messages t)
  '(vc-initial-comment t)
- '(wrangler-search-paths (quote ("/local/vlad/repos/otp/tr69/src" "/local/vlad/repos/otp/tr69/include" "/local/vlad/repos/otp/tr69/test")))
+ '(wrangler-search-paths (quote ("/local/vlad/repos/elixir/exdsl/exdsl_ct")))
  '(x-select-enable-clipboard t))
+
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom.

@@ -70,13 +70,13 @@ export HISTSIZE=5000000
 export SAVEHIST=$HISTSIZE
 export HISTFILE=~/.zsh_history
 
-unsetopt bang_hist
+#unsetopt bang_hist
 setopt   hist_ignore_space
 setopt   extended_history
 setopt   hist_find_no_dups
 setopt   inc_append_history
 setopt   share_history
-
+setopt   histignoredups
 
 # word/by/word/break
 export WORDCHARS='*?_-[]~&;=!#$%^(){}<>'
@@ -101,7 +101,7 @@ alias     pd='pushd'
 alias     po='popd'
 
 alias     grep='grep --colour=tty --binary-files=text'
-alias        h='history 25'
+alias        h='fc -l -25'
 alias    kdiff='kdiff3'
 alias       ls='ls --color=tty '
 alias        l='ls -CF --color=tty '
@@ -132,9 +132,12 @@ alias         st="/local/tools/Sublime_Text_2/sublime_text"
 typeset -A account                             # "account" associative array
 account=(
     aeries        vkinzers@135.243.22.59
-    leonis        vkinzers@135.243.22.61
+#    leonis        vkinzers@135.243.22.61
+    leonis        vkinzers@135.243.2.148
     caprica       vkinzers@135.243.22.63
     tauron        vkinzers@135.243.22.64
+
+    aquaria       vkinzers@135.247.153.150
 
     mrclte80      vkinzers@mrclte80.mrc.alcatel.ro
     mrclte182     vkinzers@mrclte182.mrc.alcatel.ro
@@ -142,7 +145,7 @@ account=(
 
     earth         vkinzers@135.86.200.84
     iceccase3	  vkinzers@135.86.206.143
-
+	MASVRSUN01    lte@135.86.200.121 # wayaround to ftp://alc-luc:naka5Eju@ftp.spg-tm.com
 )
 for k (${(k)account}) {                         # for each key in account
     alias $k="ssh -X $account[$k]"                 #   create an ssh alias
@@ -162,8 +165,8 @@ alias -g  E='|perl -ne'       # as F, w/o implied print (E0 slurps)[2002­08­16]
 alias -g E0='|perl -0777ne'   #                                    [2002­08­16]
 alias -g  F='|perl -pe'       # filter (perl, F0 slurps)           [2002­01­10]
 alias -g F0='|perl -0777pe'   #                                    [2002­08­16]
-alias -g  G='|egrep'          # (e)grep (G0 searches stderr too)   [2002­08­15]
-alias -g G0='|&egrep'         #                                    [2002­09­11]
+alias -g  G='|egrep -i'          # (e)grep (G0 searches stderr too)   [2002­08­15]
+alias -g G0='|&egrep -i'         #                                    [2002­09­11]
 # H
 alias -g  I='|column'         # columnify (think: `I' is a column) [2002­05­21]
 # J
@@ -188,6 +191,8 @@ alias -g  X='|tr -s " " "\t" |cut -f' # cut on tabs and spaces     [2002­04­27]
 alias -g  Y='&>/dev/null &; disown' # fork process (`Y' is a fork) [2002­08­27]
 alias -g  Z='|tail'           # tail (also Z<n> were <n> is 1-30)  [2001­10­20]
 
+alias -s txt='less -rE'
+
 # aliases A<n> and Z<n> (where <n> is 1-30)
 for ((i=1; i<=30; i++)); do     #
     alias -g A$i="|grc head -n$i"   # head (1-30 rows)                 [2002­05­20]
@@ -200,10 +205,13 @@ autoload -U compinit && compinit -u
 [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
 
 # ~ places
+<<<<<<< HEAD
+=======
+hash -d repo=/local/vlad/repos/
+hash -d store=/net/aeries/local/storage/
+>>>>>>> b9541a34e50204a7326e0bd0f3c6370207f03287
 hash -d sc=/net/pluto/vol/vol3/timco/SmallCells
 
-# archives
-alias -s txt='less -rE'
 
 # builtin functions
 autoload -U zargs    ## zargs **/*~ -- rm
@@ -211,12 +219,36 @@ autoload -U zmv      ## zmv '(**/)(*) - (*) - (*) - (*).ogg' '$1/$2/$2 - $3/$2 -
 autoload -U run-help ## key sequence: ALT-h (aka ESC-h).
                      ## cd foo [TAB]
 
+function lt() { ls -ltrsa "$@" | tail; }
+function psgrep() { ps axuf | grep -v grep | grep "$@" -i --color=auto; }
+function fname() { find . -iname "*$@*"; }
+function remove_lines_from() { grep -F -x -v -f $2 $1; }
+unalias gg
+function gg() { git grep -in "$@"; }
+
+#removes lines from $1 if they appear in $2
+alias pp="ps axuf | pager"
 
 # keys
 bindkey -s '^[l' "ls -CF --color=tty\n"
 
+setterm -blength 0
+
+export JAVA_HOME=/local/tools/jdk1.7.0_21/
+export SCALA_HOME=/local/tools/scala/scala
+export GROOVY_HOME=/local/tools/scala/groovy
 # Customize to your needs...
+<<<<<<< HEAD
 export PATH=$HOME/bin:/sbin:/usr/bin:/bin:$HOME/libs/ib-utils/bin:/sbin:/usr/sbin:$HOME/.autojump/bin
 
 source $HOME/libs/ib-utils/ib-platform.rc
+=======
+export PATH=$HOME/bin:/sbin:/usr/bin:/bin:/usr/local/bin:$GROOVY_HOME/bin:$SCALA_HOME/bin:/local/tools/scala/sbt/bin:$JAVA_HOME/bin
 
+# Android
+export ADT_HOME=/local/tools/scala/adt-bundle-linux-x86-20130522/sdk
+export PATH=$PATH:$ADT_HOME/tools:$ADT_HOME/platform-tools
+>>>>>>> b9541a34e50204a7326e0bd0f3c6370207f03287
+
+#CLANG
+export PATH=$PATH:/local/tools/clang/bin:/local/tools/clang/share/scan-view
