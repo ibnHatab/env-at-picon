@@ -29,7 +29,7 @@ HISTSIZE=1000000
 export HISTFILESIZE HISTSIZE
 
 #Erlang
-ERL_LIBS=/udir/tools/otp/lib/erlang/lib
+ERL_LIBS=/udir/tools/otp/lib/erlang/lib:$HOME/libs:/local/$USER/repos/superdeps/
 ERL_LIBS=$ERL_LIBS:$HOME/libs/femto_test/deps:$HOME/libs/femto_test/apps
 export ERL_LIBS
 

@@ -56,6 +56,12 @@
                 ("\\.tjp"                  . taskjuggler-mode)
                 )auto-mode-alist))
 
+<<<<<<< HEAD
+;; Elixir
+(require 'elixir-mode-setup)
+(elixir-mode-setup)
+
+=======
 
 
 ;; Trello
@@ -201,6 +207,7 @@
   (pop-to-buffer (process-buffer (get-process "IEX"
 )) t))
 
+>>>>>>> b9541a34e50204a7326e0bd0f3c6370207f03287
 
 ;; IDO mode
 (setq ido-enable-flex-matching t)
@@ -239,6 +246,33 @@
 (require 'ox-taskjuggler)
 (require 'ox-freemind)
 
+<<<<<<< HEAD
+;; Here is an example:
+;; (setq org-publish-project-alist
+;;       '(("org"
+;; 	 :base-directory "~/org/org-files"
+;; 	 :publishing-directory "~/public_html/org"
+;; 	 :section-numbers nil
+;; 	 :table-of-contents nil
+;; 	 :style "<link rel=\"stylesheet\"
+;;                    href=\"../other/mystyle.css\"
+;;                    type=\"text/css\"/>")))
+
+;; (setq org-default-notes-file (concat org-directory "/notes.org"))
+;(define-key global-map "\C-cc" 'org-capture)
+;(org-babel-do-load-languages
+; 'org-babel-load-languages
+; '(
+;   (ditaa . t)
+   ;(python . t)
+   ;; (dot . t)
+   ;; (haskell . t)
+;   )) ; this line activates ditaa
+
+;(defun my-org-confirm-babel-evaluate (lang body)
+;  (not (string= lang "ditaa")))  ; don't ask for ditaa
+;(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+=======
 (setq org-log-done 'time)
 (setq org-agenda-include-diary nil)
 (setq org-agenda-dim-blocked-tasks nil)
@@ -345,6 +379,7 @@
   ) 
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+>>>>>>> b9541a34e50204a7326e0bd0f3c6370207f03287
 
 ;; Git
 ;; (require 'egg)

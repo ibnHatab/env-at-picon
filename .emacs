@@ -17,12 +17,16 @@
        '(expand-file-name "~/apps/emacs/packages/wrangler" )
        '(expand-file-name "~/apps/emacs/packages/haskell-mode" )
        '(expand-file-name "~/apps/emacs/packages/python" )
+<<<<<<< HEAD
+       '(expand-file-name "~/apps/emacs/packages/elixir" )
+=======
        '(expand-file-name "~/apps/emacs/packages/scala" )
        '(expand-file-name "~/apps/emacs/packages/groovy" )
        '(expand-file-name "~/apps/emacs/packages/org-mode/lisp" )
        '(expand-file-name "~/apps/emacs/packages/org-mode/contrib/lisp" )
        '(expand-file-name "~/apps/emacs/packages/multiple-cursors.el" )
        '(expand-file-name "~/apps/emacs/packages/emacs-elixir" )
+>>>>>>> b9541a34e50204a7326e0bd0f3c6370207f03287
        load-path))
 
 (setq-default indent-tabs-mode nil)

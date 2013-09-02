@@ -1,6 +1,11 @@
 %%-*- mode: erlang -*-
 
 code:load_abs(os:getenv("HOME") ++ "/libs/femto_test/ebin/user_default").
+<<<<<<< HEAD
+code:add_pathz(os:getenv("HOME") ++ "/libs/femto_test/ebin").
+code:add_pathz("/usr/local/share/distel/ebin/").
+
+=======
 
 %% project local deps
 [code:add_patha(Path ++ "/ebin") || Path <-  filelib:wildcard("deps/*")
@@ -10,3 +15,4 @@ code:load_abs(os:getenv("HOME") ++ "/libs/femto_test/ebin/user_default").
 %% test framework and emacs support
 code:add_pathz(os:getenv("HOME") ++ "/libs/femto_test/ebin").
 code:add_pathz("/usr/local/share/distel/ebin/").
+>>>>>>> origin/vlad_at_picon
