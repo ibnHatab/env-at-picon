@@ -138,6 +138,7 @@ account=(
     tauron        vkinzers@135.243.22.64
 
     aquaria       vkinzers@135.247.153.150
+	tomtom        root@135.247.153.151
 
     mrclte80      vkinzers@mrclte80.mrc.alcatel.ro
     mrclte182     vkinzers@mrclte182.mrc.alcatel.ro
@@ -152,7 +153,6 @@ for k (${(k)account}) {                         # for each key in account
 #    alias ${k}xterm="$k -f 'xterm -T $k -n $k'" #   and an xterm alias
 }; unset k                                      #
 
-alias test1='ssh -f -N -L work;ssh test1'
 
 # TAPS:
 # common pipe­ending commands (taps)

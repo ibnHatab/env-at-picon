@@ -68,13 +68,6 @@
 ;; (package-initialize)
 
 ;; taskjuggler                             
-;; C-c C-s	check syntax using taskjuggler backend
-;; C-c C-c	compile using taskjuggler backend
-;; C-c C-d	Insert dependency with completion and (hopefully) correct relative path
-;; C-c C-r	Insert resource (with completion and context keywords)
-;; C-c r	Rescan current buffer completely
-;; C-c i t	Insert task template
-;; C-c i r	Insert resource template
 (require 'taskjuggler-mode)
 
 ;; DOT
@@ -253,6 +246,8 @@
 (setq org-agenda-span 'week)
 (setq org-export-with-toc t)
 (setq org-export-headline-levels 4)
+(setq browse-url-browser-function 'browse-url-generic browse-url-generic-program "gnome-open")
+
 ;; Manage .org files
 (setq org-manage-directory-org "~/public_html/ib-home") ; M-x org-manage
 (setq org-agenda-files (quote ("~/public_html/ib-home/calendar/")))
