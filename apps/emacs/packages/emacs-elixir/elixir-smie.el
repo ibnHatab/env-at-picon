@@ -12,7 +12,12 @@
 
 (defvar elixir-mode-syntax-table
   (let ((elixir-mode-syntax-table (make-syntax-table)))
+
+    ;; Note that ?_ might be better as class "_", but either seems to
+    ;; work:
     (modify-syntax-entry ?_ "w" elixir-mode-syntax-table)
+    (modify-syntax-entry ?? "w" elixir-mode-syntax-table)
+
     (modify-syntax-entry ?' "\"" elixir-mode-syntax-table)
     (modify-syntax-entry ?# "<" elixir-mode-syntax-table)
     (modify-syntax-entry ?\n ">" elixir-mode-syntax-table)
@@ -26,6 +31,32 @@
     (modify-syntax-entry ?\@ "'" elixir-mode-syntax-table)
     elixir-mode-syntax-table)
   "Elixir mode syntax table.")
+
+(defun elixir-syntax-propertize (start end)
+  (save-excursion
+    (goto-char start)
+    ;; The ? character on its own is supposed to escape whatever comes
+    ;; after it (including any escaped chars. Examples: ?\# and ?".
+    (while (search-forward "?" end t)
+      (let ((start (1- (point))))
+        (unless (or (= (char-syntax (char-before (- (point) 1))) ?w)
+                    (= (char-syntax (char-before (- (point) 1))) ?_))
+          (put-text-property (1- (point))
+                             (point)
+                             'syntax-table
+                             '(?|))
+          (when (= (char-after) ?\\)
+            (forward-char)
+            (put-text-property (1- (point))
+                               (point)
+                               'syntax-table
+                               '(?\s)))
+          (forward-char)
+          (put-text-property (1- (point))
+                             (point)
+                             'syntax-table
+                             '(?|))
+          (put-text-property start (point) 'font-lock-face 'font-lock-string-face))))))
 
 (defmacro elixir-smie-debug (message &rest format-args)
   `(progn
@@ -79,7 +110,7 @@ Return non-nil if any line breaks were skipped."
 
 Return non-nil if any line breaks were skipped."
   (let ((start-line-no (line-number-at-pos (point))))
-    (forward-comment (point))
+    (forward-comment (buffer-size))
     (/= start-line-no (line-number-at-pos (point)))))
 
 (defun elixir-smie-next-token-no-lookaround (forwardp nested)
@@ -242,57 +273,37 @@ Return non-nil if any line breaks were skipped."
     value))
 
 (defun elixir-smie-rules (kind token)
-  ;; (pcase (cons kind token)
-  ;;   (`(:elem . basic)
-  ;;    (if (smie-rule-hanging-p)
-  ;;        0
-  ;;      elixir-smie-indent-basic))
-  ;;   (`(:after . "OP")
-  ;;    (unless (smie-rule-sibling-p)
-  ;;      elixir-smie-indent-basic))
-  ;;   (`(:before. "OP")
-  ;;    ;; FIXME: Issue #5: This should prevent comments on lines before
-  ;;    ;; continuation lines from causing indentation messed-upness, but
-  ;;    ;; for some reason SMIE doesn't look this far when there's a
-  ;;    ;; comment terminating the previous line. Ugh.
-  ;;    nil)
-  ;;   (`(:after . "->")
-  ;;    (when (smie-rule-hanging-p)
-  ;;      elixir-smie-indent-basic))
-  ;;   ;; (`(,_ . ,(or `"COMMA")) (smie-rule-separator kind))
-  ;;   (`(:after . "=") elixir-smie-indent-basic)
-  ;;   ;; (`(:after . ,(or `"do"))
-  ;;   ;;  elixir-smie-indent-basic)
-  ;;   ;; (`(:list-intro . ,(or `"do")) 
-  ;;   ;;  t)
-  ;;   ))
-  )
-(defun vki-elixir-smie-rules (kind token)
-  (case kind
-    (:elem
-     (cond
-      ((equal basic) elixir-smie-indent-basic)))
-    (:after
-     (cond
-      ((equal token "OP") elixir-smie-indent-basic)
-      ((equal token "->") elixir-smie-indent-basic)))
-    (:before
-     (cond
-      ((equal token "OP") elixir-smie-indent-basic)
-      ))
-    ))
+  (pcase (cons kind token)
+    (`(:elem . basic)
+     (if (smie-rule-hanging-p)
+         0
+       elixir-smie-indent-basic))
+    (`(:after . "OP")
+     (unless (smie-rule-sibling-p)
+       elixir-smie-indent-basic))
+    (`(:before. "OP")
+     ;; FIXME: Issue #5: This should prevent comments on lines before
+     ;; continuation lines from causing indentation messed-upness, but
+     ;; for some reason SMIE doesn't look this far when there's a
+     ;; comment terminating the previous line. Ugh.
+     nil)
+    (`(:after . "->")
+     (when (smie-rule-hanging-p)
+       elixir-smie-indent-basic))
+    ;; (`(,_ . ,(or `"COMMA")) (smie-rule-separator kind))
+    (`(:after . "=") elixir-smie-indent-basic)
+    (`(:after . ",") elixir-smie-indent-basic)
+    (`(:after . "do") elixir-smie-indent-basic)
+    (`(:list-intro . "do")
+     t) ))
 
 (define-minor-mode elixir-smie-mode
   "SMIE-based indentation and syntax for Elixir"
   nil nil nil nil
   (set (make-local-variable 'comment-start) "# ")
   (set (make-local-variable 'comment-end) "")
-  (smie-setup elixir-smie-grammar 
-              'vki-elixir-smie-rules
-              ;; 'verbose-elixir-smie-rules
+  (smie-setup elixir-smie-grammar 'elixir-smie-rules ; 'verbose-elixir-smie-rules
               :forward-token 'elixir-smie-forward-token
               :backward-token 'elixir-smie-backward-token))
-
-(define-key elixir-mode-map (kbd "C-M-d") 'smie-down-list)
 
 (provide 'elixir-smie)

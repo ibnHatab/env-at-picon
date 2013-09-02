@@ -56,13 +56,18 @@
                 ("\\.tjp"                  . taskjuggler-mode)
                 )auto-mode-alist))
 
-<<<<<<< HEAD
 ;; Elixir
-(require 'elixir-mode-setup)
-(elixir-mode-setup)
+(require 'elixir-mode)
 
-=======
-
+(add-hook 'elixir-mode-hook 'my-elixir-mode-hook)
+(defun my-elixir-mode-hook ()
+  (setq comint-scroll-to-bottom-on-output t)
+  (setq elixir-iex-command "iex-emacs")
+  (local-set-key "\C-c\C-r" 'elixir-mode-iex)
+  (local-set-key "\C-c\C-z" 'iex-switch-to-process-buffer)
+  (local-set-key "\C-c\C-e" 'iex-send-line-or-region-and-step)
+  (local-set-key "\C-c\C-c" 'run-current-file)
+  )
 
 ;; Trello
 ;;(require 'org-trello)
@@ -113,25 +118,8 @@
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
 
-;; Elixir
-(add-to-list 'load-path "~/.emacs.d/emacs-elixir")
-(require 'elixir-mode-setup)
-(elixir-mode-setup)
 
-;; preload
-(require 'elixir-mode)
-
-(add-hook 'elixir-mode-hook 'my-elixir-mode-hook)
-(defun my-elixir-mode-hook ()
-  (setq comint-scroll-to-bottom-on-output t)
-  (setq elixir-iex-command "iex-emacs")
-  (local-set-key "\C-c\C-r" 'elixir-mode-iex)
-  (local-set-key "\C-c\C-z" 'iex-switch-to-process-buffer)
-  (local-set-key "\C-c\C-e" 'iex-send-line-or-region-and-step)
-  (local-set-key "\C-c\C-c" 'run-current-file)
-  )
-
-;;;
+;;; Shell interpreters
 (defun run-current-file ()
   "Execute the current file.
    File suffix is used to determine what program to run.
@@ -207,7 +195,6 @@
   (pop-to-buffer (process-buffer (get-process "IEX"
 )) t))
 
->>>>>>> b9541a34e50204a7326e0bd0f3c6370207f03287
 
 ;; IDO mode
 (setq ido-enable-flex-matching t)
@@ -246,33 +233,6 @@
 (require 'ox-taskjuggler)
 (require 'ox-freemind)
 
-<<<<<<< HEAD
-;; Here is an example:
-;; (setq org-publish-project-alist
-;;       '(("org"
-;; 	 :base-directory "~/org/org-files"
-;; 	 :publishing-directory "~/public_html/org"
-;; 	 :section-numbers nil
-;; 	 :table-of-contents nil
-;; 	 :style "<link rel=\"stylesheet\"
-;;                    href=\"../other/mystyle.css\"
-;;                    type=\"text/css\"/>")))
-
-;; (setq org-default-notes-file (concat org-directory "/notes.org"))
-;(define-key global-map "\C-cc" 'org-capture)
-;(org-babel-do-load-languages
-; 'org-babel-load-languages
-; '(
-;   (ditaa . t)
-   ;(python . t)
-   ;; (dot . t)
-   ;; (haskell . t)
-;   )) ; this line activates ditaa
-
-;(defun my-org-confirm-babel-evaluate (lang body)
-;  (not (string= lang "ditaa")))  ; don't ask for ditaa
-;(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
-=======
 (setq org-log-done 'time)
 (setq org-agenda-include-diary nil)
 (setq org-agenda-dim-blocked-tasks nil)
@@ -379,7 +339,6 @@
   ) 
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
->>>>>>> b9541a34e50204a7326e0bd0f3c6370207f03287
 
 ;; Git
 ;; (require 'egg)
@@ -606,7 +565,6 @@ Key bindings:
 (require 'csp-mode)
 
 ;; Erlang
-
 (setq erlang-root-dir   "/usr/lib/erlang")
 (add-to-list 'exec-path "/usr/lib/erlang/bin")
 (defvar inferior-erlang-prompt-timeout t)
