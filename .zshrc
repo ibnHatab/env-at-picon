@@ -10,7 +10,7 @@ ZSH_THEME="alanpeabody"
 ZSH_THEME="af-magic"   
 
 declare -A viewmap
-viewmap["aeries"]="3den"
+viewmap["aeries"]="alanpeabody"
 viewmap["caprica"]="afowler"
 viewmap["tauron"]="robbyrussell"
 viewmap["leonis"]="alanpeabody"
@@ -200,7 +200,6 @@ autoload -U compinit && compinit -u
 [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
 
 # ~ places
-hash -d repo=/local/vlad/repos/
 hash -d sc=/net/pluto/vol/vol3/timco/SmallCells
 
 # archives
@@ -217,6 +216,7 @@ autoload -U run-help ## key sequence: ALT-h (aka ESC-h).
 bindkey -s '^[l' "ls -CF --color=tty\n"
 
 # Customize to your needs...
-export PATH=$HOME/bin:/sbin:/usr/bin:/bin
+export PATH=$HOME/bin:/sbin:/usr/bin:/bin:$HOME/libs/ib-utils/bin:/sbin:/usr/sbin:$HOME/.autojump/bin
 
+source $HOME/libs/ib-utils/ib-platform.rc
 

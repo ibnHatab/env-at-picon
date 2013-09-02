@@ -20,6 +20,7 @@
        '(expand-file-name "~/apps/emacs/packages/org/lisp")
        '(expand-file-name "~/apps/emacs/packages/org/contrinlisp")
        '(expand-file-name "~/apps/emacs/packages/python" )
+       '(expand-file-name "~/apps/emacs/packages/elixir" )
        load-path))
 
 ;;(setq mac-command-modifier 'meta) ;;Sets the command (Apple) key as Meta

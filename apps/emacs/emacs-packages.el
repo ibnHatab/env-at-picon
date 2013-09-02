@@ -51,6 +51,11 @@
 		("\\.mustache\\'"          . mustache-mode)
                 )auto-mode-alist))
 
+;; Elixir
+(require 'elixir-mode-setup)
+(elixir-mode-setup)
+
+
 ;; IDO mode
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
@@ -96,14 +101,14 @@
 ;;                    type=\"text/css\"/>")))
 
 ;; (setq org-default-notes-file (concat org-directory "/notes.org"))
-(define-key global-map "\C-cc" 'org-capture)
+;(define-key global-map "\C-cc" 'org-capture)
 ;(org-babel-do-load-languages
 ; 'org-babel-load-languages
 ; '(
 ;   (ditaa . t)
-;   (python . t)
-;   ;; (dot . t)
-;   ;; (haskell . t)
+   ;(python . t)
+   ;; (dot . t)
+   ;; (haskell . t)
 ;   )) ; this line activates ditaa
 
 ;(defun my-org-confirm-babel-evaluate (lang body)

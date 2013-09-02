@@ -19,7 +19,7 @@ xset r 103
 
 
 #xsetroot -solid midnightblue
-#xsetroot -cursor_name left_ptr
+xsetroot -cursor_name left_ptr
 
 #xscreensaver -no-splash &
 
