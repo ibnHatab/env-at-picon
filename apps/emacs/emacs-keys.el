@@ -58,12 +58,6 @@
 (global-set-key [(f12)]         'kill-this-buffer)	    ;F12
 (global-set-key [(C-f12)]       'server-edit)		    ;F12
 
-;; bookmarks                                                
-(global-set-key [(control f11)]       'af-bookmark-toggle )
-(global-set-key [f11]                 'af-bookmark-cycle-forward )
-(global-set-key [(shift f11)]         'af-bookmark-cycle-reverse )
-(global-set-key [(control shift f11)] 'af-bookmark-clear-all )
-(global-set-key [(M-f11)]             'bookmark-bmenu-list )
 
 ;; Compile mode
 (global-set-key "\C-cb" 'compile)
@@ -210,9 +204,16 @@ With argument ARG, do this that many times."
  (interactive)
  (find-file org-default-notes-file))
 
-(require 'breadcrumb)
-(global-set-key [(control f2)]       'bc-set)
-(global-set-key [(shift control f2)] 'bc-clear)
-(global-set-key [(meta f2)]          'bc-previous)
-(global-set-key [(shift f2)]         'bc-next)
-(global-set-key [(shift meta f2)]    'bc-list)
+;; (require 'breadcrumb)
+;; (global-set-key [(control f2)]       'bc-set)
+;; (global-set-key [(shift control f2)] 'bc-clear)
+;; (global-set-key [(meta f2)]          'bc-previous)
+;; (global-set-key [(shift f2)]         'bc-next)
+;; (global-set-key [(shift meta f2)]    'bc-list)
+
+;; bookmarks                                                
+(global-set-key [(control f2)]       'af-bookmark-toggle)
+(global-set-key [(shift control f2)] 'af-bookmark-clear-all)
+(global-set-key [(meta f2)]          'af-bookmark-cycle-forward)
+(global-set-key [(shift f2)]         'af-bookmark-cycle-reverse)
+(global-set-key [(shift meta f2)]    'bookmark-bmenu-list)

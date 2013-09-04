@@ -51,7 +51,7 @@
 		("\\.mustache\\'"          . mustache-mode)
                 ("\\.md\\'"                . markdown-mode)
                 ("\\.groovy$"              . groovy-mode)
-                ("\\.scala$"               . scala-mode)
+                ("\\.scala$"               . scala-mode2)
                 ("\\.dot"                  . graphviz-dot-mode)
                 ("\\.tjp"                  . taskjuggler-mode)
                 )auto-mode-alist))
@@ -85,12 +85,15 @@
 (load-library "graphviz-dot-mode")
 
 ;; Scala-lang
-(require 'scala-mode-auto)
-(add-hook 'scala-mode-hook
-          '(lambda ()
-             (yas/minor-mode-on)
-             (local-set-key "\C-c\C-c" 'run-current-file)
-             ))
+;; (require 'scala-mode-auto)
+;(require 'scala-mode2)
+;(require 'scala-mode2)
+
+;(add-hook 'scala-mode-hook
+;          '(lambda ()
+;             (yas/minor-mode-on)
+;             (local-set-key "\C-c\C-c" 'run-current-file)
+;             ))
 
 ;; Groovy
 (autoload 'groovy-mode "groovy-mode"

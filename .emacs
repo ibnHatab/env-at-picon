@@ -17,7 +17,7 @@
        '(expand-file-name "~/apps/emacs/packages/wrangler" )
        '(expand-file-name "~/apps/emacs/packages/haskell-mode" )
        '(expand-file-name "~/apps/emacs/packages/python" )
-       '(expand-file-name "~/apps/emacs/packages/scala" )
+       '(expand-file-name "~/apps/emacs/packages/scala-mode2" )
        '(expand-file-name "~/apps/emacs/packages/groovy" )
        '(expand-file-name "~/apps/emacs/packages/org-mode/lisp" )
        '(expand-file-name "~/apps/emacs/packages/org-mode/contrib/lisp" )

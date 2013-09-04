@@ -157,6 +157,7 @@ alias rds-pc1="rdesktop -u User -p Init_4321  -g 1670x1020  135.243.22.246"
 alias rds-pc2="rdesktop -u User -p Init_4321  -g 1670x1020 135.243.22.58"
 alias rds-pc3="rdesktop -u axadmin -p Omc3  -g 1670x1020 135.243.22.56"
 alias rds-pc4="rdesktop -u User -p Init_4321  -g 1670x1020 135.243.22.247"
+alias rds-fs-gui="rdesktop -u administrator -p vision -g 1670x1020 135.247.153.157"
 
 # TAPS:
 # common pipe­ending commands (taps)
