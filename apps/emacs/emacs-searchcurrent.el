@@ -266,4 +266,29 @@ e.g. `HelloWorldString'."
 ;;  (add-hook 'c-mode-hook (lambda () (set (make-local-variable 'compile-command) (format "make -f %s" (get-closest-pathname)))))
 
 
+(load-library "hideshow")
+
+(defun toggle-selective-display (column)
+  (interactive "P")
+  (set-selective-display
+   (or column
+       (unless selective-display
+         (1+ (current-column))))))
+
+(defun toggle-hiding (column)
+  (interactive "P")
+  (if hs-minor-mode
+      (if (condition-case nil
+              (hs-toggle-hiding)
+            (error t))
+          (hs-show-all))
+    (toggle-selective-display column)))
+
+(add-hook 'c-mode-hook         (lambda () (hs-minor-mode 1)) )
+
+(setq hs-minor-mode-hook  'hs-hide-initial-comment-block)
+(setq hs-hide-comments nil)
+
+(global-set-key (kbd "M-\\") 'toggle-hiding)
+(global-set-key (kbd "C-\\") 'toggle-selective-display)
 

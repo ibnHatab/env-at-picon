@@ -44,14 +44,15 @@
 		("\\.ie$"                  . erlang-mode)
 		("\\.es$"                  . erlang-mode)
 		("\\.app$"                 . erlang-mode)
-		("\\.csp$"                 . csp-mode)
+;;		("\\.csp$"                 . csp-mode)
                 ("\\.\\(d\\|s\\)ats\\'"    . ats-two-mode-mode)
 		("\\.org\\'"               . org-mode)
 		("\\.m\\'"                 . octave-mode)
 		("\\.mustache\\'"          . mustache-mode)
                 ("\\.md\\'"                . markdown-mode)
                 ("\\.groovy$"              . groovy-mode)
-                ("\\.scala$"               . scala-mode2)
+                ("\\.scala$"               . scala-mode)
+                ("\\.sc"                   . scala-mode)
                 ("\\.dot"                  . graphviz-dot-mode)
                 ("\\.tjp"                  . taskjuggler-mode)
                 )auto-mode-alist))
@@ -69,98 +70,7 @@
   (local-set-key "\C-c\C-c" 'run-current-file)
   )
 
-;; Trello
-;;(require 'org-trello)
-;; ELPA
-;; (require 'package)
-;; (add-to-list 'package-archives 
-;;              '("marmalade" .
-;;                "http://marmalade-repo.org/packages/"))
-;; (package-initialize)
-
-;; taskjuggler                             
-(require 'taskjuggler-mode)
-
-;; DOT
-(load-library "graphviz-dot-mode")
-
-;; Scala-lang
-;; (require 'scala-mode-auto)
-;(require 'scala-mode2)
-;(require 'scala-mode2)
-
-;(add-hook 'scala-mode-hook
-;          '(lambda ()
-;             (yas/minor-mode-on)
-;             (local-set-key "\C-c\C-c" 'run-current-file)
-;             ))
-
-;; Groovy
-(autoload 'groovy-mode "groovy-mode"
-  "Mode for editing groovy source files" t)
-(setq interpreter-mode-alist (append '(("groovy" . groovy-mode))
-   				     interpreter-mode-alist))
-
-(autoload 'groovy-mode "groovy-mode" "Groovy mode." t)
-(autoload 'run-groovy "inf-groovy" "Run an inferior Groovy process")
-(autoload 'inf-groovy-keys "inf-groovy" "Set local key defs for inf-groovy in groovy-mode")
-
-(add-hook 'groovy-mode-hook
-          '(lambda ()
-             (inf-groovy-keys)
-             (local-set-key "\C-c\C-c" 'run-current-file)
-             ))
-
-;; can set groovy-home here, if not in environment
-(setq inferior-groovy-mode-hook
-      '(lambda()
-         (setq groovy-home "/local/tools/scala/groovy")
-         ))
-
-;; Markdown
-(autoload 'markdown-mode "markdown-mode.el"
-  "Major mode for editing Markdown files" t)
-
-
-;;; Shell interpreters
-(defun run-current-file ()
-  "Execute the current file.
-   File suffix is used to determine what program to run.
-   If the file is emacs lisp, run the byte compiled version if exist."
-  (interactive)
-  (let* (
-         (suffixMap
-          `(
-            ("pl"     . "perl")
-            ("py"     . "python")
-            ("rb"     . "ruby")
-            ("sh"     . "bash")
-            ("ml"     . "ocaml")
-            ("ex"     . "elixir")
-            ("exs"    . "elixir --sname 'elixir' -pz ../ebin")
-            ("groovy" . "groovy")
-            )
-          )
-         (fName (buffer-file-name))
-         (fSuffix (file-name-extension fName))
-         (progName (cdr (assoc fSuffix suffixMap)))
-         (cmdStr (concat progName " \""   fName "\""))
-         )
-
-    (when (buffer-modified-p)
-      (when (y-or-n-p "Buffer modified. Do you want to save first?")
-          (save-buffer) ) )
-
-    (if (string-equal fSuffix "el") ; special case for emacs lisp
-        (load (file-name-sans-extension fName))
-      (if progName
-          (progn
-            (message "Running…")
-            (shell-command cmdStr "*run-current-file output*" )
-            )
-        (message "No recognized program file suffix for this file.")
-        ) ) ))
-
+;; Elixir-CMD
 (defun iex-send-line-or-region (&optional step)
   (interactive ())
   (let ((proc (get-process "IEX"))
@@ -199,6 +109,105 @@
 )) t))
 
 
+;; Trello
+;;(require 'org-trello)
+;; ELPA
+(require 'package)
+(package-initialize)
+
+;; (add-to-list 'package-archives 
+;;              '("marmalade" .
+;;                "http://marmalade-repo.org/packages/"))
+
+
+;; DOT
+(load-library "graphviz-dot-mode")
+
+;; Scala-lang
+(require 'scala-mode2)
+
+(add-hook 'scala-mode-hook
+          '(lambda ()
+             (yas/minor-mode-on)
+             (local-set-key "\C-c\C-c" 'run-current-file)
+             (local-set-key (kbd "RET") 'newline-and-indent)
+             (local-set-key (kbd "C-M-j") 'join-line)
+             (local-set-key (kbd "<backtab>") 'scala-indent:indent-with-reluctant-strategy)
+             ))
+
+(add-hook 'scala-mode-hook 'turn-on-auto-revert-mode)
+
+(require 'ensime)
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+
+;; Groovy
+(autoload 'groovy-mode "groovy-mode"
+  "Mode for editing groovy source files" t)
+(setq interpreter-mode-alist (append '(("groovy" . groovy-mode))
+   				     interpreter-mode-alist))
+
+(autoload 'groovy-mode "groovy-mode" "Groovy mode." t)
+(autoload 'run-groovy "inf-groovy" "Run an inferior Groovy process")
+(autoload 'inf-groovy-keys "inf-groovy" "Set local key defs for inf-groovy in groovy-mode")
+
+(add-hook 'groovy-mode-hook
+          '(lambda ()
+             (inf-groovy-keys)
+             (local-set-key "\C-c\C-c" 'run-current-file)
+             ))
+
+;; can set groovy-home here, if not in environment
+(setq inferior-groovy-mode-hook
+      '(lambda()
+         (setq groovy-home "/local/tools/scala/groovy")
+         ))
+
+;; Markdown
+(autoload 'markdown-mode "markdown-mode.el"
+  "Major mode for editing Markdown files" t)
+
+
+;;; Shell interpreters
+(defun run-current-file ()
+  "Execute the current file.
+   File suffix is used to determine what program to run.
+   If the file is emacs lisp, run the byte compiled version if exist."
+  (interactive)
+  (let* (
+         (suffixMap
+          `(
+            ("pl"     . "perl")
+            ("sc"     . "scala")
+            ("py"     . "python")
+            ("rb"     . "ruby")
+            ("sh"     . "bash")
+            ("ml"     . "ocaml")
+            ("ex"     . "elixir")
+            ("exs"    . "elixir --sname 'elixir' -pz ../ebin")
+            ("groovy" . "groovy")
+            )
+          )
+         (fName (buffer-file-name))
+         (fSuffix (file-name-extension fName))
+         (progName (cdr (assoc fSuffix suffixMap)))
+         (cmdStr (concat progName " \""   fName "\""))
+         )
+
+    (when (buffer-modified-p)
+      (when (y-or-n-p "Buffer modified. Do you want to save first?")
+          (save-buffer) ) )
+
+    (if (string-equal fSuffix "el") ; special case for emacs lisp
+        (load (file-name-sans-extension fName))
+      (if progName
+          (progn
+            (message "Running…")
+            (shell-command cmdStr "*run-current-file output*" )
+            )
+        (message "No recognized program file suffix for this file.")
+        ) ) ))
+
+
 ;; IDO mode
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
@@ -207,7 +216,7 @@
 ;(setq ido-create-new-buffer 'always)
 
 (setq ido-file-extensions-order
-      '(".erl" ".hrl" ".org" ".txt" ".py" ".emacs" ".xml" ".rebar" ))
+      '(".org" ".erl" ".hrl" ".txt" ".py" ".emacs" ".xml" ".rebar" ))
 
 ;; octave-mode
 (autoload 'octave-mode "octave-mod" nil t)
@@ -255,13 +264,15 @@
       '(
         ;; Someday, references, jornal
         ("t" "Todo" entry (file+headline org-default-notes-file "Refill")
-         "* TODO %?\n  %i\n  %a\n")
+         "* TODO %x%?\n %i\n %a\n")
+        ("n" "Note" entry (file+headline org-default-notes-file "Notes")
+         "* %? :DOCS:\n %U\n %x\n")
+
         ("i" "Idea" entry (file+headline org-default-notes-file "Idea")
          "* %? :PLANING:\n  %i\n  %a\n")
         ("j" "Journal" entry (file+datetree org-default-notes-file)
          "* %?\nEntered on %U\n  %i\n  %a\n")
-        ("n" "Note" entry (file+headline org-default-notes-file "Notes")
-         "* %? :DOCS:\n%U\n%x\n" :clock-in t :clock-resume t)
+
 
         ;; Calendar, Meeting, Phone, Habits
         ("m" "Meeting" entry (file+headline org-default-calendar-file "Meeting")
@@ -343,6 +354,9 @@
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
 
+;; Taskjuggler                             
+(require 'taskjuggler-mode)
+
 ;; Git
 ;; (require 'egg)
 ;; git-gutter 
@@ -355,10 +369,9 @@
 (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
 (global-set-key (kbd "C-x r") 'git-gutter:revert-hunk)
 
-;; magit
-(when (locate-library "magit")
-  (require 'magit)
-)
+;; Magit
+(require 'magit)
+
 (defcustom git-grep-switches "-E -I -nH -i --no-color"
   "Switches to pass to `git grep'."
   :type 'string)
@@ -391,7 +404,7 @@
 ;; Flymake
 (require 'flymake)
 
-; elixir
+; Flymake-Elixir
 (defun flymake-elixir-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
                      'flymake-create-temp-with-folder-structure))
@@ -409,7 +422,7 @@
    1 2 nil 3) flymake-err-line-patterns)
 ; file-idx line-idx col-idx (optional) text-idx(optional)
 
-; erlang
+; Flymake-Erlang
 (defun flymake-erlang-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
 		     'flymake-create-temp-with-folder-structure))
@@ -423,7 +436,7 @@
  	     '("\\.erl\\'" flymake-erlang-init))
 
 
-; ats
+; Flymake-ATS
 (defun flymake-ats-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
 		     'flymake-create-temp-inplace))
@@ -523,12 +536,6 @@ Key bindings:
 ;; ATS
 (require 'ats-mode)
 
-; autocomplete
-;(require 'auto-complete-config)
-;(add-to-list 'ac-dictionary-directories
-;	     (concat (getenv "HOME") "/apps/emacs/packages/ac-dict"))
-;(ac-config-default)
-
 ;; (enable cscope)
 (require 'xcscope)
 (setq cscope-database-regexps
@@ -565,9 +572,9 @@ Key bindings:
 	      auto-mode-alist))
 
 ;; CSP
-(require 'csp-mode)
+;;(require 'csp-mode)
 
-;; Erlang
+;; BEGIN Erlang
 (setq erlang-root-dir   "/usr/lib/erlang")
 (add-to-list 'exec-path "/usr/lib/erlang/bin")
 (defvar inferior-erlang-prompt-timeout t)
@@ -622,7 +629,7 @@ Key bindings:
 (require 'erlang-start)
 
 (require 'wrangler)
-;; erlang
+;; END erlang
 
 ;; comint
 (require 'comint)
@@ -792,12 +799,12 @@ Key bindings:
 
 
 ;;C/C++
-(add-hook 'c-mode-hook       'elec-cr-mode)
-(add-hook 'c++-mode-hook     'elec-cr-mode)
-(add-hook 'elec-cr-mode-hook 'elec-par-install-electric)
-(add-hook 'elec-c-mode-hook 'turn-on-auto-fill)
+;; (add-hook 'c-mode-hook       'elec-cr-mode)
+;; (add-hook 'c++-mode-hook     'elec-cr-mode)
+;; (add-hook 'elec-cr-mode-hook 'elec-par-install-electric)
+;; (add-hook 'elec-c-mode-hook 'turn-on-auto-fill)
 ;; (autoload 'elec-par-install-electric "elec-par")
-(autoload 'elec-cr-mode "elec-cr" "High powered C editing mode." t)
+;; (autoload 'elec-cr-mode "elec-cr" "High powered C editing mode." t)
 
 
 (autoload 'expand-member-functions "member-functions" "Expand C++ member function declarations" t)
@@ -864,52 +871,17 @@ Key bindings:
 
 
 ;; LISP
-(add-hook 'emacs-lisp-mode-hook 'elec-par-install-electric)
+;; (add-hook 'emacs-lisp-mode-hook 'elec-par-install-electric)
 
 ;; PERL
-(add-hook 'cperl-mode-hook   'elec-cr-mode)
-(add-hook 'cperl-mode-hook   'elec-par-install-electric)
+;; (add-hook 'cperl-mode-hook   'elec-cr-mode)
+;; (add-hook 'cperl-mode-hook   'elec-par-install-electric)
 (add-hook 'cperl-mode-hook '(lambda () "" (interactive)
                               (setq
                                cperl-hairy t
                                cperl-indent-level 4
 			       comment-column 40
-                                        ;                                hs-minor-mode t
-                                        ;                                cperl-continued-statement-offset 0
-                                        ;                                cperl-extra-newline-before-brace t
-                               )
-
-			      ))
-
-
-;; IMENU
-
-                                        ; (autoload 'imenu-go-find-at-position "imenu-go"
-                                        ;   "Go to the definition of the current word." t)
-                                        ; (autoload 'imenu-go--back "imenu-go"
-                                        ;   "Return back to a position saved during `imenu-go-find-at-position'." t)
-
-(global-set-key [M-S-mouse-2] 'imenu-go-find-at-position)
-(global-set-key "\e\"" 'imenu-go-find-at-position)
-(global-set-key [M-S-C-mouse-2] 'imenu-go--back)
-(global-set-key "\e'" 'imenu-go--back)  ; Conflicts with defined key.
-(global-set-key [?\C-\"] 'imenu-go--back)
-
-;;; to your .emacs file. The usability if this package decreases a lot
-;;; unless you have a simple access to `imenu', like in
-
-(global-set-key [M-S-down-mouse-3] 'imenu)
-
-;;; To cache information about interesting places you should either
-;;; run `imenu' in the interesting buffers, or run `etags *.c *.h' (or
-;;; whatever) on interesting files. After this calling
-;;; `imenu-go-find-at-position' when the cursor or pointer is over the
-;;; interesting word will warp you to the definition of this word. You
-;;; can unwind this warping by doing `imenu-go--back'.
-
-;;; Alternately, for Emacs-Lisp hacking you may install package
-;;; `find-function', which will be automatically used in Emacs Lisp mode:
-;;;      (autoload 'find-function "find-func" nil t)
+                               )))
 
 ;;; ASN.1 Mode
 ;; (autoload 'daveb-mib-mode "daveb-mib-mode"  "Mode for editing ASN.1 SNMP MIBs")

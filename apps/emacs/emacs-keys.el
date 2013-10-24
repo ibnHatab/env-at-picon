@@ -3,7 +3,6 @@
 ;; replace buffer-menu with ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(global-set-key "\M- " 'hippie-expand)
 
 ;; Align your code in a pretty way.
 (global-set-key (kbd "C-x \\") 'align-regexp)
@@ -11,28 +10,20 @@
 ;; Perform general cleanup.
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 
-;; Font size
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
-
 (require 'multiple-cursors)
-
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->")         'mc/mark-next-like-this)
 (global-set-key (kbd "C-<")         'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<")     'mc/mark-all-like-this)
 
-;; You can scroll the screen to center on each cursor with `C-v` and `M-v`.
-(global-unset-key (kbd "M-<down-mouse-1>"))
-(global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
-
-
 ;; Completion
+(global-set-key "\M- " 'hippie-expand)
 (setq completion-ignore-case t
       pcomplete-ignore-case t
       read-file-name-completion-ignore-case t)
-
 
 ;; replace by bookmark system
 (global-set-key-wise            '[(f1)];; 'switch-other-buffer		F1
@@ -48,8 +39,16 @@
 
 ;;(global-set-key [(f4)]          'iswitchb-buffer)	    ;F4
 (global-set-key [(f4)]          'ido-switch-buffer)	    ;F4
-(global-set-key [(f5)]          'previous-error)	   
-;;(global-set-key [(f5)]          'speedbar-get-focus)	    ;F5
+(global-set-key [(C-f4)]        'previous-error)	   
+
+(require 'sr-speedbar)
+(setq speedbar-use-images nil)
+(speedbar-add-supported-extension ".scala")
+(add-to-list 'speedbar-fetch-etags-parse-list
+             '("\\.scala" . speedbar-parse-c-or-c++tag))
+
+(global-set-key (kbd "s-s")   'sr-speedbar-toggle)
+(global-set-key [(f5)]        'sr-speedbar-select-window)	    ;F5
 							    ;F7
 					                    ;F8
 ;; org hijack(global-set-key [(f9)]          'compile)		    ;F9

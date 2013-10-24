@@ -43,3 +43,5 @@ export http_proxy=http://cache.tm.alcatel.ro:8080
 export https_proxy=http://cache.tm.alcatel.ro:8080
 export HTTP_PROXY=http://cache.tm.alcatel.ro:8080
 
+export JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=cache.tm.alcatel.ro -Dhttp.proxyPort=8080"
+

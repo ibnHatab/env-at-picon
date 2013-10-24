@@ -22,7 +22,7 @@ ZSH_THEME="${viewmap["$HOST"]}"
 COMPLETION_WAITING_DOTS="true"
 
 # Example format: plugins=(debian git-flow compleat rails git textmate ruby lighthouse)
-plugins=(git git-flow  dircycle rebar debian)
+plugins=(git git-flow  dircycle rebar )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -210,7 +210,8 @@ autoload -U compinit && compinit -u
 [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
 
 # ~ places
-hash -d repo=/local/vlad/repos/
+hash -d repos=/local/vlad/repos/
+hash -d sownloads=/local/vlad/Downloads/
 hash -d store=/net/aeries/local/storage/
 hash -d sc=/net/pluto/vol/vol3/timco/SmallCells
 
@@ -235,6 +236,14 @@ alias pp="ps axuf | pager"
 bindkey -s '^[l' "ls -CF --color=tty\n"
 
 setterm -blength 0
+
+
+echo '-------------------------------------------'
+ /usr/games/fortune -s
+echo '-------------------------------------------'
+echo
+
+alias emacs="/opt/emacs24/bin/emacs"
 
 export JAVA_HOME=/local/tools/jdk1.7.0_21/
 export SCALA_HOME=/local/tools/scala/scala

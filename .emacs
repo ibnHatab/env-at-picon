@@ -13,16 +13,18 @@
        '(expand-file-name "~/apps/emacs/packages/yasnippet" )
        '(expand-file-name "~/apps/emacs/packages/ensime/elisp" )
        '(expand-file-name "~/apps/emacs/packages/esense" )
+       '(expand-file-name "~/apps/emacs/packages/erlang" )
        '(expand-file-name "~/apps/emacs/packages/distel" )
        '(expand-file-name "~/apps/emacs/packages/wrangler" )
        '(expand-file-name "~/apps/emacs/packages/haskell-mode" )
        '(expand-file-name "~/apps/emacs/packages/python" )
-       '(expand-file-name "~/apps/emacs/packages/scala-mode2" )
        '(expand-file-name "~/apps/emacs/packages/groovy" )
        '(expand-file-name "~/apps/emacs/packages/org-mode/lisp" )
        '(expand-file-name "~/apps/emacs/packages/org-mode/contrib/lisp" )
        '(expand-file-name "~/apps/emacs/packages/multiple-cursors.el" )
        '(expand-file-name "~/apps/emacs/packages/emacs-elixir" )
+       '(expand-file-name "~/apps/emacs/packages/scala-mode2" )
+       '(expand-file-name "/local/tools/scala/ensime/elisp/" )
        load-path))
 
 (setq-default indent-tabs-mode nil)
@@ -41,8 +43,9 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
-(setq auto-revert-interval 1)
+(setq auto-revert-interval 2)
 ;; (global-auto-revert-mode t)
+
 (blink-cursor-mode 0) ;; no blink
 (display-time)
 (setq use-file-dialog nil)
@@ -76,22 +79,27 @@
 ;; (set-foreground-color "white")
 ;; (set-cursor-color "red")
 
+;; Solarized
+(load-theme 'solarized-dark t)
+;;(set-background-color "#002b36")
+
 ;; Chalk board
 ;(modify-frame-parameters (selected-frame) '((alpha . 75)))
-(set-background-color "#2F3E35")
-(set-face-background 'default "#2F3E35")
-;; (set-face-background 'region "#2F3E35")
-(set-face-foreground 'default "white")
-(set-foreground-color "white")
+
+;; (set-background-color "#2F3E35")
+;; (set-face-background 'default "#2F3E35")
+;; ;; (set-face-background 'region "#2F3E35")
+;; (set-face-foreground 'default "white")
+;; (set-foreground-color "white")
 (set-cursor-color "#dddddd")
 
 ;; end
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(blink-cursor-mode nil)
  '(blink-matching-paren-on-screen t)
  '(c-echo-syntactic-information-p nil)
@@ -102,6 +110,7 @@
  '(cscope-use-relative-paths t)
  '(debug-on-error nil)
  '(display-time-mode t)
+ '(electric-pair-mode 1)
  '(enable-local-variables :all)
  '(flymake-no-changes-timeout 3.5)
  '(font-lock-global-modes t)
@@ -113,16 +122,21 @@
  '(kill-whole-line t)
  '(menu-bar-mode nil)
  '(next-line-add-newlines nil)
- '(org-support-shift-select t)
- '(pc-selection-mode t nil (pc-select))
+ '(pc-selection-mode t)
  '(pdb-path (quote /usr/lib/python2\.6/pdb\.py))
  '(python-default-interpreter (quote cpython))
  '(python-shell-interpreter "python")
  '(python-shell-interpreter-args "-i")
  '(safe-local-variable-values (quote ((c-set-style "linux"))))
+ '(scala-indent:default-run-on-strategy 0)
  '(show-paren-mode t nil (paren))
  '(show-paren-ring-bell-on-mismatch t)
  '(show-paren-style (quote parenthesis))
+ '(speedbar-show-unknown-files t)
+ '(speedbar-use-images nil)
+ '(speedbar-verbosity-level 1)
+ '(sr-speedbar-auto-refresh t)
+ '(sr-speedbar-skip-other-window-p t)
  '(tool-bar-mode nil)
  '(tooltip-mode nil)
  '(transient-mark-mode t)
@@ -134,12 +148,14 @@
  '(x-select-enable-clipboard t))
 
 
+
+
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#2F3E35" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
  '(flymake-errline ((((class color)) (:underline "Red"))))
  '(flymake-warnline ((((class color)) (:underline "LightBlue2")))))
 
@@ -147,3 +163,4 @@
 (modify-frame-parameters nil '((wait-for-wm . nil)))
 (server-start)
 
+(put 'scroll-left 'disabled nil)

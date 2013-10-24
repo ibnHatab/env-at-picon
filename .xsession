@@ -1,5 +1,5 @@
-#xrandr --output LVDS1 --off 
-#xrandr --output DP3 --auto --rotate normal --pos 0x0 --output VGA1 --auto --rotate normal --right-of DP3
+xrandr --output LVDS1 --off 
+xrandr --output DP3 --auto --rotate normal --pos 0x0 --output VGA1 --auto --rotate normal --left-of DP3
 
 #if [ -x /usr/bin/nm-applet ] ; then
 #   nm-applet --sm-disable &
@@ -11,7 +11,7 @@
 
 gnome-settings-daemon > /dev/null &
 
-xrdb $HOME/.Xdefaults
+#xrdb $HOME/.Xdefaults
 xset -b
 xhost +
 xset r 130
