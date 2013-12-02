@@ -1,10 +1,6 @@
 #name : def method ... end
 #group : definitions
 # --
-@doc """
-   Returns $1  
-"""
-@spec ${2:method}($3) :: any
-def $2($3) do
+def ${1:method}(${2:args}) do
   $0
 end

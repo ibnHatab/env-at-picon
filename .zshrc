@@ -86,6 +86,7 @@ export WORDCHARS='*?-[]~&;!#$%^(){}<>'
 alias     al='alias'                # alias-alias                  [2003-12-11]
 alias       d='date -I'
 alias       e='ec'
+alias       f='find '
 alias       o='open '
 alias     nd='mkdir `date -I` && cd `date -I`'
 alias     ng='noglob '              # shorter noglob command       [2001­08­16]
@@ -170,8 +171,8 @@ alias -g  E='|perl -ne'       # as F, w/o implied print (E0 slurps)[2002­08­16]
 alias -g E0='|perl -0777ne'   #                                    [2002­08­16]
 alias -g  F='|perl -pe'       # filter (perl, F0 slurps)           [2002­01­10]
 alias -g F0='|perl -0777pe'   #                                    [2002­08­16]
-alias -g  G='|egrep -i'          # (e)grep (G0 searches stderr too)   [2002­08­15]
-alias -g G0='|&egrep -i'         #                                    [2002­09­11]
+alias -g  G='|egrep -i'          # (e)grep (G0 searches stderr too)[2002­08­15]
+alias -g G0='|&egrep -i'         #                                 [2002­09­11]
 # H
 alias -g  I='|column'         # columnify (think: `I' is a column) [2002­05­21]
 # J
@@ -211,7 +212,7 @@ autoload -U compinit && compinit -u
 
 # ~ places
 hash -d repos=/local/vlad/repos/
-hash -d sownloads=/local/vlad/Downloads/
+hash -d downloads=/local/vlad/Downloads/
 hash -d store=/net/aeries/local/storage/
 hash -d sc=/net/pluto/vol/vol3/timco/SmallCells
 
@@ -234,7 +235,6 @@ alias pp="ps axuf | pager"
 
 # keys
 bindkey -s '^[l' "ls -CF --color=tty\n"
-
 setterm -blength 0
 
 

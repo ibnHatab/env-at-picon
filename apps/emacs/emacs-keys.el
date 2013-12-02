@@ -21,8 +21,8 @@
 
 ;; Completion
 (global-set-key "\M- " 'hippie-expand)
-(setq completion-ignore-case t
-      pcomplete-ignore-case t
+(setq completion-ignore-case nil
+      pcomplete-ignore-case nil
       read-file-name-completion-ignore-case t)
 
 ;; replace by bookmark system
@@ -80,6 +80,16 @@ With argument ARG, do this that many times."
   (interactive "p")
   (delete-region (point) (progn (backward-word arg) (point))))
 (define-key minibuffer-local-map [C-backspace] 'backward-delete-word)
+
+;; Follow mode
+;;(global-unset-key "\C-x4")
+(global-set-key "\C-x9"           'borrow-window-right)
+(defun borrow-window-right()
+  (interactive)
+  (delete-other-windows)
+  (split-window-right)
+  (follow-mode)
+)
 
 ;; Move between visible windows
 (global-set-key [(C-tab)]	'other-window )

@@ -22,7 +22,6 @@
        '(expand-file-name "~/apps/emacs/packages/org-mode/lisp" )
        '(expand-file-name "~/apps/emacs/packages/org-mode/contrib/lisp" )
        '(expand-file-name "~/apps/emacs/packages/multiple-cursors.el" )
-       '(expand-file-name "~/apps/emacs/packages/emacs-elixir" )
        '(expand-file-name "~/apps/emacs/packages/scala-mode2" )
        '(expand-file-name "/local/tools/scala/ensime/elisp/" )
        load-path))
@@ -36,6 +35,7 @@
 (load-library "emacs-packages")
 (load-library "emacs-searchcurrent")
 (load-library "emacs-keys")
+
 
 ;; Remove unnecessary gui stuff
 (setq inhibit-startup-message t)    ; no stupid messages about who did what
@@ -113,6 +113,7 @@
  '(electric-pair-mode 1)
  '(enable-local-variables :all)
  '(flymake-no-changes-timeout 3.5)
+ '(follow-auto t)
  '(font-lock-global-modes t)
  '(global-font-lock-mode t nil (font-lock))
  '(haskell-program-name "ghci")
@@ -122,6 +123,7 @@
  '(kill-whole-line t)
  '(menu-bar-mode nil)
  '(next-line-add-newlines nil)
+ '(org-support-shift-select (quote always))
  '(pc-selection-mode t)
  '(pdb-path (quote /usr/lib/python2\.6/pdb\.py))
  '(python-default-interpreter (quote cpython))

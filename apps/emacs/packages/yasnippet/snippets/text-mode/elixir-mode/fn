@@ -1,0 +1,6 @@
+#name : fn(arg) -> exp end
+#group : definitions
+# --
+fn(${1:args}) ->
+  $0
+end

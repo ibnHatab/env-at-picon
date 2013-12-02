@@ -57,18 +57,46 @@
                 ("\\.tjp"                  . taskjuggler-mode)
                 )auto-mode-alist))
 
+
+;; ELPA
+(require 'package)
+(package-initialize)
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
 ;; Elixir
 (require 'elixir-mode)
+(require 'elixir-mix)
+(global-elixir-mix-mode)
 
-(add-hook 'elixir-mode-hook 'my-elixir-mode-hook)
-(defun my-elixir-mode-hook ()
-  (setq comint-scroll-to-bottom-on-output t)
-  (setq elixir-iex-command "iex-emacs")
-  (local-set-key "\C-c\C-r" 'elixir-mode-iex)
-  (local-set-key "\C-c\C-z" 'iex-switch-to-process-buffer)
-  (local-set-key "\C-c\C-e" 'iex-send-line-or-region-and-step)
-  (local-set-key "\C-c\C-c" 'run-current-file)
-  )
+(add-to-list 'elixir-mode-hook 
+             (defun my-elixir-mode-hook ()
+               (yas/minor-mode-on)
+
+               (setq comint-scroll-to-bottom-on-output t)
+               (setq elixir-iex-command "iex-emacs")
+
+               (local-set-key "\C-c\C-r" 'elixir-mode-iex)
+               (local-set-key "\C-c\C-z" 'iex-switch-to-process-buffer)
+               (local-set-key "\C-c\C-e" 'iex-send-line-or-region-and-step)
+               (local-set-key "\C-c\C-c" 'run-current-file)
+
+               ;;auto-activate-ruby-end-mode-for-elixir-mode
+               (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
+                    "\\(?:^\\|\\s-+\\)\\(?:do\\)")
+               (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
+               (ruby-end-mode +1)
+
+               ))
+
+;; (define-key map (kbd "C-c ,r") 'elixir-mode-eval-on-region)
+;; (define-key map (kbd "C-c ,c") 'elixir-mode-eval-on-current-line)
+;; (define-key map (kbd "C-c ,b") 'elixir-mode-eval-on-current-buffer)
+;; (define-key map (kbd "C-c ,a") 'elixir-mode-string-to-quoted-on-region)
+;; (define-key map (kbd "C-c ,l") 'elixir-mode-string-to-quoted-on-current-line)
+
+
+
 
 ;; Elixir-CMD
 (defun iex-send-line-or-region (&optional step)
@@ -103,6 +131,7 @@
 (defun iex-send-line-or-region-and-step ()
   (interactive)
   (iex-send-line-or-region t))
+
 (defun iex-switch-to-process-buffer ()
   (interactive)
   (pop-to-buffer (process-buffer (get-process "IEX"
@@ -111,14 +140,6 @@
 
 ;; Trello
 ;;(require 'org-trello)
-;; ELPA
-(require 'package)
-(package-initialize)
-
-;; (add-to-list 'package-archives 
-;;              '("marmalade" .
-;;                "http://marmalade-repo.org/packages/"))
-
 
 ;; DOT
 (load-library "graphviz-dot-mode")
@@ -256,7 +277,28 @@
 
 ;; Manage .org files
 (setq org-manage-directory-org "~/public_html/ib-home") ; M-x org-manage
-(setq org-agenda-files (quote ("~/public_html/ib-home/calendar/")))
+;; (setq org-agenda-files (quote ("~/public_html/ib-home/calendar/")))
+;;         "/local/home/vlad/public_html/ib-home/calendar/android_cal.org"
+(setq org-agenda-files (quote 
+                        (
+                         "~/public_html/ib-home/calendar/fabric_cal.org"
+                         "~/public_html/ib-home/calendar/tdd_platform_cal.org"
+                         "~/public_html/ib-home/calendar/calendar.org"
+;;                         "~/public_html/ib-home/calendar/femto_cal.org"
+                         "~/public_html/ib-home/calendar/journal.org"
+;;                         "~/public_html/ib-home/calendar/panda_cal.org"
+                         )))
+
+(setq org-agenda-text-search-extra-files (quote
+                                          (
+                                           "~/public_html/ib-home/calendar/fabric_cal.org_archive"
+                                           "~/public_html/ib-home/calendar/tdd_platform_cal.org_archive"
+                                           "~/public_html/ib-home/calendar/calendar.org_archive"
+                                           ;;                         "~/public_html/ib-home/calendar/femto_cal.org_archive"
+                                           "~/public_html/ib-home/calendar/journal.org_archive"
+                                           ;;                         "/local/home/vlad/public_html/ib-home/calendar/panda_cal.org_archive"
+                                           )))
+
 
 (setq org-default-notes-file "~/public_html/ib-home/calendar/journal.org")
 (setq org-default-calendar-file "~/public_html/ib-home/calendar/calendar.org")
@@ -347,7 +389,7 @@
 (defun my-org-confirm-babel-evaluate (lang body)
   (or
    (not (string= lang "ditaa"))
-   (not (string= lang "pantuml"))
+   (not (string= lang "plantuml"))
    (not (string= lang "dot"))
    )
   ) 
@@ -760,8 +802,8 @@ Key bindings:
 
 ;; Yasnippet
 (require 'yasnippet) ;; not yasnippet-bundle
-(yas/initialize)
 (yas/load-directory "~/apps/emacs/packages/yasnippet/snippets")
+(yas/initialize)                        
 
 ;; Python
 (require 'python)  

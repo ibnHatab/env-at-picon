@@ -1,6 +1,4 @@
-#name : def method spec and doc
+#name : def method ... do:
 #group : definitions
 # --
-def ${1:method}(${2:args}) do
-  $0
-end
+def ${1:method}(${2:args}), do: $0

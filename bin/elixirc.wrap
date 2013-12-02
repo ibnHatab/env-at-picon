@@ -1,0 +1,3 @@
+# !/bin/sh
+
+/usr/local/bin/elixirc -pa ../ebin -pz ebin --ignore-module-conflict -o /tmp $@
