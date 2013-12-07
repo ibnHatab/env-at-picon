@@ -81,19 +81,20 @@
                (local-set-key "\C-c\C-e" 'iex-send-line-or-region-and-step)
                (local-set-key "\C-c\C-c" 'run-current-file)
 
+               (local-set-key "\C-cr" 'elixir-mode-eval-on-region)
+               (local-set-key "\C-cc" 'elixir-mode-eval-on-current-line)
+               (local-set-key "\C-cb" 'elixir-mode-eval-on-current-buffer)
+               (local-set-key "\C-ca" 'elixir-mode-string-to-quoted-on-region)
+               (local-set-key "\C-cl" 'elixir-mode-string-to-quoted-on-current-line)
+
                ;;auto-activate-ruby-end-mode-for-elixir-mode
                (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
                     "\\(?:^\\|\\s-+\\)\\(?:do\\)")
                (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
-               (ruby-end-mode +1)
+;;               (ruby-end-mode +1)
 
                ))
 
-;; (define-key map (kbd "C-c ,r") 'elixir-mode-eval-on-region)
-;; (define-key map (kbd "C-c ,c") 'elixir-mode-eval-on-current-line)
-;; (define-key map (kbd "C-c ,b") 'elixir-mode-eval-on-current-buffer)
-;; (define-key map (kbd "C-c ,a") 'elixir-mode-string-to-quoted-on-region)
-;; (define-key map (kbd "C-c ,l") 'elixir-mode-string-to-quoted-on-current-line)
 
 
 
