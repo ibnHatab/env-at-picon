@@ -95,10 +95,6 @@
 
                ))
 
-
-
-
-
 ;; Elixir-CMD
 (defun iex-send-line-or-region (&optional step)
   (interactive ())
@@ -598,6 +594,7 @@ Key bindings:
 
 (custom-set-variables
  '(cscope-truncate-lines t)
+ '(cscope-do-not-update-database t)
  )
 
 ;; Doxymacs
@@ -808,7 +805,11 @@ Key bindings:
 
 ;; Python
 (require 'python)  
-(require 'pymacs)
+;; (require 'pymacs)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:setup-keys t)                      ; optional
+(setq jedi:complete-on-dot t)                 ; optional
+
 (add-hook 'python-mode-hook
 	  #'(lambda ()
 	      (setq
@@ -823,13 +824,16 @@ Key bindings:
 	      (define-key python-mode-map (kbd "C-c |") 'python-shell-send-region)
 	      (define-key python-mode-map (kbd "C-c !") 'python-shell)
 
-	      ;; rope
-	      (pymacs-load "ropemacs" "rope-")
-	      (setq ropemacs-enable-shortcuts nil)
-	      (setq ropemacs-local-prefix "C-c C-p")
-	      (setq ropemacs-enable-autoimport 't)
-	      ))
+              (local-set-key "\M-." 'jedi:goto-definition)
+              (local-set-key "\M-?" 'jedi:show-doc)
+              (local-set-key "\M-," 'jedi:goto-definition-pop-marker)
 
+	      ;; rope
+	      ;; (pymacs-load "ropemacs" "rope-")
+	      ;; (setq ropemacs-enable-shortcuts nil)
+	      ;; (setq ropemacs-local-prefix "C-c C-p")
+	      ;; (setq ropemacs-enable-autoimport 't)
+	      ))
 
 ;; mustache
 ;(require 'mustache-mode)
@@ -852,7 +856,16 @@ Key bindings:
 
 (autoload 'expand-member-functions "member-functions" "Expand C++ member function declarations" t)
 (add-hook 'c++-mode-hook (lambda ()
-                           (local-set-key "\C-cm" #'expand-member-functions)))
+			 (local-set-key "\M-." 'cscope-find-global-definition-no-prompting)
+			 (local-set-key "\M-?" 'cscope-find-this-symbol)
+			 (local-set-key "\M-," 'cscope-pop-mark)
+			 (local-set-key [(control f4)] 'cscope-find-functions-calling-this-function) ;; f4 References
+			 (local-set-key [(control f6)] 'cscope-display-buffer)                       ;; f6 display buffer
+			 (local-set-key [(control f7)] 'cscope-prev-symbol)                          ;; f7 prev sym
+			 (local-set-key [(control f8)] 'cscope-next-symbol)                          ;; f8 next sym
+			 (local-set-key [(control f9)] 'cscope-set-initial-directory)                ;; f9 set initial dir
+			 (local-set-key [(M-tab)]	'complete-tag )
+                         (local-set-key "\C-cm" #'expand-member-functions)))
 
 (add-hook 'c-mode-hook (lambda ()
 			 (local-set-key "\M-." 'cscope-find-global-definition-no-prompting)
