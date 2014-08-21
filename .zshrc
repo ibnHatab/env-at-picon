@@ -22,7 +22,7 @@ ZSH_THEME="${viewmap["$HOST"]}"
 COMPLETION_WAITING_DOTS="true"
 
 # Example format: plugins=(debian git-flow compleat rails git textmate ruby lighthouse)
-plugins=(git git-flow  dircycle rebar )
+plugins=(git git-flow  dircycle rebar mix)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -110,6 +110,7 @@ alias       l.='ls .[a-zA-Z]* --color=tty -d'
 alias       ll='ls -l --color=tty '
 alias      ltr='ls -ltr --color=tty '
 alias       pu='ps -fu $USER'
+alias   sqlite='rlwrap sqlite3'
 
 # speling | dyslexia
 alias -g    vi='vim'
@@ -128,37 +129,6 @@ alias       diff="grc diff"
 alias    netstat="grc netstat"
 
 alias         st="/local/tools/Sublime_Text_2/sublime_text"
-
-# create ssh aliases
-typeset -A account                             # "account" associative array
-account=(
-    aeries        vkinzers@135.243.22.59
-#    leonis        vkinzers@135.243.22.61
-    leonis        vkinzers@135.243.2.148
-    caprica       vkinzers@135.243.22.63
-    tauron        vkinzers@135.243.22.64
-
-    aquaria       vkinzers@135.247.153.150
-	tomtom        root@135.247.153.151
-
-    mrclte80      vkinzers@mrclte80.mrc.alcatel.ro
-    mrclte182     vkinzers@mrclte182.mrc.alcatel.ro
-    mrclte186     vkinzers@mrclte186.mrc.alcatel.ro
-
-    earth         vkinzers@135.86.200.84
-    iceccase3	  vkinzers@135.86.206.143
-	MASVRSUN01    lte@135.86.200.121 # wayaround to ftp://alc-luc:naka5Eju@ftp.spg-tm.com
-)
-for k (${(k)account}) {                         # for each key in account
-    alias $k="ssh -X $account[$k]"                 #   create an ssh alias
-#    alias ${k}xterm="$k -f 'xterm -T $k -n $k'" #   and an xterm alias
-}; unset k                                      #
-
-alias rds-pc1="rdesktop -u User -p Init_4321  -g 1670x1020  135.243.22.246"
-alias rds-pc2="rdesktop -u User -p Init_4321  -g 1670x1020 135.243.22.58"
-alias rds-pc3="rdesktop -u axadmin -p Omc3  -g 1670x1020 135.243.22.56"
-alias rds-pc4="rdesktop -u User -p Init_4321  -g 1670x1020 135.243.22.247"
-alias rds-fs-gui="rdesktop -u administrator -p vision -g 1670x1020 135.247.153.157"
 
 # TAPS:
 # common pipe­ending commands (taps)
@@ -243,19 +213,21 @@ echo '-------------------------------------------'
 echo '-------------------------------------------'
 echo
 
-alias emacs="/opt/emacs24/bin/emacs"
+# Customize to your needs...
+alias emacs="/net/aeries/local/storage/tools/emacs24/bin//emacs"
 
+#JAVA/SCALA
 export JAVA_HOME=/local/tools/jdk1.7.0_21/
 export SCALA_HOME=/local/tools/scala/scala
 export GROOVY_HOME=/local/tools/scala/groovy
-# Customize to your needs...
-
-export PATH=$HOME/bin:/sbin:/usr/bin:/bin:/usr/local/bin:$GROOVY_HOME/bin:$SCALA_HOME/bin:/local/tools/scala/sbt/bin:$JAVA_HOME/bin
-source $HOME/libs/ib-utils/ib-platform.rc
-
+export PATH=$HOME/bin:/sbin:/usr/bin:/bin:/usr/local/bin:$GROOVY_HOME/bin:$SCALA_HOME/bin:/local/tools/scala/sbt/bin:$JAVA_HOME/bin:~/.cabal/bin
+# ib utils
+source ~/libs/ib-utils/activate.zsh
 # Android
 export ADT_HOME=/local/tools/scala/adt-bundle-linux-x86-20130522/sdk
 export PATH=$PATH:$ADT_HOME/tools:$ADT_HOME/platform-tools
-
 #CLANG
 export PATH=$PATH:/local/tools/clang/bin:/local/tools/clang/share/scan-view
+source /usr/local/bin/virtualenvwrapper.sh
+#ATS
+export PATH=$PATH:/local/tools/ats/bin

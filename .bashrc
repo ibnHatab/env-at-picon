@@ -96,7 +96,7 @@ export PATH=$PATH:/udir/tools/arm-2008q3/bin
 export PATH=$PATH:/udir/tools/arm-linux-2008q3/bin
 
 #Switch to ZSH if any
-if [ -f /usr/bin/zsh ]; then
-/usr/bin/zsh
-fi
+#if [ -f /usr/bin/zsh ]; then
+#/usr/bin/zsh
+#fi
 

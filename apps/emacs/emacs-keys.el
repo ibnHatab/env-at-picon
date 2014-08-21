@@ -226,3 +226,4 @@ With argument ARG, do this that many times."
 (global-set-key [(meta f2)]          'af-bookmark-cycle-forward)
 (global-set-key [(shift f2)]         'af-bookmark-cycle-reverse)
 (global-set-key [(shift meta f2)]    'bookmark-bmenu-list)
+
