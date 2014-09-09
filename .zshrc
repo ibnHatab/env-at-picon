@@ -231,3 +231,7 @@ export PATH=$PATH:/local/tools/clang/bin:/local/tools/clang/share/scan-view
 source /usr/local/bin/virtualenvwrapper.sh
 #ATS
 export PATH=$PATH:/local/tools/ats/bin
+#ERL 
+export PATH=/local/tools/R17B01/bin:$PATH
+#GHC
+export PATH=/local/tools/ghc-7.8.3/bin/:$PATH

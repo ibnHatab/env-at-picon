@@ -1,0 +1,147 @@
+#!/usr/bin/python
+
+# Moves the given files to the trash.
+
+import optparse
+import os
+import re
+import re
+import shutil
+import subprocess
+import sys
+
+TRASH_DIR_FILE = os.path.join(os.environ['HOME'], '.trash-dirs')
+
+def get_trashdir_list_from_file():
+    if not os.path.isfile(TRASH_DIR_FILE):
+        return []
+    f = open(TRASH_DIR_FILE)
+    trashdir_list = []
+    for line in f:
+        line = line.strip()
+        if line == '' or line[0] == '#':
+            continue
+        m = re.match(r'(\S+)\s+(.+)', line)
+        if m:
+            trashdir_list.append((m.group(1), m.group(2)))
+        else:
+            print ("WARNING: Incorrect line in %s: %s" %
+                   (TRASH_DIR_FILE, line))
+    f.close()
+    return trashdir_list
+
+def get_trashdir(dir):
+    trashdir_list = get_trashdir_list_from_file()
+    for sourcedir, trashdir in trashdir_list:
+        if re.match(sourcedir, dir):
+            return trashdir
+    return None
+
+def get_all_trashdirs():
+    trashdir_list = get_trashdir_list_from_file()
+    trashdirs = set()
+    for sourcedir, trashdir in trashdir_list:
+        trashdirs.add(trashdir)
+    return sorted(trashdirs)
+
+class HCSExc:
+    def __init__(self,message):
+        self.message = message
+    def __str__(self):
+        return self.message
+
+trashlog = os.path.join(os.getenv("HOME"), '.trash-log')
+
+def move_to_trash(file):
+    if not os.path.exists(file):
+        raise HCSExc('file "%s" does not exist' % (file,))
+
+    # If the file contains a / at the end, it should be removed, otherwise
+    # os.path.basename will return an empty string.
+    if file[-1] == '/':
+        file = file[:-1]
+
+    basename = os.path.basename(file)
+    abspath = os.path.abspath(file)
+    newbasename = basename
+    postfix = 0
+    trashdir = get_trashdir(abspath)
+    if trashdir == None:
+        raise HCSExc('there is no trashdir for "%s"' % abspath)
+    while os.path.exists(os.path.join(trashdir,newbasename)):
+        postfix += 1
+        newbasename = basename+'_'+str(postfix)
+    f = open(trashlog, 'a')
+    f.write("%s %s\n" %
+            (newbasename, os.path.join(trashdir,newbasename)))
+    f.close()
+    shutil.move(file,os.path.join(trashdir,newbasename))
+
+def list_trashdirs(options):
+    if options.show_size:
+        print 'Size of trash dirs in MiB:'
+        subprocess.call(['du', '-sm', '--'] + get_all_trashdirs())
+    else:
+        for trashdir in get_all_trashdirs():
+            print trashdir
+
+def clear_trashdirs():
+    for trashdir in get_all_trashdirs():
+        sys.stdout.write('Clearing trashdir "' + trashdir + '"...')
+        sys.stdout.flush()
+        subprocess.call(['rm', '-rf', '--', trashdir])
+        subprocess.call(['mkdir', '-p', '--', trashdir])
+        sys.stdout.write(' [DONE]\n')
+        sys.stdout.flush()
+
+def parse_args():
+    parser = optparse.OptionParser()
+
+    parser.add_option('--info', dest='info',
+                      help='Trash information.',
+                      action='store_true', default=False)
+    parser.add_option('--show-trashdir', dest='show_trashdir',
+                      help='Shows the trash directory for the current '
+                           'directory.',
+                      action='store_true', default=False)
+    parser.add_option('-l', '--list-trashdirs', dest='list_trashdirs',
+                      help='Lists the trash directories.',
+                      action='store_true', default=False)
+    parser.add_option('-s', '--size', dest='show_size',
+                      help='Show the size of trash directories if used with '
+                      '--list-trashdir.',
+                      action='store_true', default=False)
+    parser.add_option('--clear-trashdirs', dest='clear_trashdirs',
+                      help='Delete and re-create all trash directories.',
+                      action='store_true', default=False)
+
+    (cmdl_options, args) = parser.parse_args()
+    return cmdl_options, args
+
+def main(options, args):
+
+    if options.info:
+        sys.stdout.write('Size of trash in kilobytes: ')
+        sys.stdout.flush()
+        abspath = os.path.abspath('.')
+        trashdir = get_trashdir(abspath)
+        os.system('du -sk '+trashdir+' | cut -f1')
+    elif options.show_trashdir:
+        print get_trashdir(os.getcwd())
+    elif options.list_trashdirs:
+        list_trashdirs(options)
+    elif options.clear_trashdirs:
+        clear_trashdirs()
+    else:
+        w = sys.stdout.write
+        if len(sys.argv) == 1:
+            w('Error: no file given.\n')
+        else:
+            for arg in args:
+                try:
+                    move_to_trash(arg)
+                except HCSExc, e:
+                    w('Error: '+str(e)+'\n')
+
+if __name__ == '__main__':
+    main(*parse_args())

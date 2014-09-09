@@ -614,7 +614,6 @@ Key bindings:
 ;; Enable this keybinding (my-flymake-minor-mode) by default
 (add-hook 'elixir-mode-hook 'my-flymake-minor-mode)
 (add-hook 'erlang-mode-hook 'my-flymake-minor-mode)
-;;(add-hook 'haskell-mode-hook 'my-flymake-minor-mode)
 ;; (add-hook 'ats-mode-hook 'my-flymake-minor-mode)
 (add-hook 'tuareg-mode-hook 'my-flymake-minor-mode)
 (add-hook 'python-mode-hook 'my-flymake-minor-mode)
@@ -838,16 +837,16 @@ Key bindings:
 ;; ;; Haskell
 (require 'haskell-mode)
 (require 'inf-haskell)
-(add-hook 'haskell-mode-hook 'haskell-indent-mode)
-(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (require 'ghci-completion)
-(add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion)
-(add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion)
 
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-hugs)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+(add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+;; (add-hook 'haskell-mode-hook 'haskell-indent-mode)
+; (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'font-lock-mode)
 (add-hook 'haskell-mode-hook '(lambda () (capitalized-words-mode t)))
 (custom-set-variables
@@ -858,6 +857,17 @@ Key bindings:
 
                                 ))
 
+;; (require 'flymake-haskell-multi)
+;; (add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
+
+(require 'flycheck)
+(define-key flycheck-mode-map (kbd "M-n") #'flycheck-next-error)
+(define-key flycheck-mode-map (kbd "M-p") #'flycheck-previous-error)
+
+(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
+(add-hook 'haskell-mode-hook 'flycheck-mode)
+
+;
 
 ;; Yasnippet
 (require 'yasnippet) ;; not yasnippet-bundle

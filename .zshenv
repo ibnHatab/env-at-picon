@@ -1,6 +1,6 @@
 typeset -U path fpath manpath
 
-path=(~/bin /sbin $path)
+path=(~/bin /sbin /local/tools/R17B01/bin $path)
 
 fpath=(~/.zsh $fpath)
 manpath=(~/usr/man $manpath)
