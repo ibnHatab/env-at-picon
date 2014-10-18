@@ -47,8 +47,16 @@
 (add-to-list 'speedbar-fetch-etags-parse-list
              '("\\.scala" . speedbar-parse-c-or-c++tag))
 
+(speedbar-add-supported-extension ".erl")
+(add-to-list 'speedbar-fetch-etags-parse-list
+             '("\\.erl" . speedbar-parse-c-or-c++tag))
+
 (global-set-key (kbd "s-s")   'sr-speedbar-toggle)
 (global-set-key [(f5)]        'sr-speedbar-select-window)	    ;F5
+
+(global-set-key (kbd "s-a")   'minimap-toggle)
+(global-set-key [(f6)]        'minimap-toggle)	    ;F6
+
 							    ;F7
 					                    ;F8
 ;; org hijack(global-set-key [(f9)]          'compile)		    ;F9
