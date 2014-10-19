@@ -15,6 +15,7 @@ viewmap["caprica"]="afowler"
 viewmap["tauron"]="robbyrussell"
 viewmap["leonis"]="alanpeabody"
 viewmap["marvel"]="af-magic"
+viewmap["django"]="af-magic"
 
 ZSH_THEME="${viewmap["$HOST"]}"
 
@@ -222,13 +223,13 @@ export SCALA_HOME=/local/tools/scala/scala
 export GROOVY_HOME=/local/tools/scala/groovy
 export PATH=$HOME/bin:/sbin:/usr/bin:/bin:/usr/local/bin:$GROOVY_HOME/bin:$SCALA_HOME/bin:/local/tools/scala/sbt/bin:$JAVA_HOME/bin:~/.cabal/bin
 # ib utils
-source ~/libs/ib-utils/activate.zsh
+# source ~/libs/ib-utils/activate.zsh
 # Android
 export ADT_HOME=/local/tools/scala/adt-bundle-linux-x86-20130522/sdk
 export PATH=$PATH:$ADT_HOME/tools:$ADT_HOME/platform-tools
 #CLANG
 export PATH=$PATH:/local/tools/clang/bin:/local/tools/clang/share/scan-view
-source /usr/local/bin/virtualenvwrapper.sh
+#source /usr/local/bin/virtualenvwrapper.sh
 #ATS
 export PATH=$PATH:/local/tools/ats/bin
 #ERL 
