@@ -1,4 +1,0 @@
-#name : @doc
-#group : general
-# --
-IO.puts ">> #{inspect $0}"

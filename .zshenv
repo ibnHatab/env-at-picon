@@ -39,11 +39,11 @@ export ERL_LIBS=/usr/lib/erlang/lib:$HOME/libs/femto_test/deps:$HOME/libs:/local
 
 limit coredumpsize 0
 
-export http_proxy=http://cache.tm.alcatel.ro:8080
-export https_proxy=http://cache.tm.alcatel.ro:8080
-export HTTP_PROXY=http://cache.tm.alcatel.ro:8080
+#export http_proxy=http://cache.tm.alcatel.ro:8080
+#export https_proxy=http://cache.tm.alcatel.ro:8080
+#export HTTP_PROXY=http://cache.tm.alcatel.ro:8080
 
-export JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=cache.tm.alcatel.ro -Dhttp.proxyPort=8080"
+#export JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=cache.tm.alcatel.ro -Dhttp.proxyPort=8080"
 
 #set PATSHOMERELOC to ${PATSHOME}
 export PATSHOMERELOC=/local/tools/ats

@@ -10,24 +10,15 @@
       (nconc
        '(expand-file-name "~/apps/emacs" )
        '(expand-file-name "~/apps/emacs/packages" )
-       '(expand-file-name "~/apps/emacs/packages/yasnippet" )
        '(expand-file-name "~/apps/emacs/packages/ensime/elisp" )
        '(expand-file-name "~/apps/emacs/packages/esense" )
        '(expand-file-name "~/apps/emacs/packages/erlang" )
        '(expand-file-name "~/apps/emacs/packages/distel" )
        '(expand-file-name "~/apps/emacs/packages/wrangler" )
-       '(expand-file-name "~/apps/emacs/packages/haskell-mode" )
-       '(expand-file-name "~/apps/emacs/packages/org-mode/lisp" )
-       '(expand-file-name "~/apps/emacs/packages/org-mode/contrib/lisp" )     
-  ;; '(expand-file-name "~/apps/emacs/packages/python" )
-       '(expand-file-name "~/apps/emacs/packages/groovy" )
-       '(expand-file-name "~/apps/emacs/packages/scala-mode2" )
-       '(expand-file-name "/local/tools/scala/ensime/elisp/" )
        load-path))
 
 (setq-default indent-tabs-mode nil)
 
-;;(setq mac-command-modifier 'meta) ;;Sets the command (Apple) key as Meta
 
 (load-library "emacs-general")
 (load-library "emacs-fontlock")
@@ -55,9 +46,6 @@
 (setq line-number-mode t)
 (setq column-number-mode t)
 
-(iswitchb-mode 1)        ; Show me my completions please
-(setq iswitchb-case nil) ; completions are case sensitive.
-
 ; winner-mode for restoring windows configuration C-c Left/Right
 (when (fboundp 'winner-mode)
   (winner-mode 1))
@@ -67,7 +55,7 @@
   (winner-mode 1))
 
 ;; Delete trailing whitespace
-;; (add-hook 'write-file-functions 'delete-trailing-whitespace)
+(add-hook 'write-file-functions 'delete-trailing-whitespace)
 
 ;; Black Jeck
 ;; (set-background-color "black")
@@ -130,7 +118,7 @@
  '(pc-selection-mode t)
  '(pdb-path (quote /usr/lib/python2\.6/pdb\.py))
  '(python-default-interpreter (quote cpython))
- '(python-shell-interpreter "python")
+ '(python-shell-interpreter "ipython")
  '(python-shell-interpreter-args "-i")
  '(safe-local-variable-values (quote ((c-set-style "linux"))))
  '(scala-indent:default-run-on-strategy 0)

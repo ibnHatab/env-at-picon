@@ -23,7 +23,7 @@ ZSH_THEME="${viewmap["$HOST"]}"
 COMPLETION_WAITING_DOTS="true"
 
 # Example format: plugins=(debian git-flow compleat rails git textmate ruby lighthouse)
-plugins=(git git-flow  dircycle rebar mix)
+plugins=(git git-flow dircycle rebar mix heroku)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -170,12 +170,20 @@ alias -g  Z='|tail'           # tail (also Z<n> were <n> is 1-30)  [2001­10­20]
 
 alias -s txt='less -rE'
 
+alias emacs=/opt/emacs24/bin/emacs
+
 # aliases A<n> and Z<n> (where <n> is 1-30)
 for ((i=1; i<=30; i++)); do     #
     alias -g A$i="|grc head -n$i"   # head (1-30 rows)                 [2002­05­20]
     alias -g Z$i="|grc tail -n$i"   # tail (1-30 rows)                 [2002­05­20]
 done                            #
 unset i                         #
+
+
+# wlan 1bba2101-57b5-4e71-8997-c694fab8750e
+alias dsl-status='nmcli con status uuid 1bba2101-57b5-4e71-8997-c694fab8750e'
+alias dsl-down='nmcli con down uuid 1bba2101-57b5-4e71-8997-c694fab8750e'
+alias dsl-up='nmcli con up uuid 1bba2101-57b5-4e71-8997-c694fab8750e'
 
 autoload -U compinit && compinit -u
 # autojump
@@ -215,7 +223,6 @@ echo '-------------------------------------------'
 echo
 
 # Customize to your needs...
-alias emacs="/net/aeries/local/storage/tools/emacs24/bin//emacs"
 
 #JAVA/SCALA
 export JAVA_HOME=/local/tools/jdk1.7.0_21/

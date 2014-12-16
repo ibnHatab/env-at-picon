@@ -26,8 +26,6 @@
                 ("\\.[Tt][Xx][Tt]$"        . text-mode)
                 ("\\.\\([pP][Llm]\\|al\\)$". perl-mode)
                 ("\\.py$"                  . python-mode)
-                ;; ("\\.css\\'"               . css-mode)
-                ;; ("\\.htm?\\'"              . html-mode)
                 ("\\.xml?\\'"              . xml-mode)
                 ("\\-MIB?\\'"              . snmpv2-mode)
                 ("\\-MIB?\\'"              . snmpv2-mode)
@@ -37,14 +35,13 @@
 		("\\.ijs$"                 . j-mode)
 		("\\.fs[iylx]?$"           . fsharp-mode)
 		("\\.ml\\w?"               . tuareg-mode)
-		("\\.hs\\w?"               . haskell-mode)
+;;		("\\.hs\\w?"               . haskell-mode)
 		("\\.yang"                 . yang-mode)
 		("\\.erl$"                 . erlang-mode)
 		("\\.hrl$"                 . erlang-mode)
 		("\\.ie$"                  . erlang-mode)
 		("\\.es$"                  . erlang-mode)
 		("\\.app$"                 . erlang-mode)
-;;		("\\.csp$"                 . csp-mode)
 ;;                ("\\.\\(d\\|s\\)ats\\'"    . ats-mode)
 		("\\.org\\'"               . org-mode)
 		("\\.m\\'"                 . octave-mode)
@@ -54,7 +51,7 @@
                 ("\\.scala$"               . scala-mode)
                 ("\\.sc"                   . scala-mode)
                 ("\\.dot"                  . graphviz-dot-mode)
-                ("\\.tjp"                  . taskjuggler-mode)
+;;                ("\\.tjp"                  . taskjuggler-mode)
                 ("\\.less"                 . less-css-mode)
                 ("\\.css"                  . less-css-mode)
                 ("\\.yml$"                 . yaml-mode)
@@ -64,6 +61,7 @@
 ;; ELPA
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("elpy" . "http://jorgenschaefer.github.io/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
@@ -90,7 +88,7 @@
   (el-get 'sync (mapcar 'el-get-source-name recipes))))
 (setq el-get-user-package-directory user-emacs-directory)
 ;; EL-GET SYNC OVERLAYS
-(el-get-sync-recipes "el-get-haskell")
+;(el-get-sync-recipes "el-get-haskell")
 (el-get-sync-recipes "el-get-user")
 ;; CUSTOM FILE
 (setq custom-file (locate-user-emacs-file "custom.el"))
@@ -109,7 +107,7 @@
 
 (add-to-list 'elixir-mode-hook 
              (defun my-elixir-mode-hook ()
-               (yas/minor-mode-on)
+;;               (yas/minor-mode-on)
 
                (setq comint-scroll-to-bottom-on-output t)
                (setq elixir-iex-command "iex-emacs")
@@ -184,7 +182,7 @@
 
 (add-hook 'scala-mode-hook
           '(lambda ()
-             (yas/minor-mode-on)
+;;             (yas/minor-mode-on)
              (local-set-key "\C-c\C-c" 'run-current-file)
              (local-set-key (kbd "RET") 'newline-and-indent)
              (local-set-key (kbd "C-M-j") 'join-line)
@@ -272,7 +270,7 @@
 ;(setq ido-create-new-buffer 'always)
 
 (setq ido-file-extensions-order
-      '(".org" ".erl" ".hrl" ".txt" ".py" ".emacs" ".xml" ".rebar" ))
+      '(".el" ".org" ".erl" ".hrl" ".txt" ".py" ".emacs" ".xml" ".rebar" ))
 
 ;; octave-mode
 (autoload 'octave-mode "octave-mod" nil t)
@@ -298,8 +296,8 @@
 ;;(require 'calfw-org)
 (require 'org-manage)
 (require 'org-protocol)
-(require 'ox-taskjuggler)
-(require 'ox-freemind)
+;;(require 'ox-taskjuggler)
+;;(require 'ox-freemind)
 
 (setq org-log-done 'time)
 (setq org-agenda-include-diary nil)
@@ -312,17 +310,11 @@
 
 ;; Manage .org files
 (setq org-manage-directory-org "~/public_html/ib-home") ; M-x org-manage
-;; (setq org-agenda-files (quote ("~/public_html/ib-home/calendar/")))
-;;         "/local/home/vlad/public_html/ib-home/calendar/android_cal.org"
 (setq org-agenda-files (quote 
                         (
                          "~/public_html/ib-home/calendar/fabric_cal.org"
                          "~/public_html/ib-home/calendar/tdd_platform_cal.org"
                          "~/public_html/ib-home/projects/eICIC.org"
-                         ;; "~/public_html/ib-home/calendar/femto_cal.org"
-                         ;;  "~/public_html/ib-home/calendar/panda_cal.org"
-                         ;; "/home/vkinzers/public_html/ib-home/projects/fabric/enb_unload/TODO.org"
-                         ;; "/local/vlad/repos/socialsyntax/socialsyntax-web/TODO.org"
                          "~/public_html/ib-home/calendar/journal.org"
                          "~/public_html/ib-home/calendar/calendar.org"
                          )))
@@ -332,9 +324,7 @@
                                            "~/public_html/ib-home/calendar/fabric_cal.org_archive"
                                            "~/public_html/ib-home/calendar/tdd_platform_cal.org_archive"
                                            "~/public_html/ib-home/calendar/calendar.org_archive"
-                                           ;;                         "~/public_html/ib-home/calendar/femto_cal.org_archive"
                                            "~/public_html/ib-home/calendar/journal.org_archive"
-                                           ;;                         "/local/home/vlad/public_html/ib-home/calendar/panda_cal.org_archive"
                                            )))
 
 
@@ -549,26 +539,6 @@
  '("^\\(\.+\.ml[yilp]?\\|\.lhs\\):\\([0-9]+\\):\\([0-9]+\\):\\(.+\\)"
    1 2 3 4) flymake-err-line-patterns)
 
-; flymake python
-;; (defun flymake-create-temp-in-system-tempdir (filename prefix)
-;;   (make-temp-file (or prefix "flymake")))
-
-;; (when (load "flymake" t)
-;;   (defun flymake-pyflakes-init ()
-;;     ;; Make sure it's not a remote buffer or flymake would not work
-;;      ;; (when (not (subsetp (list (current-buffer)) (tramp-list-remote-buffers)))
-;;       (let* ((temp-file (flymake-init-create-temp-buffer-copy
-;; 			 'flymake-create-temp-in-system-tempdir))
-;;              (local-file (file-relative-name
-;; 			  temp-file
-;; 			  (file-name-directory buffer-file-name))))
-;; 	(list "pyflakes" (list temp-file))))
-;;   (add-to-list 'flymake-allowed-file-name-masks
-;; 	       '("\\.py\\'" flymake-pyflakes-init)))
-
-(require 'flymake-python-pyflakes)
-(add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
-
 ;; optional setting
 ;; if you want to use flymake always, then add the following hook.
 ;; (add-hook
@@ -616,7 +586,6 @@ Key bindings:
 (add-hook 'erlang-mode-hook 'my-flymake-minor-mode)
 ;; (add-hook 'ats-mode-hook 'my-flymake-minor-mode)
 (add-hook 'tuareg-mode-hook 'my-flymake-minor-mode)
-(add-hook 'python-mode-hook 'my-flymake-minor-mode)
 
 (defun flymake-xml-init ())
 (setq flymake-no-changes-timeout 12)
@@ -834,7 +803,7 @@ Key bindings:
 			    ))
 
 
-;; ;; Haskell
+;;;; ;; Haskell
 (require 'haskell-mode)
 (require 'inf-haskell)
 (require 'ghci-completion)
@@ -842,66 +811,47 @@ Key bindings:
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-;; (add-hook 'haskell-mode-hook 'haskell-indent-mode)
-; (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+(add-hook 'haskell-mode-hook 'haskell-indent-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'font-lock-mode)
 (add-hook 'haskell-mode-hook '(lambda () (capitalized-words-mode t)))
 (custom-set-variables
- '(haskell-program-name "ghci"))
-;; (setq haskell-font-lock-symbols t)
+'(haskell-program-name "ghci"))
+(setq haskell-font-lock-symbols t)
 (add-hook 'haskell-mode-hook '(lambda ()
-                                (local-set-key "\C-c\C-d" 'haskell-hoogle)
+                               (local-set-key "\C-c\C-d" 'haskell-hoogle)
 
-                                ))
+                               ))
 
 ;; (require 'flymake-haskell-multi)
 ;; (add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
 
-(require 'flycheck)
-(define-key flycheck-mode-map (kbd "M-n") #'flycheck-next-error)
-(define-key flycheck-mode-map (kbd "M-p") #'flycheck-previous-error)
-
-(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
-(add-hook 'haskell-mode-hook 'flycheck-mode)
+;;(require 'flycheck)
+;;(define-key flycheck-mode-map (kbd "M-n") #'flycheck-next-error)
+;;(define-key flycheck-mode-map (kbd "M-p") #'flycheck-previous-error)
+;;
+;;(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
+;;(add-hook 'haskell-mode-hook 'flycheck-mode)
 
 ;
 
 ;; Yasnippet
-(require 'yasnippet) ;; not yasnippet-bundle
-(yas/load-directory "~/apps/emacs/packages/yasnippet/snippets")
-(yas/initialize)                        
+(require 'yasnippet)
+(yas-global-mode 1)
+
 
 ;; Python
-(require 'python)  
+(require 'python)
+(require 'elpy)
 
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:setup-keys t)                      ; optional
-(setq jedi:complete-on-dot t)                 ; optional
+(setq elpy-rpc-backend "jedi")
+(elpy-enable)
+(elpy-use-ipython)
 
-(add-hook 'python-mode-hook
-	  #'(lambda ()
-	      (setq
-	       python-shell-interpreter "python"
-               python-shell-prompt-regexp  "In \\[[0-9]+\\]: "
-               python-shell-prompt-output-regexp  "Out\\[[0-9]+\\]: "
-               python-shell-completion-setup-code  "from IPython.core.completerlib import module_completion"
-               python-shell-completion-module-string-code  "';'.join(module_completion('''%s'''))\n"
-               python-shell-completion-string-code  "';'.join(get_ipython().Completer.all_completions('''%s'''))\n"
-			)
-
-	      (define-key python-mode-map "\C-m" 'newline-and-indent)
-	      (define-key python-mode-map (kbd "C-c |") 'python-shell-send-region)
-	      (define-key python-mode-map (kbd "C-c !") 'python-shell)
-
-              (local-set-key "\M-." 'jedi:goto-definition)
-              (local-set-key "\M-?" 'jedi:show-doc)
-              (local-set-key "\M-," 'jedi:goto-definition-pop-marker)
-
-	      ))
-
+;;
 (require 'python-django)
 (autoload 'django-html-mumamo-mode "~/.emacs.d/nxhtml/autostart.el")
 (setq auto-mode-alist
@@ -909,18 +859,18 @@ Key bindings:
 (setq mumamo-background-colors nil) 
 (add-to-list 'auto-mode-alist '("\\.html$" . django-html-mumamo-mode))
 
+(global-set-key (kbd "C-x j") 'python-django-open-project)
+
 ;; Workaround the annoying warnings:
 ;;    Warning (mumamo-per-buffer-local-vars):
 ;;    Already 'permanent-local t: buffer-file-name
-(when (and (equal emacs-major-version 24)
-           (equal emacs-minor-version 3))
-  (eval-after-load "mumamo"
-    '(setq mumamo-per-buffer-local-vars
-           (delq 'buffer-file-name mumamo-per-buffer-local-vars))))
+;; (when (and (equal emacs-major-version 24)
+;;            (equal emacs-minor-version 3))
+;;   (eval-after-load "mumamo"
+;;     '(setq mumamo-per-buffer-local-vars
+;;            (delq 'buffer-file-name mumamo-per-buffer-local-vars))))
 
-
-(global-set-key (kbd "C-x j") 'python-django-open-project)
-
+;;
 
 ;; mustache
 ;(require 'mustache-mode)

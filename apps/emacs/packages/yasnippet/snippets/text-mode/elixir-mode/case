@@ -1,7 +1,0 @@
-#name : case ? do ... end
-#group : control structure
-# --
-case ${1:condition}(${2:val}) do
-  ${3:match} -> ${4:ret}$0
-  _ ->          ${5:default}
-end

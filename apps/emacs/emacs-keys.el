@@ -193,7 +193,7 @@ With argument ARG, do this that many times."
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
+;; (global-set-key "\C-cb" 'org-iswitchb)
 (global-set-key "\C-cf" 'cfw:open-org-calendar)
 
 
@@ -205,7 +205,6 @@ With argument ARG, do this that many times."
 (global-set-key (kbd "<f9> m") 'org-manage)
 (global-set-key (kbd "<f9> j") 'vki:open-default-notes-file)
 (global-set-key (kbd "<f9> S") 'org-todo)
-
 (global-set-key (kbd "<f9> d") 'org-deadline)
 (global-set-key (kbd "<f9> s") 'org-schedule)
 (global-set-key (kbd "<f9> t") 'org-time-stamp-inactive)
@@ -213,7 +212,6 @@ With argument ARG, do this that many times."
 (global-set-key (kbd "<f9> SPC") 'org-clock-in)
 (global-set-key (kbd "<f9> s-SPC") 'org-clock-goto)
 (global-set-key (kbd "<f9> p") 'org-taskjuggler-export-and-process)
-
 (global-set-key (kbd "M-<f9>") 'org-toggle-inline-images)
 
 (defun vki:open-default-notes-file ()

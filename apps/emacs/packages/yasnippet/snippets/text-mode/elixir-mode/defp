@@ -1,4 +1,0 @@
-#name : defp method, do: ... 
-#group : definitions
-# --
-defp ${1:mame}(${3:args}), do: $0
