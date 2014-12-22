@@ -672,7 +672,7 @@ Key bindings:
 
 (add-hook 'erlang-load-hook 'my-erlang-load-hook)
 (defun my-erlang-load-hook ()
-  (setq erlang-compile-extra-opts '(debug_info (i . \"../include\")))
+  (setq erlang-compile-extra-opts '(debug_info (i . \"../include\") (i . \"../deps\")))
   )
 
 (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
