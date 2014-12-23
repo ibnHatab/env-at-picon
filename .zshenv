@@ -35,13 +35,14 @@ export CRACKLIB_DICTPATH=/var/cache/cracklib/cracklib_dict
 
 export OOO_FORCE_DESKTOP=gnome
 export LM_LICENSE_FILE=5555@135.86.206.75
-export ERL_LIBS=/usr/lib/erlang/lib:$HOME/libs/femto_test/deps:$HOME/libs:/local/$USER/repos/superdeps/
+export ERL_LIBS=/usr/lib/erlang/lib:$HOME/libs/femto_test/deps
 
 limit coredumpsize 0
 
 export http_proxy=http://cache.tm.alcatel.ro:8080
 export https_proxy=http://cache.tm.alcatel.ro:8080
 export HTTP_PROXY=http://cache.tm.alcatel.ro:8080
+export no_proxy='0,localhost,127.0.0.0/8' 
 
 export JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=cache.tm.alcatel.ro -Dhttp.proxyPort=8080"
 
