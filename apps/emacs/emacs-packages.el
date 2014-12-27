@@ -493,17 +493,17 @@
 ; file-idx line-idx col-idx (optional) text-idx(optional)
 
 ; Flymake-Erlang
-(defun flymake-erlang-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-		     'flymake-create-temp-with-folder-structure))
-         ;;  		     'flymake-create-temp-inplace))
-  	 (local-file (file-relative-name
-  		      temp-file
-  		      (file-name-directory buffer-file-name))))
-    (list "~/bin/eflymake" (list local-file))))
+;; (defun flymake-erlang-init ()
+;;   (let* ((temp-file (flymake-init-create-temp-buffer-copy
+;; 		     'flymake-create-temp-with-folder-structure))
+;;          ;;  		     'flymake-create-temp-inplace))
+;;   	 (local-file (file-relative-name
+;;   		      temp-file
+;;   		      (file-name-directory buffer-file-name))))
+;;     (list "~/bin/eflymake" (list local-file))))
 
-(add-to-list 'flymake-allowed-file-name-masks
- 	     '("\\.erl\\'" flymake-erlang-init))
+;; (add-to-list 'flymake-allowed-file-name-masks
+;;  	     '("\\.erl\\'" flymake-erlang-init))
 
 
 ; Flymake-ATS
@@ -583,7 +583,7 @@ Key bindings:
 
 ;; Enable this keybinding (my-flymake-minor-mode) by default
 (add-hook 'elixir-mode-hook 'my-flymake-minor-mode)
-(add-hook 'erlang-mode-hook 'my-flymake-minor-mode)
+;; (add-hook 'erlang-mode-hook 'my-flymake-minor-mode)
 ;; (add-hook 'ats-mode-hook 'my-flymake-minor-mode)
 (add-hook 'tuareg-mode-hook 'my-flymake-minor-mode)
 
@@ -633,58 +633,71 @@ Key bindings:
 ;;(require 'csp-mode)
 
 ;; BEGIN Erlang
-(setq erlang-root-dir   "/usr/lib/erlang")
-(add-to-list 'exec-path "/usr/lib/erlang/bin")
-(defvar inferior-erlang-prompt-timeout t)
-(add-hook 'erlang-new-file-hook 'tempo-template-erlang-normal-header)
-(add-hook 'erlang-mode-hook (lambda () (setq parens-require-spaces nil)))
 
-(add-hook 'erlang-load-hook 'my-erlang-load-hook)
-(defun my-erlang-load-hook ()
-  (setq erlang-compile-extra-opts '(debug_info (i . \"../include\")))
-  )
+;;(add-to-list 'url-proxy-services '("no_proxy" . "0:4587"))
+(add-hook 'after-init-hook 'edts-after-init-hook)
+(defun edts-after-init-hook ()
+  ;; (setq url-proxy-services
+        ;; '(("no_proxy" . "^\\(localhost\\|10.*\\|0:4587\\)")
+        ;;   ("http" . "cache.tm.alcatel.ro:8080")
+        ;;   ("https" . "cache.tm.alcatel.ro:8080")))
+  (require 'edts-start)
+  (local-set-key "\C-c\C-z" 'edts-shell)
+)
 
-(add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
-(defun my-erlang-mode-hook ()
-  (setq inferior-erlang-machine-options
-        '("-sname" "emacs-erl" "-pa" "../ebin" "-pa" "../test" "-pa" "../.eunit" "-pa" "../deps/*/ebin"))
-  (imenu-add-to-menubar "imenu")
-  (local-set-key [return]   'newline-and-indent)
-  (local-set-key "\C-c\C-m" 'erlang-man-function)
-  (local-set-key "\C-c\C-c" 'erlang-compile)
-  (local-set-key "\M-tab"   'erl-complete)
-  (local-set-key "\C-c\C-v" 'erl-reload-module)
-  )
 
-;; EQC Emacs Mode -- Configuration Start
-(autoload 'eqc-erlang-mode-hook "eqc-ext" "EQC Mode" t)
-(add-hook 'erlang-mode-hook 'eqc-erlang-mode-hook)
-(setq eqc-max-menu-length 30)
-(setq eqc-root-dir "/udir/tools/otp/lib/erlang/lib/eqc-1.20.3")
+;; (setq erlang-root-dir   "/usr/lib/erlang")
+;; (add-to-list 'exec-path "/usr/lib/erlang/bin")
+;; (defvar inferior-erlang-prompt-timeout t)
+;; (add-hook 'erlang-new-file-hook 'tempo-template-erlang-normal-header)
+;; (add-hook 'erlang-mode-hook (lambda () (setq parens-require-spaces nil)))
 
-;; Distel (erlang)
-(require 'distel)
-(distel-setup)
+;; (add-hook 'erlang-load-hook 'my-erlang-load-hook)
+;; (defun my-erlang-load-hook ()
+;;   (setq erlang-compile-extra-opts '(debug_info (i . \"../include\") (i . \"../deps\")))
+;;   )
 
-(defconst distel-shell-keys
-  '(("\C-\M-i" erl-complete)
-    ("\M-tab" erl-complete)
-    ("\M-." erl-find-source-under-point)
-    ("\M-," erl-find-source-unwind)
-    ("\M-*" erl-find-source-unwind)
-    )
-  "Additional keys to bind when in Erlang shell.")
-(add-hook 'erlang-shell-mode-hook
- 	  (lambda ()
- 	    (dolist (spec distel-shell-keys)
- 	      (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
+;; (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
+;; (defun my-erlang-mode-hook ()
+;;   (setq inferior-erlang-machine-options
+;;         '("-sname" "emacs-erl" "-pa" "../ebin" "-pa" "../test" "-pa" "../.eunit" "-pa" "../deps/*/ebin"))
+;;   (imenu-add-to-menubar "imenu")
+;;   (local-set-key [return]   'newline-and-indent)
+;;   (local-set-key "\C-c\C-m" 'erlang-man-function)
+;;   (local-set-key "\C-c\C-c" 'erlang-compile)
+;;   (local-set-key "\M-tab"   'erl-complete)
+;;   (local-set-key "\C-c\C-v" 'erl-reload-module)
+;;   )
 
-;; Esense
-(require 'esense-start)
-(setq esense-indexer-program
-      (concat (getenv "HOME") "/apps/emacs/packages/esense/esense.sh"))
+;; ;; EQC Emacs Mode -- Configuration Start
+;; (autoload 'eqc-erlang-mode-hook "eqc-ext" "EQC Mode" t)
+;; (add-hook 'erlang-mode-hook 'eqc-erlang-mode-hook)
+;; (setq eqc-max-menu-length 30)
+;; (setq eqc-root-dir "/udir/tools/otp/lib/erlang/lib/eqc-1.20.3")
 
-(require 'erlang-start)
+;; ;; Distel (erlang)
+;; (require 'distel)
+;; (distel-setup)
+
+;; (defconst distel-shell-keys
+;;   '(("\C-\M-i" erl-complete)
+;;     ("\M-tab" erl-complete)
+;;     ("\M-." erl-find-source-under-point)
+;;     ("\M-," erl-find-source-unwind)
+;;     ("\M-*" erl-find-source-unwind)
+;;     )
+;;   "Additional keys to bind when in Erlang shell.")
+;; (add-hook 'erlang-shell-mode-hook
+;;  	  (lambda ()
+;;  	    (dolist (spec distel-shell-keys)
+;;  	      (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
+
+;; ;; Esense
+;; (require 'esense-start)
+;; (setq esense-indexer-program
+;;       (concat (getenv "HOME") "/apps/emacs/packages/esense/esense.sh"))
+
+;; (require 'erlang-start)
 
 (require 'wrangler)
 ;; END erlang

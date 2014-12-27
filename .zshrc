@@ -169,6 +169,8 @@ alias -g  Y='&>/dev/null &; disown' # fork process (`Y' is a fork) [2002­08­27]
 alias -g  Z='|tail'           # tail (also Z<n> were <n> is 1-30)  [2001­10­20]
 
 alias -s txt='less -rE'
+# clean escape's
+alias stresc='sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"'
 
 alias emacs=/opt/emacs24/bin/emacs
 
@@ -230,7 +232,7 @@ export SCALA_HOME=/local/tools/scala/scala
 export GROOVY_HOME=/local/tools/scala/groovy
 export PATH=$HOME/bin:/sbin:/usr/bin:/bin:/usr/local/bin:$GROOVY_HOME/bin:$SCALA_HOME/bin:/local/tools/scala/sbt/bin:$JAVA_HOME/bin:~/.cabal/bin
 # ib utils
-# source ~/libs/ib-utils/activate.zsh
+#source ~/libs/ib-utils/activate.zsh ~/libs/ib-utils/ib-platform.json
 # Android
 export ADT_HOME=/local/tools/scala/adt-bundle-linux-x86-20130522/sdk
 export PATH=$PATH:$ADT_HOME/tools:$ADT_HOME/platform-tools
@@ -240,6 +242,6 @@ export PATH=$PATH:/local/tools/clang/bin:/local/tools/clang/share/scan-view
 #ATS
 export PATH=$PATH:/local/tools/ats/bin
 #ERL 
-export PATH=/local/tools/R17B01/bin:$PATH
+#export PATH=/local/tools/otp_src_17.3/bin:$PATH
 #GHC
 export PATH=/local/tools/ghc-7.8.3/bin/:$PATH
