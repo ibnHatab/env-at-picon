@@ -298,8 +298,8 @@
 ;;(require 'calfw-org)
 (require 'org-manage)
 (require 'org-protocol)
-(require 'ox-taskjuggler)
-(require 'ox-freemind)
+;; (require 'ox-taskjuggler)
+;; (require 'ox-freemind)
 
 (setq org-log-done 'time)
 (setq org-agenda-include-diary nil)

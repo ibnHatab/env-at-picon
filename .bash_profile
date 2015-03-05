@@ -29,9 +29,9 @@ HISTSIZE=1000000
 export HISTFILESIZE HISTSIZE
 
 #Erlang
-ERL_LIBS=/udir/tools/otp/lib/erlang/lib:$HOME/libs:/local/$USER/repos/superdeps/
-ERL_LIBS=$ERL_LIBS:$HOME/libs/femto_test/deps:$HOME/libs/femto_test/apps
-export ERL_LIBS
+#$RL_LIBS=/udir/tools/otp/lib/erlang/lib:$HOME/libs:/local/$USER/repos/superdeps/
+#ERL_LIBS=$ERL_LIBS:$HOME/libs/femto_test/deps:$HOME/libs/femto_test/apps
+#export ERL_LIBS
 
 CC=`which cleartool 2>/dev/null`
 if [ -n "${CC}" ]; then
@@ -59,3 +59,5 @@ PLTF_VOB_DELIVERY=/vobs/onepltf_ltefdd/delivery/
 export PLTF_VOB_DELIVERY
 
 umask 002
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

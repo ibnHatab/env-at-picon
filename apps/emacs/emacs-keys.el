@@ -26,19 +26,17 @@
       read-file-name-completion-ignore-case t)
 
 ;; replace by bookmark system
-(global-set-key-wise            '[(f1)];; 'switch-other-buffer		F1
-                                "Makes the same operation as C-x b RET."
-                                '(switch-to-buffer (other-buffer)))
-(global-set-key-wise            '[(M-f1)]   'gse-bury-buffer)
-(global-set-key-wise            '[(C-f1)]   'gse-unbury-buffer)
+;; (global-set-key-wise            '[(f1)];; 'switch-other-buffer		F1
+;;                                 "Makes the same operation as C-x b RET."
+;;                                 '(switch-to-buffer (other-buffer)))
+;; (global-set-key-wise            '[(M-f1)]   'gse-bury-buffer)
+;; (global-set-key-wise            '[(C-f1)]   'gse-unbury-buffer)
+(global-set-key [(f1)]          'ido-switch-buffer)	    ;F4
 (global-set-key-wise            '[(C-tab)]   'other-window)
-
 (global-set-key [(f2)]          'save-buffer)		    
 (global-set-key [(f3)]          'find-file)		    
-
-
 ;;(global-set-key [(f4)]          'iswitchb-buffer)	    ;F4
-(global-set-key [(f4)]          'ido-switch-buffer)	    ;F4
+(global-set-key [(f4)]          'next-error)	    ;F4
 (global-set-key [(C-f4)]        'previous-error)	   
 
 (require 'sr-speedbar)

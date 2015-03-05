@@ -9,4 +9,4 @@ code:load_abs(os:getenv("HOME") ++ "/libs/femto_test/ebin/user_default").
 
 %% %% test framework and emacs support
 %% code:add_pathz(os:getenv("HOME") ++ "/libs/femto_test/ebin").
-code:add_pathz("/usr/local/share/distel/ebin/").
+%% code:add_pathz("/usr/local/share/distel/ebin/").

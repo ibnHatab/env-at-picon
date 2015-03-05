@@ -17,8 +17,8 @@
        '(expand-file-name "~/apps/emacs/packages/distel" )
        '(expand-file-name "~/apps/emacs/packages/wrangler" )
        '(expand-file-name "~/apps/emacs/packages/haskell-mode" )
-       '(expand-file-name "~/apps/emacs/packages/org-mode/lisp" )
-       '(expand-file-name "~/apps/emacs/packages/org-mode/contrib/lisp" )     
+       ;; '(expand-file-name "~/apps/emacs/packages/org-mode/lisp" )
+       ;; '(expand-file-name "~/apps/emacs/packages/org-mode/contrib/lisp" )     
   ;; '(expand-file-name "~/apps/emacs/packages/python" )
        '(expand-file-name "~/apps/emacs/packages/groovy" )
        '(expand-file-name "~/apps/emacs/packages/scala-mode2" )
@@ -127,7 +127,7 @@
  '(nxml-attribute-indent 1)
  '(nxml-child-indent 1)
  '(org-support-shift-select (quote always))
- '(pc-selection-mode t)
+ ;; '(pc-selection-mode t)
  '(pdb-path (quote /usr/lib/python2\.6/pdb\.py))
  '(python-default-interpreter (quote cpython))
  '(python-shell-interpreter "python")
@@ -151,8 +151,6 @@
  '(vc-initial-comment t)
  '(wrangler-search-paths (quote ("/local/vlad/repos/elixir/exdsl/exdsl_ct")))
  '(x-select-enable-clipboard t))
-
-
 
 
 (custom-set-faces

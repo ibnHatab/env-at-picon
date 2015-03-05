@@ -34,7 +34,7 @@
  '(blink-matching-paren-on-screen t)
  '(next-line-add-newlines nil)
  '(global-font-lock-mode t nil (font-lock))
- '(pc-selection-mode t nil (pc-select))
+ ;; '(pc-selection-mode t nil (pc-select))
  '(font-lock-global-modes t))
 
 

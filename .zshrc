@@ -22,7 +22,7 @@ ZSH_THEME="${viewmap["$HOST"]}"
 COMPLETION_WAITING_DOTS="true"
 
 # Example format: plugins=(debian git-flow compleat rails git textmate ruby lighthouse)
-plugins=(git git-flow  dircycle rebar mix)
+plugins=(git git-flow  dircycle rebar mix web-search)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -216,7 +216,8 @@ echo '-------------------------------------------'
 echo
 
 # Customize to your needs...
-alias emacs="/net/aeries/local/storage/tools/emacs24/bin//emacs"
+alias emacs="/opt/emacs24/bin/emacs"
+alias observer="/usr/lib/erlang/bin/erl -s observer"
 
 #JAVA/SCALA
 export JAVA_HOME=/local/tools/jdk1.7.0_21/
@@ -237,3 +238,5 @@ export PATH=$PATH:/local/tools/ats/bin
 #export PATH=/local/tools/otp_src_17.3/bin:$PATH
 #GHC
 export PATH=/local/tools/ghc-7.8.3/bin/:$PATH
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
