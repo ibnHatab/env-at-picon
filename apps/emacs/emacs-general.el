@@ -1,3 +1,26 @@
+; comint
+(require 'comint)
+(define-key comint-mode-map [(meta p)]
+  'comint-previous-matching-input-from-input)
+(define-key comint-mode-map [(meta n)]
+  'comint-next-matching-input-from-input)
+(define-key comint-mode-map [(control meta n)]
+  'comint-next-input)
+(define-key comint-mode-map [(control meta p)]
+  'comint-previous-input)
+
+
+;; use ido for minibuffer completion
+(require 'ido)
+(ido-mode t)
+(setq ido-save-directory-list-file "~/.emacs.d/.ido.last")
+(setq ido-enable-flex-matching t)
+(setq ido-use-filename-at-point 'guess)
+(setq ido-show-dot-for-dired t)
+(setq ido-default-buffer-method 'selected-window)
+(setq ido-decorations
+      '("\n-> " "" "\n   " "\n   ..." "[" "]"
+	" [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]"))
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
@@ -5,6 +28,8 @@
 (setq uniquify-after-kill-buffer-p t) ;rename after killing uniquify
 (setq uniquify-ignore-buffers-re "^\\*")
 
+(fset 'yes-or-no-p 'y-or-n-p)
+(add-hook 'write-file-functions 'delete-trailing-whitespace)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Ace jump mode
@@ -20,6 +45,7 @@
 
 
 (custom-set-variables
+ '(global-auto-revert-mode 1)
  '(kill-whole-line t)
  '(show-paren-style (quote parenthesis))
  '(compilation-window-height 14)
@@ -34,55 +60,7 @@
  '(blink-matching-paren-on-screen t)
  '(next-line-add-newlines nil)
  '(global-font-lock-mode t nil (font-lock))
- ;; '(pc-selection-mode t nil (pc-select))
  '(font-lock-global-modes t))
-
-
-;; Jump forward and backward through buffer list ; XEmacs mailing list
-
-(defun gse-unbury-buffer ()
-  "Switch to the buffer at the bottom of the buffer list, if it's not a
-'hidden' buffer."
-  (interactive)
-  (let ((all-buffers (buffer-list))
-        (done nil)
-        (i 1))
-    (setq i (- (length all-buffers) 1))
-    (while (and (not done) (>= i 0))
-      (let ((buf (nth i all-buffers))
-            (first-char ""))
-        (setq first-char (substring (buffer-name buf) 0 1))
-        (if (not (or
-                  (equal first-char "*")
-                  (equal first-char " ")))
-            (progn
-              (switch-to-buffer buf)
-              (setq done t))
-          (setq i (- i 1))
-          )))
-    ))
-
-(defun gse-bury-buffer ()
-"Bury the current buffer until you find a non-'hidden' buffer."
-(interactive)
-
-(bury-buffer)
-(let ((all-buffers (buffer-list))
-      (done nil)
-      (i 0))
-  (while (and (not done) (<= i (length all-buffers)))
-    (let ((buf (nth i all-buffers))
-          (first-char ""))
-      (setq first-char (substring (buffer-name buf) 0 1))
-      (if (not (or
-                (equal first-char "*")
-                (equal first-char " ")))
-          (progn
-            (switch-to-buffer buf)
-            (setq done t))
-        (setq i (+ i 1))
-        )))
-  ))
 
 ;;Mouse well
 (defun scroll-up-half ()

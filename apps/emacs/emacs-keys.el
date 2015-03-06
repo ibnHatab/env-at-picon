@@ -1,14 +1,10 @@
-(require 'define-key-wise)
 
-;; replace buffer-menu with ibuffer
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(setq-default indent-tabs-mode nil)
 
-
-;; Align your code in a pretty way.
 (global-set-key (kbd "C-x \\") 'align-regexp)
 
-;; Perform general cleanup.
-(global-set-key (kbd "C-c n") 'cleanup-buffer)
+(global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
+(global-set-key (kbd "C-x B") 'ibuffer)
 
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
@@ -25,57 +21,35 @@
       pcomplete-ignore-case nil
       read-file-name-completion-ignore-case t)
 
-;; replace by bookmark system
-;; (global-set-key-wise            '[(f1)];; 'switch-other-buffer		F1
-;;                                 "Makes the same operation as C-x b RET."
-;;                                 '(switch-to-buffer (other-buffer)))
-;; (global-set-key-wise            '[(M-f1)]   'gse-bury-buffer)
-;; (global-set-key-wise            '[(C-f1)]   'gse-unbury-buffer)
-(global-set-key [(f1)]          'ido-switch-buffer)	    ;F4
-(global-set-key-wise            '[(C-tab)]   'other-window)
+(global-set-key [C-escape]  'electric-buffer-list) 
+(global-set-key [(C-tab)]   'other-window)
+
+(defun switch-to-buffer-other-buffer ()
+  ""
+  (interactive)
+  (switch-to-buffer (other-buffer)))
+
+; replace by bookmark system
+(global-set-key [(f1)]          'switch-to-buffer-other-buffer)
 (global-set-key [(f2)]          'save-buffer)		    
 (global-set-key [(f3)]          'find-file)		    
-;;(global-set-key [(f4)]          'iswitchb-buffer)	    ;F4
-(global-set-key [(f4)]          'next-error)	    ;F4
-(global-set-key [(C-f4)]        'previous-error)	   
-
-(require 'sr-speedbar)
-(setq speedbar-use-images nil)
-(speedbar-add-supported-extension ".scala")
-(add-to-list 'speedbar-fetch-etags-parse-list
-             '("\\.scala" . speedbar-parse-c-or-c++tag))
-
-(speedbar-add-supported-extension ".erl")
-(add-to-list 'speedbar-fetch-etags-parse-list
-             '("\\.erl" . speedbar-parse-c-or-c++tag))
+(global-set-key [(f4)]          'ido-switch-buffer)	    ;F4
 
 (global-set-key (kbd "s-s")   'sr-speedbar-toggle)
-(global-set-key [(f5)]        'sr-speedbar-select-window)	    ;F5
-
-(global-set-key (kbd "s-a")   'minimap-toggle)
-(global-set-key [(f6)]        'minimap-toggle)	    ;F6
-
-							    ;F7
+					    ;F7
 					                    ;F8
 ;; org hijack(global-set-key [(f9)]          'compile)		    ;F9
 (global-set-key [(f10)]         'grep)			    ;F10
-(global-set-key [(C-f10)]       'nuke-trailing-whitespace)  ;F10
+(global-set-key [(f11)]       'nuke-trailing-whitespace)  ;F10
 (global-set-key [(f12)]         'kill-this-buffer)	    ;F12
 (global-set-key [(C-f12)]       'server-edit)		    ;F12
-
-
-;; Compile mode
-(global-set-key "\C-cb" 'compile)
 
 ;; Fast movements
 (global-set-key [M-right]       'forward-word)
 (global-set-key [M-left]        'backward-word)
 (global-set-key [C-right]       'forward-word)
 (global-set-key [C-left]        'backward-word)
-(global-set-key [C-M-down]      'vjo-forward-current-word-keep-offset)
-(global-set-key [C-M-up]        'vjo-backward-current-word-keep-offset)
 (global-set-key [?\C-\.]        'goto-line)
-
 (global-set-key [C-delete]      'kill-word)
 (global-set-key [ESC-backspace] 'backward-kill-word)
 (global-set-key [C-backspace]   'backward-kill-word)
@@ -87,16 +61,6 @@ With argument ARG, do this that many times."
   (delete-region (point) (progn (backward-word arg) (point))))
 (define-key minibuffer-local-map [C-backspace] 'backward-delete-word)
 
-;; Follow mode
-;;(global-unset-key "\C-x4")
-(global-set-key "\C-x9"           'borrow-window-right)
-(defun borrow-window-right()
-  (interactive)
-  (delete-other-windows)
-  (split-window-right)
-  (follow-mode)
-)
-
 ;; Move between visible windows
 (global-set-key [(C-tab)]	'other-window )
 (global-set-key [(C-S-tab)]	'previous-multiframe-window )
@@ -107,25 +71,26 @@ With argument ARG, do this that many times."
   (interactive)
   (condition-case nil (windmove-up)
     (error (condition-case nil (windmove-down)
-	     (error (condition-case nil (windmove-right) (error (condition-case nil (windmove-left) (error (windmove-up))))))))))
-
+	     (error (condition-case nil (windmove-right) 
+                      (error (condition-case nil (windmove-left) (error (windmove-up))))))))))
 (defun windmove-down-cycle()
   (interactive)
   (condition-case nil (windmove-down)
     (error (condition-case nil (windmove-up)
-	     (error (condition-case nil (windmove-left) (error (condition-case nil (windmove-right) (error (windmove-down))))))))))
-
+	     (error (condition-case nil (windmove-left) 
+                      (error (condition-case nil (windmove-right) (error (windmove-down))))))))))
 (defun windmove-right-cycle()
   (interactive)
   (condition-case nil (windmove-right)
     (error (condition-case nil (windmove-left)
-	     (error (condition-case nil (windmove-up) (error (condition-case nil (windmove-down) (error (windmove-right))))))))))
-
+	     (error (condition-case nil (windmove-up) 
+                      (error (condition-case nil (windmove-down) (error (windmove-right))))))))))
 (defun windmove-left-cycle()
   (interactive)
   (condition-case nil (windmove-left)
     (error (condition-case nil (windmove-right)
-	     (error (condition-case nil (windmove-down) (error (condition-case nil (windmove-up) (error (windmove-left))))))))))
+	     (error (condition-case nil (windmove-down) 
+                      (error (condition-case nil (windmove-up) (error (windmove-left))))))))))
 
 
 (global-set-key [s-left]  'windmove-left-cycle)         ; move to left windnow
@@ -151,8 +116,6 @@ With argument ARG, do this that many times."
                    (message "Undo Toggle")
                    ))
 
-(global-set-key "\C-cz"           'comment-region)
-(global-set-key "\C-ca"           'uncomment-region)
 (global-set-key "\C-z"            'undo)
 
 ;;MOUSE
@@ -180,20 +143,12 @@ With argument ARG, do this that many times."
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
 
-(global-set-key "\C-w" 'backward-kill-word)
-(global-set-key "\C-x\C-k" 'kill-region)
-(global-set-key "\C-c\C-k" 'kill-region)
-
-;; Backspace Key
-(global-set-key (kbd "C-h") 'delete-backward-char)
 
 ;; ORG
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
 (global-set-key "\C-cf" 'cfw:open-org-calendar)
-
 
 (global-set-key (kbd "<f9> <f9>") 'org-cycle-agenda-files)
 (global-set-key (kbd "<f9> c") 'cfw:open-org-calendar)
@@ -203,7 +158,6 @@ With argument ARG, do this that many times."
 (global-set-key (kbd "<f9> m") 'org-manage)
 (global-set-key (kbd "<f9> j") 'vki:open-default-notes-file)
 (global-set-key (kbd "<f9> S") 'org-todo)
-
 (global-set-key (kbd "<f9> d") 'org-deadline)
 (global-set-key (kbd "<f9> s") 'org-schedule)
 (global-set-key (kbd "<f9> t") 'org-time-stamp-inactive)
@@ -219,17 +173,36 @@ With argument ARG, do this that many times."
  (interactive)
  (find-file org-default-notes-file))
 
-;; (require 'breadcrumb)
-;; (global-set-key [(control f2)]       'bc-set)
-;; (global-set-key [(shift control f2)] 'bc-clear)
-;; (global-set-key [(meta f2)]          'bc-previous)
-;; (global-set-key [(shift f2)]         'bc-next)
-;; (global-set-key [(shift meta f2)]    'bc-list)
-
 ;; bookmarks                                                
 (global-set-key [(control f2)]       'af-bookmark-toggle)
 (global-set-key [(shift control f2)] 'af-bookmark-clear-all)
 (global-set-key [(meta f2)]          'af-bookmark-cycle-forward)
 (global-set-key [(shift f2)]         'af-bookmark-cycle-reverse)
 (global-set-key [(shift meta f2)]    'bookmark-bmenu-list)
+
+(load-library "hideshow")
+
+(defun toggle-selective-display (column)
+  (interactive "P")
+  (set-selective-display
+   (or column
+       (unless selective-display
+         (1+ (current-column))))))
+
+(defun toggle-hiding (column)
+  (interactive "P")
+  (if hs-minor-mode
+      (if (condition-case nil
+              (hs-toggle-hiding)
+            (error t))
+          (hs-show-all))
+    (toggle-selective-display column)))
+
+(add-hook 'c-mode-hook         (lambda () (hs-minor-mode 1)) )
+
+(setq hs-minor-mode-hook  'hs-hide-initial-comment-block)
+(setq hs-hide-comments nil)
+
+(global-set-key (kbd "M-\\") 'toggle-hiding)
+(global-set-key (kbd "C-\\") 'toggle-selective-display)
 
