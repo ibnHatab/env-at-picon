@@ -1,8 +1,0 @@
-#name : defimpl Proto, for: List do
-#group : definitions
-# --
-defimpl ${1:Proto}, for: ${2:Type} do
-    def ${3:method}($4) do
-        $0
-    end
-end

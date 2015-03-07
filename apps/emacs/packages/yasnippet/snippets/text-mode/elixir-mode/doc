@@ -1,6 +1,0 @@
-#name : @doc
-#group : general
-# --
-@doc """
-Returns $0
-"""

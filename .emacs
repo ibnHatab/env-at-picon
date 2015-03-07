@@ -43,6 +43,8 @@
  '(auto-revert-interval 2)
  '(blink-cursor-mode nil)
  '(blink-matching-paren-on-screen t)
+ '(bm-cycle-all-buffers t)
+ '(bm-highlight-style (quote bm-highlight-only-fringe))
  '(c-echo-syntactic-information-p nil)
  '(column-number-mode t)
  '(compilation-window-height 14)
@@ -54,8 +56,8 @@
  '(custom-safe-themes
    (quote
     ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "1297a022df4228b81bc0436230f211bad168a117282c20ddcba2db8c6a200743" default)))
+ '(delete-selection-mode t)
  '(display-time-mode t)
- '(electric-pair-mode 1)
  '(enable-local-variables :all)
  '(flymake-no-changes-timeout 12)
  '(follow-auto t)
@@ -73,6 +75,12 @@
  '(show-paren-mode t nil (paren))
  '(show-paren-ring-bell-on-mismatch t)
  '(show-paren-style (quote parenthesis))
+ '(speedbar-show-unknown-files t)
+ '(speedbar-use-images nil)
+ '(speedbar-verbosity-level 0)
+ '(sr-speedbar-auto-refresh t)
+ '(sr-speedbar-default-width 42)
+ '(sr-speedbar-skip-other-window-p t)
  '(tags-case-fold-search nil)
  '(transient-mark-mode t)
  '(truncate-lines nil)
@@ -89,6 +97,8 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
  '(enh-ruby-op-face ((t nil)))
+ '(erm-syn-errline ((t (:underline (:color "orange red" :style wave) :weight bold))))
+ '(erm-syn-warnline ((t (:underline (:color "dark orange" :style wave) :weight bold))))
  '(flymake-errline ((t (:background "#002b36" :foreground "red" :inverse-video nil :underline (:color "brown" :style wave) :slant normal :weight bold))))
  '(flymake-warnline ((t (:background "#002b36" :foreground "deep sky blue" :inverse-video nil :underline "LightBlue2" :slant normal :weight bold)))))
 

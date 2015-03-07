@@ -1,41 +1,12 @@
 
 (setq auto-mode-alist
       (append '(
-                ("\\.el$"                  . emacs-lisp-mode)
-                ("\\.h$"                   . c-mode)
-                ("\\.c$"                   . c-mode)
-                ("\\.ec$"                  . c-mode)
-                ("\\.C$"                   . c++-mode)
-                ("\\.cc$"                  . c++-mode)
-                ("\\.h?h$"                 . c++-mode)
-                ("\\.idl$"                 . c++-mode)
-                ("\\.ecpp$"                . c++-mode)
-                ("\\.[ch]pp$"              . c++-mode)
-                ("\\.[ch]xx$"              . c++-mode)
-                ("\\.inl$"                 . c++-mode)
-                ("\\.[Dd][Oo][Cc]$"        . text-mode)
-                ("\\.java$"                . java-mode)
-                ("ChangeLog$"              . change-log-mode)
-                ("\\.emacs$"               . emacs-lisp-mode)
-                ("\\.?[Ff][Aa][Qq]$"       . faq-mode)
-                ("\\.js$"                  . js2-mode)
-                ("\\.json$"                . espresso-mode)
-                ("\\.mak$"                 . makefile-mode)
-                ("\\<[mM]akefile$"         . makefile-mode)
-                ("\\.out$"                 . compilation-mode)
-                ("\\.[Tt][Xx][Tt]$"        . text-mode)
-                ("\\.\\([pP][Llm]\\|al\\)$". perl-mode)
-                ("\\.py$"                  . python-mode)
                 ;; ("\\.css\\'"               . css-mode)
-                ("\\.htm?\\'"              . web-mode)
                 ("\\.xml?\\'"              . xml-mode)
                 ("\\-MIB?\\'"              . snmpv2-mode)
                 ("\\-MIB?\\'"              . snmpv2-mode)
 		("\\.[Aa][Ss][Nn]\\([1]\\|[pP][pP]?\\)?$" . asn1-mode)
 		("\\.[Aa][Ss][Nn][dD]$"    . asn1-diff-mode2)
-                ("\\.lgo?\\'"              . logo-mode)
-		("\\.ijs$"                 . j-mode)
-		("\\.fs[iylx]?$"           . fsharp-mode)
 		("\\.ml\\w?"               . tuareg-mode)
 		("\\.hs\\w?"               . haskell-mode)
 		("\\.yang"                 . yang-mode)
@@ -44,63 +15,48 @@
 		("\\.ie$"                  . erlang-mode)
 		("\\.es$"                  . erlang-mode)
 		("\\.app$"                 . erlang-mode)
-;;		("\\.csp$"                 . csp-mode)
-;;                ("\\.\\(d\\|s\\)ats\\'"    . ats-mode)
-		("\\.org\\'"               . org-mode)
-		("\\.m\\'"                 . octave-mode)
-		("\\.mustache\\'"          . mustache-mode)
-                ("\\.md\\'"                . markdown-mode)
-                ("\\.groovy$"              . groovy-mode)
-                ("\\.scala$"               . scala-mode)
-                ("\\.sc"                   . scala-mode)
                 ("\\.dot"                  . graphviz-dot-mode)
                 ("\\.tjp"                  . taskjuggler-mode)
                 ("\\.less"                 . less-css-mode)
                 ("\\.css"                  . less-css-mode)
                 ("\\.yml$"                 . yaml-mode)
                 ("\\.rb$"                  . enh-ruby-mode)
+                ("\\.htm?\\'"              . web-mode)
                 ("\\.djhtml\\'"            . web-mode)
-                ("\\.erb\\'"               . web-mode)                
+                ("\\.erb\\'"               . web-mode)
                 )auto-mode-alist))
 
-
+(setq url-using-proxy t)
 (setq url-proxy-services
-      '(("no_proxy" . "^\\(localhost\\|10.*\\|0:4587\\)")
-        ("http" . "cache.tm.alcatel.ro:8080")
-        ("https" . "cache.tm.alcatel.ro:8080")))
+      '(("no_proxy" . "^\\(localhost\\|10.*\\|0:4587\\|127.*\\|.*:24969\\)")
+        ("http"     . "cache.tm.alcatel.ro:8080")
+        ("https"    . "cache.tm.alcatel.ro:8080")))
+
 
 ;; ELPA
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
-;;                         ("melpa" . "http://melpa.milkbox.net/packages/")
                          ))
 
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t) ; Org-mode's repository
+
 (package-initialize)
 
-;; EL-GET
-;; (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-;; (unless (require 'el-get nil t)
-;;   (url-retrieve
-;;    "https://github.com/dimitri/el-get/raw/master/el-get-install.el"
-;;    (lambda (s)
-;;      (end-of-buffer)
-;;      (eval-print-last-sexp))))
+;; package-activated-list
+(setq package-list '(ac-inf-ruby auto-complete popup inf-ruby bm color-theme-sanityinc-solarized color-theme-solarized color-theme django-mode edts popup f dash s erlang eproject helm async dash auto-highlight-symbol auto-complete popup elixir-mode elixir-yasnippets yasnippet elpy yasnippet pyvenv highlight-indentation find-file-in-project company enh-ruby-mode eproject helm async erlang find-file-in-project git-gutter helm async highlight-indentation hippie-exp-ext jedi auto-complete popup jedi-core python-environment deferred epc ctable concurrent deferred jedi-core python-environment deferred epc ctable concurrent deferred magit git-rebase-mode git-commit-mode multiple-cursors popup projectile-rails rake dash f dash s f dash s inf-ruby inflections projectile pkg-info epl dash projectile-speedbar projectile pkg-info epl dash python-environment deferred pyvenv rake dash f dash s robe inf-ruby rvm s smartparens dash sr-speedbar web-mode xcscope yard-mode yasnippe))
 
-;; now set our own packages
-(setq
- my:el-get-packages
- '(el-get				; el-get is self-hosting
-   edts
-   magit
-   git-gutter  
-   enh-ruby-mode
-;;   robe
-   yasnippet)) 				; powerful snippet mode
-
-;; (el-get 'sync my:el-get-packages)
+(defun package-install-missing ()
+  (interactive
+   ;; fetch the list of packages available
+   (unless package-archive-contents
+     (package-refresh-contents))
+   ;; install the missing packages
+   (dolist (package package-list)
+     (unless (package-installed-p package)
+       (package-install package)))
+   ))
 
 ;; Yaml
 (add-hook 'yaml-mode-hook
@@ -126,7 +82,6 @@
 
 ;; Magit
 (require 'magit)
-
 (defcustom git-grep-switches "-E -I -nH -i --no-color"
   "Switches to pass to `git grep'."
   :type 'string)
@@ -165,7 +120,7 @@
 (add-hook 'web-mode-hook
           (lambda () (flyspell-prog-mode)))
 (ac-flyspell-workaround)
-;; (setq enh-ruby-program "~/.rvm/rubies/ruby-2.2.0/bin/ruby")
+(setq enh-ruby-program "~/.rvm/rubies/ruby-2.2.0/bin/ruby")
 (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
 (add-hook 'enh-ruby-mode-hook 'yard-mode)
@@ -178,16 +133,29 @@
 ;; (add-hook 'ruby-mode-hook 'robe-mode)
 (autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby pathrocess" t)
 (autoload 'inf-ruby-keys "inf-ruby" "" t)
-(eval-after-load 'ruby-mode
+(eval-after-load 'enh-ruby-mode
   '(add-hook 'ruby-mode-hook 'inf-ruby-keys))
 
 (require 'smartparens-config)
 (require 'smartparens-ruby)
 (smartparens-global-mode)
 (show-smartparens-global-mode t)
-(sp-with-modes '(rhtml-mode)
+(sp-with-modes '(web-mode)
                (sp-local-pair "<" ">")
                (sp-local-pair "<%" "%>"))
+
+(add-hook 'enh-ruby-mode-hook
+          '(lambda ()
+             ;; (local-set-key (kbd "C-c C-z")   'inf-ruby)
+             (local-set-key (kbd "C-c C-c")   'ruby-send-region-and-go)
+             (define-key enh-ruby-mode-map (kbd "M-TAB") 'robe-complete-at-point)
+             (define-key enh-ruby-mode-map (kbd "C-c C-z") 'inf-ruby)))
+
+;; Projectile
+(projectile-global-mode)
+(add-hook 'enh-ruby-mode-hook 'projectile-mode)
+(global-set-key (kbd "s-p") 'projectile-find-file)
+(global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
 
 ;; Python
 (require 'python)
@@ -222,9 +190,9 @@
 
 (defun cscope-keys ()
   (local-set-key "\M-." 'cscope-find-global-definition-no-prompting)
-  (local-set-key "\M-?" 'cscope-find-this-symbol)
   (local-set-key "\M-," 'cscope-pop-mark)
-  (local-set-key [(control f4)] 'cscope-find-functions-calling-this-function) ;; f4 References
+  (local-set-key "\M-?" 'cscope-find-this-symbol)
+  (local-set-key "\M-\\" 'cscope-find-functions-calling-this-function) ;; f4 References
   (local-set-key [(control f6)] 'cscope-display-buffer)                       ;; f6 display buffer
   (local-set-key [(control f7)] 'cscope-prev-symbol)                          ;; f7 prev sym
   (local-set-key [(control f8)] 'cscope-next-symbol)                          ;; f8 next sym
@@ -234,5 +202,3 @@
 
 (add-hook 'c++-mode-hook 'cscope-keys)
 (add-hook 'c-mode-hook 'cscope-keys)
-
-

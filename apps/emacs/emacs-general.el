@@ -1,14 +1,3 @@
-; comint
-(require 'comint)
-(define-key comint-mode-map [(meta p)]
-  'comint-previous-matching-input-from-input)
-(define-key comint-mode-map [(meta n)]
-  'comint-next-matching-input-from-input)
-(define-key comint-mode-map [(control meta n)]
-  'comint-next-input)
-(define-key comint-mode-map [(control meta p)]
-  'comint-previous-input)
-
 
 ;; use ido for minibuffer completion
 (require 'ido)
@@ -42,25 +31,6 @@
 (autoload 'nuke-trailing-whitespace "whitespace" nil t) ;remove trailing
 (setq scroll-step 1)                    ; scrolling page
 (setq case-fold-search nil)             ; make searches case sensitive
-
-
-(custom-set-variables
- '(global-auto-revert-mode 1)
- '(kill-whole-line t)
- '(show-paren-style (quote parenthesis))
- '(compilation-window-height 14)
- '(transient-mark-mode t)
- '(truncate-lines nil)
- '(vc-initial-comment t)
- '(vc-command-messages t)
- '(show-paren-mode t nil (paren))
- '(truncate-partial-width-windows nil)
- '(c-echo-syntactic-information-p nil)
- '(show-paren-ring-bell-on-mismatch t)
- '(blink-matching-paren-on-screen t)
- '(next-line-add-newlines nil)
- '(global-font-lock-mode t nil (font-lock))
- '(font-lock-global-modes t))
 
 ;;Mouse well
 (defun scroll-up-half ()
@@ -96,7 +66,45 @@
  	  (message "No Compilation Errors!"))))
 
 
+(defun mo-toggle-identifier-naming-style ()
+  "Toggles the symbol at point between C-style naming,
+e.g. `hello_world_string', and camel case,
+e.g. `HelloWorldString'."
+  (interactive)
+  (let* ((symbol-pos (bounds-of-thing-at-point 'symbol))
+         case-fold-search symbol-at-point cstyle regexp func)
+    (unless symbol-pos
+      (error "No symbol at point"))
+    (save-excursion
+      (narrow-to-region (car symbol-pos) (cdr symbol-pos))
+      (setq cstyle (string-match-p "_" (buffer-string))
+            regexp (if cstyle "\\(?:\\_<\\|_\\)\\(\\w\\)" "\\([A-Z]\\)")
+            func (if cstyle
+                     'capitalize
+                   (lambda (s)
+                     (concat (if (= (match-beginning 1)
+                                    (car symbol-pos))
+                                 ""
+                               "_")
+                             (downcase s)))))
+      (goto-char (point-min))
+      (while (re-search-forward regexp nil t)
+        (replace-match (funcall func (match-string 1))
+                       t nil))
+      (widen))))
 
+(require 'cl) ; If you don't have it already
+
+(defun* get-closest-pathname (&optional (file "Makefile"))
+  "Determine the pathname of the first instance of FILE starting from the current directory towards root."
+  (let ((root (expand-file-name "/")))
+    (expand-file-name file
+		      (loop
+		       for d = default-directory then (expand-file-name ".." d)
+		       if (file-exists-p (expand-file-name file d))
+		       return d
+		       if (equal d root)
+		       return nil))))
 
 
 
