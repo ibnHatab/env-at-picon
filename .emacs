@@ -10,21 +10,9 @@
       (nconc
        '(expand-file-name "~/apps/emacs" )
        '(expand-file-name "~/apps/emacs/local")
-       ;; '(expand-file-name "~/apps/emacs/packages/yasnippet" )
-       ;; '(expand-file-name "~/apps/emacs/packages/ensime/elisp" )
-       ;; '(expand-file-name "~/apps/emacs/packages/esense" )
-       ;; '(expand-file-name "~/apps/emacs/packages/erlang" )
-       ;; '(expand-file-name "~/apps/emacs/packages/distel" )
-       ;; '(expand-file-name "~/apps/emacs/packages/wrangler" )
-       ;; '(expand-file-name "~/apps/emacs/packages/haskell-mode" )
-       ;; '(expand-file-name "~/apps/emacs/packages/org-mode/lisp" )
-       ;; '(expand-file-name "~/apps/emacs/packages/org-mode/contrib/lisp" )
-  ;; '(expand-file-name "~/apps/emacs/packages/python" )
-       ;; '(expand-file-name "~/apps/emacs/packages/groovy" )
-       ;; '(expand-file-name "~/apps/emacs/packages/scala-mode2" )
-       ;; '(expand-file-name "/local/tools/scala/ensime/elisp/" )
        load-path))
 
+(set-default-font "Courier 10")
 
 (load-library "emacs-general")
 (load-library "emacs-packages")
@@ -95,7 +83,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
+ '(default ((t (:background "#002b36" :foreground "#839496" :family "courier"))))
  '(enh-ruby-op-face ((t nil)))
  '(erm-syn-errline ((t (:underline (:color "orange red" :style wave) :weight bold))))
  '(erm-syn-warnline ((t (:underline (:color "dark orange" :style wave) :weight bold))))
