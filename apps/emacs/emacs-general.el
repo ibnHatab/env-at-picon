@@ -20,6 +20,8 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (add-hook 'write-file-functions 'delete-trailing-whitespace)
 
+(autoload 'nuke-trailing-whitespace "whitespace" nil t) ;remove trailing
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Ace jump mode
 (when (locate-library "ace-jump-mode")
@@ -27,8 +29,6 @@
   (define-key global-map (kbd "C-0") 'ace-jump-mode)
   )
 
-
-(autoload 'nuke-trailing-whitespace "whitespace" nil t) ;remove trailing
 (setq scroll-step 1)                    ; scrolling page
 (setq case-fold-search nil)             ; make searches case sensitive
 
@@ -105,51 +105,3 @@ e.g. `HelloWorldString'."
 		       return d
 		       if (equal d root)
 		       return nil))))
-
-
-
-
-
-(defcustom default-light-color-theme 'solarized-light
-  "default light theme")
-
-(defcustom default-dark-color-theme 'solarized-dark
-  "default dark theme")
-
-(defun toggle-dark-light-theme ()
-  (interactive)
-
-  (let ((is-light (find default-light-color-theme custom-enabled-themes)))
-    (dolist (theme custom-enabled-themes)
-      (disable-theme theme))
-    (load-theme (if is-light default-dark-color-theme default-light-color-theme))))
-
-(defun nuke-trailing-whitespace ()
-  "Nuke all trailing whitespace in the buffer.
-Whitespace in this case is just spaces or tabs.
-This is a useful function to put on write-file-hooks.
-
-This function uses `nuke-trailing-whitespace-p` to determine how to behave.
-However, even if this variable is `t`, this function will query for
-replacement if the buffer is read-only."
-  (interactive)
-  (let ((buffer-orig-read-only buffer-read-only)
-        (buffer-read-only nil)
-        (flag nuke-trailing-whitespace-p))
-    (and nuke-trailing-whitespace-p
-         (functionp nuke-trailing-whitespace-p)
-         (setq flag (funcall nuke-trailing-whitespace-p)))
-    (and flag
-         (save-excursion
-           (save-restriction
-             (widen)
-             (goto-char (point-min))
-             (save-match-data
-               (cond ((and (eq flag t)
-                           (not buffer-orig-read-only))
-                      (while (re-search-forward "[  ]+$" (point-max) t)
-                        (delete-region (match-beginning 0) (match-end 0))))
-                     (t
-                      (query-replace-regexp "[  ]+$" ""))))))))
-  ;; always return nil, in case this is on write-file-hooks.
-  nil)
