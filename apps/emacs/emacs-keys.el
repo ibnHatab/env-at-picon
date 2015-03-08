@@ -43,7 +43,8 @@
 					                    ;F8
 ;; org hijack(global-set-key [(f9)] 'compile)		    ;F9
 (global-set-key [(f10)]             'grep)			    ;F10
-(global-set-key [(f11)]             'nuke-trailing-whitespace)  ;F10
+(global-set-key [(f11)]             'nuke-trailing-whitespace)
+(global-set-key [(C-f11)]           'toggle-dark-light-theme)
 (global-set-key [(f12)]             'kill-this-buffer)	    ;F12
 (global-set-key [(C-f12)]           'server-edit)		    ;F12
 
@@ -185,4 +186,3 @@ With argument ARG, do this that many times."
 (global-set-key (kbd "<left-fringe> <mouse-5>") 'bm-next-mouse)
 (global-set-key (kbd "<left-fringe> <mouse-4>") 'bm-previous-mouse)
 (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
-
