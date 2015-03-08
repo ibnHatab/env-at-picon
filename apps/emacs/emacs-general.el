@@ -108,7 +108,7 @@ e.g. `HelloWorldString'."
 
 ;;;;; Theme ;;;;;
 ;; Cycle through this set of themes
-(setq my-themes '(sanityinc-solarized-dark sanityinc-solarized-light))
+(setq my-themes '(sanityinc-solarized-dark sanityinc-solarized-light wombat tango))
 
 (setq my-cur-theme nil)
 (defun cycle-my-theme ()
