@@ -105,3 +105,17 @@ e.g. `HelloWorldString'."
 		       return d
 		       if (equal d root)
 		       return nil))))
+
+;;;;; Theme ;;;;;
+;; Cycle through this set of themes
+(setq my-themes '(sanityinc-solarized-dark sanityinc-solarized-light))
+
+(setq my-cur-theme nil)
+(defun cycle-my-theme ()
+  "Cycle through a list of themes, my-themes"
+  (interactive)
+  (when my-cur-theme
+    (disable-theme my-cur-theme)
+    (setq my-themes (append my-themes (list my-cur-theme))))
+  (setq my-cur-theme (pop my-themes))
+  (load-theme my-cur-theme t))

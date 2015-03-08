@@ -46,7 +46,7 @@
 
 (global-set-key [(f11)]             'nuke-trailing-whitespace)
 
-(global-set-key [(C-f11)]           'toggle-dark-light-theme)
+(global-set-key [(C-f11)]           'cycle-my-theme)
 (global-set-key [(f12)]             'kill-this-buffer)	    ;F12
 (global-set-key [(C-f12)]           'server-edit)		    ;F12
 
