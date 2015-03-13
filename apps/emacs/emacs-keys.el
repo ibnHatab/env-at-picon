@@ -67,6 +67,9 @@ With argument ARG, do this that many times."
   (delete-region (point) (progn (backward-word arg) (point))))
 (define-key minibuffer-local-map [C-backspace] 'backward-delete-word)
 
+;; duplicate line
+(global-set-key "\C-cd" "\C-a\C- \C-n\M-w\C-y")
+
 ;; Move between visible windows
 (global-set-key [(C-tab)]	'other-window )
 (global-set-key [(C-S-tab)]	'previous-multiframe-window )

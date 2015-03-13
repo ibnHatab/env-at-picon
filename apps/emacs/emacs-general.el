@@ -1,4 +1,8 @@
 
+
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
+
 ;; use ido for minibuffer completion
 (require 'ido)
 (ido-mode t)
