@@ -28,7 +28,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(auto-revert-interval 2)
+ '(auto-revert-interval 60)
  '(blink-cursor-mode nil)
  '(blink-matching-paren-on-screen t)
  '(bm-cycle-all-buffers t)

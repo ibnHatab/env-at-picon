@@ -567,6 +567,7 @@ recommended to produce unified diffs, when your
 
 ;; Initialize clearcase-pname-sep-regexp according to
 ;; directory-sep-char.
+(setq directory-sep-char 47)
 (defvar clearcase-pname-sep-regexp
   (format "[%s/]"
           (char-to-string directory-sep-char)))
@@ -6973,7 +6974,7 @@ the ClearCase menu.")
          :keys nil
          :active (and (< (clearcase-dired-mark-count) 2)
                       (clearcase-dired-current-ok-to-checkin))]
-        
+
         ["Checkout file" clearcase-checkout-dired-files
          :keys nil
          :active (and (< (clearcase-dired-mark-count) 2)
