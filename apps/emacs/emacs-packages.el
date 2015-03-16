@@ -58,6 +58,9 @@
        (package-install package)))
    ))
 
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
 ;; Yaml
 (add-hook 'yaml-mode-hook
           '(lambda ()
@@ -202,3 +205,27 @@
 
 (add-hook 'c++-mode-hook 'cscope-keys)
 (add-hook 'c-mode-hook 'cscope-keys)
+
+;; Elixir
+(require 'company)
+(require 'elixir-mode)
+(require 'alchemist)
+(add-to-list 'elixir-mode-hook
+             (defun my-emlixir-mode-hook ()
+               (company-mode)
+               (define-key elixir-mode-map (kbd "M-TAB")   'company-complete)
+               (define-key elixir-mode-map (kbd "C-c C-s") 'alchemist-iex-project-run)
+               (define-key elixir-mode-map (kbd "C-c C-z") 'alchemist-iex-send-region-and-go)
+               (define-key elixir-mode-map (kbd "C-c C-c") 'alchemist-iex-send-region)
+               (define-key elixir-mode-map (kbd "C-c C-d") 'alchemist-help-search-at-point)
+               (define-key elixir-mode-map (kbd "C-c C-l") 'alchemist-iex-compile-this-buffer)
+               (define-key elixir-mode-map (kbd "C-c C-t") 'alchemist-mix-test)
+               ))
+
+
+(add-to-list 'alchemist-iex-mode-hook
+             (defun my-alchemis-mode-hook ()
+               (company-mode)
+               (define-key elixir-mode-map (kbd "M-TAB")   'company-complete)
+               (define-key elixir-mode-map (kbd "C-c C-d") 'alchemist-help-search-at-point)
+               ))

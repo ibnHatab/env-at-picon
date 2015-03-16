@@ -29,7 +29,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-revert-interval 2)
- '(blink-cursor-mode nil)
+ '(blink-cursor-mode t)
+ '(cursor-type 'bar)
  '(blink-matching-paren-on-screen t)
  '(bm-cycle-all-buffers t)
  '(bm-highlight-style (quote bm-highlight-only-fringe))
@@ -76,7 +77,10 @@
  '(use-file-dialog nil)
  '(vc-command-messages t)
  '(vc-initial-comment t)
- '(x-select-enable-clipboard t))
+ '(x-select-enable-clipboard t)
+ '(x-select-enable-primary t)
+ '(x-select-enable-clipboard-manager t)
+ )
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

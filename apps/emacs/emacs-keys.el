@@ -191,3 +191,7 @@ With argument ARG, do this that many times."
 (global-set-key (kbd "<left-fringe> <mouse-5>") 'bm-next-mouse)
 (global-set-key (kbd "<left-fringe> <mouse-4>") 'bm-previous-mouse)
 (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
+
+;; Global flycheck
+(global-set-key "\C-c\C-p" 'flycheck-previous-error)
+(global-set-key "\C-c\C-n" 'flycheck-next-error)
