@@ -67,6 +67,9 @@ With argument ARG, do this that many times."
   (delete-region (point) (progn (backward-word arg) (point))))
 (define-key minibuffer-local-map [C-backspace] 'backward-delete-word)
 
+;; duplicate line
+(global-set-key "\C-cd" "\C-a\C- \C-n\M-w\C-y")
+
 ;; Move between visible windows
 (global-set-key [(C-tab)]	'other-window )
 (global-set-key [(C-S-tab)]	'previous-multiframe-window )
@@ -188,3 +191,7 @@ With argument ARG, do this that many times."
 (global-set-key (kbd "<left-fringe> <mouse-5>") 'bm-next-mouse)
 (global-set-key (kbd "<left-fringe> <mouse-4>") 'bm-previous-mouse)
 (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
+
+;; Global flycheck
+(global-set-key "\C-c\C-p" 'flycheck-previous-error)
+(global-set-key "\C-c\C-n" 'flycheck-next-error)
