@@ -28,10 +28,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(auto-revert-interval 60)
- '(blink-cursor-mode nil)
+ '(auto-revert-interval 2)
  '(blink-cursor-mode t)
- '(cursor-type 'bar)
  '(blink-matching-paren-on-screen t)
  '(bm-cycle-all-buffers t)
  '(bm-highlight-style (quote bm-highlight-only-fringe))
@@ -42,10 +40,9 @@
  '(cscope-program-args (quote "-q"))
  '(cscope-truncate-lines t)
  '(cscope-use-relative-paths t)
+ '(cursor-type (quote bar) t)
  '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
- '(custom-safe-themes
-   (quote
-    ("4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "1297a022df4228b81bc0436230f211bad168a117282c20ddcba2db8c6a200743" default)))
+ '(custom-safe-themes (quote ("4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "1297a022df4228b81bc0436230f211bad168a117282c20ddcba2db8c6a200743" default)))
  '(delete-selection-mode t)
  '(display-time-mode t)
  '(enable-local-variables :all)
@@ -79,17 +76,17 @@
  '(vc-command-messages t)
  '(vc-initial-comment t)
  '(x-select-enable-clipboard t)
- '(x-select-enable-primary t)
  '(x-select-enable-clipboard-manager t)
- )
+ '(x-select-enable-primary t))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-;; '(default ((t (:background "#002b36" :foreground "#839496" :family "courier"))))
  '(enh-ruby-op-face ((t nil)))
+ '(enh-ruby-regexp-delimiter-face ((t (:foreground "pale green"))))
+ '(enh-ruby-string-delimiter-face ((t (:foreground "forest green"))))
  '(erm-syn-errline ((t (:underline (:color "orange red" :style wave) :weight bold))))
  '(erm-syn-warnline ((t (:underline (:color "dark orange" :style wave) :weight bold))))
  '(flymake-errline ((t (:background "#002b36" :foreground "red" :inverse-video nil :underline (:color "brown" :style wave) :slant normal :weight bold))))

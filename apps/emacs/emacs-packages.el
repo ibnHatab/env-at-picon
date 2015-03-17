@@ -1,3 +1,8 @@
+;;; Code:  for package configuration
+
+;;; Commentary:
+
+;;; package --- Summary
 
 (setq auto-mode-alist
       (append '(
@@ -31,7 +36,6 @@
       '(("no_proxy" . "^\\(localhost\\|10.*\\|0:4587\\|127.*\\|.*:24969\\)")
         ("http"     . "cache.tm.alcatel.ro:8080")
         ("https"    . "cache.tm.alcatel.ro:8080")))
-
 
 ;; ELPA
 (require 'package)
@@ -229,3 +233,6 @@
                (define-key elixir-mode-map (kbd "M-TAB")   'company-complete)
                (define-key elixir-mode-map (kbd "C-c C-d") 'alchemist-help-search-at-point)
                ))
+
+(provide 'emacs-packages)
+;;; emacs-packages.el Ends here
