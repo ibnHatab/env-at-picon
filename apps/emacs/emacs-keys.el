@@ -40,7 +40,8 @@
 (global-set-key [(f4)]              'ido-switch-buffer)	    ;F4
 
 					    ;F7
-					                    ;F8
+(global-set-key [(f8)]             'projectile-command-map) ;F8
+
 ;; org hijack(global-set-key [(f9)] 'compile)		    ;F9
 (global-set-key [(f10)]             'grep)			    ;F10
 

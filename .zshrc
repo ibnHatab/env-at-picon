@@ -240,5 +240,7 @@ export PATH=$PATH:/local/tools/ats/bin
 export PATH=/local/tools/ghc-7.8.3/bin/:$PATH
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
 source ~/.rvm/scripts/rvm
+
+export PATH="$PATH:$HOME/q/l32" # Q
+

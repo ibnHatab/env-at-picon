@@ -159,7 +159,7 @@
              (define-key enh-ruby-mode-map (kbd "C-c C-z") 'inf-ruby)))
 
 ;; Projectile
-(projectile-global-mode)
+;;?? (projectile-global-mode)
 (add-hook 'enh-ruby-mode-hook 'projectile-mode)
 (global-set-key (kbd "s-p") 'projectile-find-file)
 (global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
@@ -171,6 +171,7 @@
 ;; (setq elpy-rpc-backend "jedi")
 (elpy-enable)
 (elpy-use-ipython)
+(add-hook 'python-mode-hook 'projectile-mode)
 
 ;; (enable cscope)
 (require 'xcscope)
@@ -233,6 +234,23 @@
                (define-key elixir-mode-map (kbd "M-TAB")   'company-complete)
                (define-key elixir-mode-map (kbd "C-c C-d") 'alchemist-help-search-at-point)
                ))
+
+
+;; weaves
+;; Using Emacs support
+
+(load "kdbp-mode")
+
+(autoload 'q-mode "q-mode")
+(autoload 'q-help "q-mode")
+(autoload 'run-q "q-mode")
+(autoload 'kdbp-mode "kdbp-mode")
+
+;; To enable Q mode for *.q files, add the following to your emacs startup
+;; file:
+
+(setq auto-mode-alist (cons '("\\.[kq]$" . kdbp-mode) auto-mode-alist))
+
 
 (provide 'emacs-packages)
 ;;; emacs-packages.el Ends here

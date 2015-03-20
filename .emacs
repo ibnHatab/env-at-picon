@@ -10,6 +10,7 @@
       (nconc
        '(expand-file-name "~/apps/emacs" )
        '(expand-file-name "~/apps/emacs/local")
+       '(expand-file-name "~/apps/emacs/local/kdb")
        load-path))
 
 (set-default-font "Courier 10")
@@ -31,7 +32,6 @@
  '(auto-revert-interval 2)
  '(blink-cursor-mode t)
  '(blink-matching-paren-on-screen t)
- '(bm-cycle-all-buffers t)
  '(bm-highlight-style (quote bm-highlight-only-fringe))
  '(c-echo-syntactic-information-p nil)
  '(column-number-mode t)
@@ -40,9 +40,11 @@
  '(cscope-program-args (quote "-q"))
  '(cscope-truncate-lines t)
  '(cscope-use-relative-paths t)
- '(cursor-type (quote bar) t)
+ '(cursor-type (quote bar))
  '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
- '(custom-safe-themes (quote ("4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "1297a022df4228b81bc0436230f211bad168a117282c20ddcba2db8c6a200743" default)))
+ '(custom-safe-themes
+   (quote
+    ("4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "1297a022df4228b81bc0436230f211bad168a117282c20ddcba2db8c6a200743" default)))
  '(delete-selection-mode t)
  '(display-time-mode t)
  '(enable-local-variables :all)
@@ -75,10 +77,7 @@
  '(use-file-dialog nil)
  '(vc-command-messages t)
  '(vc-initial-comment t)
- '(x-select-enable-clipboard t)
- ;; '(x-select-enable-primary t)
- ;; '(x-select-enable-clipboard-manager t)
- )
+ '(x-select-enable-clipboard t))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -96,5 +95,6 @@
 
 ;; Switch to the first theme in the list above
 (cycle-my-theme)
+(flx-ido-mode 1)
 
 (server-start)
