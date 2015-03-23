@@ -133,6 +133,10 @@
 (add-hook 'enh-ruby-mode-hook 'yard-mode)
 (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
 ;; (add-hook 'after-init-hook 'inf-ruby-switch-setup) ;debug compilation
+(add-hook 'ruby-mode-hook 'minitest-mode)
+(eval-after-load 'minitest
+  '(minitest-install-snippets))
+
 
 (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
   (rvm-activate-corresponding-ruby))

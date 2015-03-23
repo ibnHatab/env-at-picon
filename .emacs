@@ -1,4 +1,4 @@
-;; unix.emacs
+Sflx;; unix.emacs
 
 ;; Load default.el first.
 (load "default" t t)
@@ -13,7 +13,7 @@
        '(expand-file-name "~/apps/emacs/local/kdb")
        load-path))
 
-(set-default-font "Courier 10")
+;;(set-default-font "Courier 10")
 
 (load-library "emacs-general")
 (load-library "emacs-packages")
@@ -95,6 +95,6 @@
 
 ;; Switch to the first theme in the list above
 (cycle-my-theme)
-(flx-ido-mode 1)
+;; (flx-ido-mode 1)
 
 (server-start)

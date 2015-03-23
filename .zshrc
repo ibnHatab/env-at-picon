@@ -22,7 +22,7 @@ ZSH_THEME="${viewmap["$HOST"]}"
 COMPLETION_WAITING_DOTS="true"
 
 # Example format: plugins=(debian git-flow compleat rails git textmate ruby lighthouse)
-plugins=(git git-flow  dircycle rebar mix web-search)
+plugins=(git git-flow  dircycle rebar mix web-search gem)
 
 source $ZSH/oh-my-zsh.sh
 
