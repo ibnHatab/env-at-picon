@@ -1,4 +1,4 @@
-Sflx;; unix.emacs
+;; unix.emacs
 
 ;; Load default.el first.
 (load "default" t t)
@@ -53,6 +53,9 @@ Sflx;; unix.emacs
  '(font-lock-global-modes t)
  '(global-auto-revert-mode 1)
  '(global-font-lock-mode t nil (font-lock))
+ ;; '(helm-autoresize-mode t)
+ ;; '(helm-buffer-skip-remote-checking t)
+ ;; '(helm-mode t)
  '(kill-whole-line t)
  '(line-number-mode t)
  '(menu-bar-mode nil)

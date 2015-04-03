@@ -1,6 +1,13 @@
 
 (setq-default indent-tabs-mode nil)
 
+;; ;; Helm
+;; ;; (define-key global-map [remap find-file] 'helm-find-files)
+;; (define-key global-map [remap occur] 'helm-occur)
+;; (define-key global-map [remap list-buffers] 'helm-buffers-list)
+;; (define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
+;; (global-set-key (kbd "M-x") 'helm-M-x)
+
 (global-set-key (kbd "C-x \\") 'align-regexp)
 
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
@@ -25,7 +32,7 @@
       pcomplete-ignore-case nil
       read-file-name-completion-ignore-case t)
 
-(global-set-key [C-escape]   'electric-buffer-list)
+(global-set-key [C-escape]   'helm-buffers-list)
 (global-set-key [(C-tab)] 'other-window)
 
 (defun switch-to-buffer-other-buffer ()

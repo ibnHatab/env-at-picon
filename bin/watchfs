@@ -13,7 +13,7 @@ echo $FILES
 
 while true
 do
-    inotifywait -r -q --event=modify --exclude ".*_flymake.*" --exclude "\.#.*"  $FILES
+    inotifywait -r -q --event=modify --exclude ".*_flymake.*" --exclude "\.#.*" --exclude "tmp" --exclude ".*\.log" $FILES
     if [ $? -eq 0 ]; then
 	eval "$CMD"
 	RES=$?
@@ -27,6 +27,3 @@ do
 	exit
     fi
 done
-
-
-
