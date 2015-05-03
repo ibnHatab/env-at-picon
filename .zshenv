@@ -39,9 +39,9 @@ export LM_LICENSE_FILE=5555@135.86.206.75
 
 limit coredumpsize 0
 
-export http_proxy=http://cache.tm.alcatel.ro:8080
-export https_proxy=http://cache.tm.alcatel.ro:8080
-export HTTP_PROXY=http://cache.tm.alcatel.ro:8080
+export http_proxy=http://135.245.192.6:8000
+export https_proxy=http://135.245.192.6:8000
+export HTTP_PROXY=http://135.245.192.6:8000
 export no_proxy='0,localhost,127.0.0.0/8' 
 
 export JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=cache.tm.alcatel.ro -Dhttp.proxyPort=8080"

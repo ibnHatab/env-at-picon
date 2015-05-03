@@ -100,9 +100,9 @@ export PATH=$PATH:/udir/tools/arm-linux-2008q3/bin
 #/usr/bin/zsh
 #fi
 
-export http_proxy=http://cache.tm.alcatel.ro:8080
-export https_proxy=http://cache.tm.alcatel.ro:8080
-export HTTP_PROXY=http://cache.tm.alcatel.ro:8080
+export http_proxy=http://135.245.192.6:8000
+export https_proxy=http://135.245.192.6:8000
+export HTTP_PROXY=http://135.245.192.6:8000
 export no_proxy='0,localhost,127.0.0.0/8' 
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
