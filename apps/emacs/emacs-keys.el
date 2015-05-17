@@ -40,8 +40,11 @@
   (interactive)
   (switch-to-buffer (other-buffer)))
 
-; replace by bookmark system
-(global-set-key [(f1)]              'switch-to-buffer-other-buffer)
+(require 'cycle-buffer)
+(global-set-key [(f1)]              'cycle-buffer)
+(global-set-key [(S-f1)]              'cycle-buffer-backward)
+;;(global-set-key [(f1)]              'switch-to-buffer-other-buffer)
+
 (global-set-key [(f2)]              'save-buffer)
 (global-set-key [(f3)]              'find-file)
 (global-set-key [(f4)]              'ido-switch-buffer)	    ;F4
