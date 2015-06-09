@@ -1,5 +1,8 @@
-xrandr --output LVDS1 --off 
-xrandr --output DP3 --auto --rotate normal --pos 0x0 --output VGA1 --auto --rotate normal --right-of DP3
+#xrandr --output LVDS1 --off 
+#xrandr --output DP3 --auto --rotate normal --pos 0x0 --output VGA1 --auto --rotate normal --right-of DP3
+xrandr --output LVDS1 --auto --rotate normal --pos 0x0 --output VGA1 --auto --rotate normal --right-of LVDS1
+
+
 
 #if [ -x /usr/bin/nm-applet ] ; then
 #   nm-applet --sm-disable &
