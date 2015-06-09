@@ -44,7 +44,7 @@ export https_proxy=http://135.245.192.6:8000
 export HTTP_PROXY=http://135.245.192.6:8000
 export no_proxy='0,localhost,127.0.0.0/8' 
 
-export JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=cache.tm.alcatel.ro -Dhttp.proxyPort=8080"
+#export JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=135.245.192.6 -Dhttp.proxyPort=8000 -Dhttps.proxyHost=135.245.192.6 -Dhttps.proxyPort=8000"
 
 #set PATSHOMERELOC to ${PATSHOME}
 export PATSHOMERELOC=/local/tools/ats

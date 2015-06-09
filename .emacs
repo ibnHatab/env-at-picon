@@ -99,5 +99,8 @@
 ;; Switch to the first theme in the list above
 (cycle-my-theme)
 ;; (flx-ido-mode 1)
+(setq magit-auto-revert-mode nil)
+(setq magit-last-seen-setup-instructions "1.4.0")
+
 
 (server-start)
