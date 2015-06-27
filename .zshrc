@@ -7,7 +7,7 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 ZSH_THEME="funky"
 ZSH_THEME="alanpeabody"
-ZSH_THEME="af-magic"   
+ZSH_THEME="af-magic"
 
 declare -A viewmap
 viewmap["aeries"]="alanpeabody"
@@ -22,11 +22,11 @@ ZSH_THEME="${viewmap["$HOST"]}"
 COMPLETION_WAITING_DOTS="true"
 
 # Example format: plugins=(debian git-flow compleat rails git textmate ruby lighthouse)
-plugins=(git git-flow  dircycle rebar mix web-search gem rails heroku)
+plugins=(git git-flow  dircycle rebar mix web-search gem rails heroku sbt)
 
 source $ZSH/oh-my-zsh.sh
 
-#For alternative PROMPT 
+#For alternative PROMPT
 #source env/prompt.sh
 
 # completion
@@ -128,8 +128,6 @@ alias traceroute="grc traceroute"
 alias       diff="grc diff"
 alias    netstat="grc netstat"
 
-alias         st="/local/tools/Sublime_Text_2/sublime_text"
-
 # TAPS:
 # common pipe­ending commands (taps)
 alias -g  A='|head'           # head (also A<n> were <n> is 1-30)  [2001­10­20]
@@ -209,6 +207,17 @@ alias pp="ps axuf | pager"
 bindkey -s '^[l' "ls -CF --color=tty\n"
 setterm -blength 0
 
+# create ssh aliases
+typeset -A account                             # "account" associative array
+account=(
+   leonis vlad@135.243.2.230
+   marvel vlad@135.243.2.178
+   maveric vlad@135.243.28.212
+)
+for k (${(k)account}) {                         # for each key in account
+    alias ${k}="ssh -X $account[$k]"                 #   create an ssh alias
+}; unset k
+
 
 echo '-------------------------------------------'
  /usr/games/fortune -s
@@ -216,31 +225,35 @@ echo '-------------------------------------------'
 echo
 
 # Customize to your needs...
-alias emacs="/opt/emacs24/bin/emacs"
-alias observer="/usr/lib/erlang/bin/erl -s observer"
+#alias emacs="/opt/emacs24/bin/emacs"
+alias observer="erl -s observer"
 
 #JAVA/SCALA
-export JAVA_HOME=/local/tools/jdk1.7.0_21/
-export SCALA_HOME=/local/tools/scala/scala
-export GROOVY_HOME=/local/tools/scala/groovy
+export JAVA_HOME=/usr/lib/jvm/java-7-oracle
+export JDK_HOME=/usr/lib/jvm/java-7-oracle
+export SCALA_HOME=/local/tools/scala-2.11.6
+#export GROOVY_HOME=/local/tools/scala/groovy
 export PATH=$HOME/bin:/sbin:/usr/bin:/bin:/usr/local/bin:$GROOVY_HOME/bin:$SCALA_HOME/bin:/local/tools/scala/sbt/bin:$JAVA_HOME/bin:~/.cabal/bin
+export JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=135.245.192.6 -Dhttp.proxyPort=8000 -Dhttps.proxyHost=135.245.192.6 -Dhttps.proxyPort=8000"
+
+
 # ib utils
 source ~/libs/ib-utils/activate.zsh ~/libs/ib-utils/ib-platform.json
 # Android
-export ADT_HOME=/local/tools/scala/adt-bundle-linux-x86-20130522/sdk
-export PATH=$PATH:$ADT_HOME/tools:$ADT_HOME/platform-tools
+#xport ADT_HOME=/local/tools/scala/adt-bundle-linux-x86-20130522/sdk
+#xport PATH=$PATH:$ADT_HOME/tools:$ADT_HOME/platform-tools
 #CLANG
-export PATH=$PATH:/local/tools/clang/bin:/local/tools/clang/share/scan-view
-source /usr/local/bin/virtualenvwrapper.sh
+#xport PATH=$PATH:/local/tools/clang/bin:/local/tools/clang/share/scan-view
+#source /usr/local/bin/virtualenvwrapper.sh
 #ATS
 export PATH=$PATH:/local/tools/ats/bin
-#ERL 
+#ERL
 #export PATH=/local/tools/otp_src_17.3/bin:$PATH
 #GHC
-export PATH=/local/tools/ghc-7.8.3/bin/:$PATH
+#export PATH=/local/tools/ghc-7.8.3/bin/:$PATH
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-source ~/.rvm/scripts/rvm
+#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+#source ~/.rvm/scripts/rvm
 
-export PATH="$PATH:$HOME/q/l32" # Q
-
+#kdb+
+#export PATH="$PATH:$HOME/q/l32" # Q

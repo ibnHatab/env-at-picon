@@ -32,11 +32,24 @@
                 ("\\.s?css\\'"             . web-mode)
                 )auto-mode-alist))
 
+<<<<<<< HEAD
 ;(setq url-using-proxy t)
 ;(setq _url-proxy-services
  ;     '(("no_proxy" . "^\\(localhost\\|10.*\\|0:4587\\|127.*\\|.*:24969\\)")
   ;      ("http"     . "cache.tm.alcatel.ro:8080")
    ;     ("https"    . "cache.tm.alcatel.ro:8080")))
+=======
+(setq url-using-proxy t)
+(setq url-proxy-services
+      '(("no_proxy" . "^\\(localhost\\|10.*\\|0:4587\\|127.*\\|.*:24969\\)")
+<<<<<<< HEAD
+=======
+        ;; ("http"     . "cache.tm.alcatel.ro:8080")
+        ;; ("https"    . "cache.tm.alcatel.ro:8080")))
+>>>>>>> e05e1353af0873c78a812a42925b4250aabe8361
+        ("http"     . "135.245.192.6:8000")
+        ("https"    . "135.245.192.6:8000")))
+>>>>>>> caprica/emacs24.4
 
 ;; ELPA
 (require 'package)
@@ -279,6 +292,19 @@
 ;; file:
 
 (setq auto-mode-alist (cons '("\\.[kq]$" . kdbp-mode) auto-mode-alist))
+
+;; Scala
+(require `scala-mode2)
+(add-hook 'scala-mode-hook
+          '(lambda ()
+                                        ;               (company-mode)
+             ;;               (define-key scala-mode-map (kbd "M-TAB")   'company-complete)
+             (define-key scala-mode-map (kbd "C-c o") 'scala-outline-popup)
+             ))
+
+;; Ensime
+(require 'ensime)
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
 
 (provide 'emacs-packages)
