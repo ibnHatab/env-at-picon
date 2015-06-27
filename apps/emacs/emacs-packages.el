@@ -29,6 +29,7 @@
                 ("\\.htm?\\'"              . web-mode)
                 ("\\.djhtml\\'"            . web-mode)
                 ("\\.erb\\'"               . web-mode)
+                ("\\.s?css\\'"             . web-mode)
                 )auto-mode-alist))
 
 ;(setq url-using-proxy t)
@@ -141,6 +142,7 @@
 ;; (setq enh-ruby-program "~/.rvm/rubies/ruby-2.2.0/bin/ruby")
 (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
+(add-hook 'web-mode-hook 'robe-mode)
 (add-hook 'enh-ruby-mode-hook 'yard-mode)
 (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
 ;; (add-hook 'after-init-hook 'inf-ruby-switch-setup) ;debug compilation
