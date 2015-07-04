@@ -257,3 +257,7 @@ export PATH=$PATH:/local/tools/ats/bin
 
 #kdb+
 #export PATH="$PATH:$HOME/q/l32" # Q
+
+#haskell
+export PATH=~/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.8.4/bin:$PATH
+
