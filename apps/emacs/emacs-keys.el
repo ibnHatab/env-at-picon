@@ -41,9 +41,9 @@
   (switch-to-buffer (other-buffer)))
 
 (require 'cycle-buffer)
-(global-set-key [(f1)]              'cycle-buffer)
-(global-set-key [(S-f1)]              'cycle-buffer-backward)
-;;(global-set-key [(f1)]              'switch-to-buffer-other-buffer)
+;; (global-set-key [(f1)]              'cycle-buffer)
+;; (global-set-key [(S-f1)]              'cycle-buffer-backward)
+(global-set-key [(f1)]              'switch-to-buffer-other-buffer)
 
 (global-set-key [(f2)]              'save-buffer)
 (global-set-key [(f3)]              'find-file)
@@ -165,10 +165,10 @@ With argument ARG, do this that many times."
 
 
 ;; ORG
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cf" 'cfw:open-org-calendar)
+;; (global-set-key "\C-cl" 'org-store-link)
+;; (global-set-key "\C-cc" 'org-capture)
+;; (global-set-key "\C-ca" 'org-agenda)
+;; (global-set-key "\C-cf" 'cfw:open-org-calendar)
 
 (global-set-key (kbd "<f9> <f9>") 'org-cycle-agenda-files)
 (global-set-key (kbd "<f9> c") 'cfw:open-org-calendar)

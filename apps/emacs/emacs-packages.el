@@ -32,13 +32,24 @@
                 ("\\.s?css\\'"             . web-mode)
                 )auto-mode-alist))
 
+<<<<<<< HEAD
+;(setq url-using-proxy t)
+;(setq _url-proxy-services
+ ;     '(("no_proxy" . "^\\(localhost\\|10.*\\|0:4587\\|127.*\\|.*:24969\\)")
+  ;      ("http"     . "cache.tm.alcatel.ro:8080")
+   ;     ("https"    . "cache.tm.alcatel.ro:8080")))
+=======
 (setq url-using-proxy t)
 (setq url-proxy-services
       '(("no_proxy" . "^\\(localhost\\|10.*\\|0:4587\\|127.*\\|.*:24969\\)")
+<<<<<<< HEAD
+=======
         ;; ("http"     . "cache.tm.alcatel.ro:8080")
         ;; ("https"    . "cache.tm.alcatel.ro:8080")))
+>>>>>>> e05e1353af0873c78a812a42925b4250aabe8361
         ("http"     . "135.245.192.6:8000")
         ("https"    . "135.245.192.6:8000")))
+>>>>>>> caprica/emacs24.4
 
 ;; ELPA
 (require 'package)
@@ -52,7 +63,8 @@
 (package-initialize)
 
 ;; package-activated-list
-(setq package-list '(ac-inf-ruby auto-complete popup inf-ruby bm color-theme-sanityinc-solarized color-theme-solarized color-theme django-mode edts popup f dash s erlang eproject helm async dash auto-highlight-symbol auto-complete popup elixir-mode elixir-yasnippets yasnippet elpy yasnippet pyvenv highlight-indentation find-file-in-project company enh-ruby-mode eproject helm async erlang find-file-in-project git-gutter helm async highlight-indentation hippie-exp-ext jedi auto-complete popup jedi-core python-environment deferred epc ctable concurrent deferred jedi-core python-environment deferred epc ctable concurrent deferred magit git-rebase-mode git-commit-mode multiple-cursors popup projectile-rails rake dash f dash s f dash s inf-ruby inflections projectile pkg-info epl dash projectile-speedbar projectile pkg-info epl dash python-environment deferred pyvenv rake dash f dash s robe inf-ruby rvm s smartparens dash sr-speedbar web-mode xcscope yard-mode yasnippe))
+(setq package-list '(ac-inf-ruby auto-complete popup inf-ruby alchemist bm color-theme-sanityinc-solarized django-mode edts popup f dash s erlang eproject helm async dash auto-highlight-symbol auto-complete popup elixir-mix elixir-mode elixir-yasnippets yasnippet elpy yasnippet pyvenv highlight-indentation find-file-in-project company eproject helm async erlang find-file-in-project flycheck-pos-tip popup flycheck let-alist pkg-info epl dash git-gutter grails-projectile-mode projectile pkg-info epl dash helm async helm-git highlight-indentation let-alist magit git-rebase-mode git-commit-mode multiple-cursors projectile-rails rake dash f dash s f dash s inf-ruby inflections projectile pkg-info epl dash projectile-speedbar projectile pkg-info epl dash pungi pyvenv jedi auto-complete popup jedi-core python-environment deferred epc ctable concurrent deferred python-environment deferred pyvenv rake dash f dash s robe inf-ruby rspec-mode ruby-refactor s smartparens dash sr-speedbar web-mode xcscope yasnippet)
+
 
 (defun package-install-missing ()
   (interactive
@@ -99,6 +111,7 @@
 
 ;; Magit
 (require 'magit)
+(setq magit-last-seen-setup-instructions "1.4.0")
 (defcustom git-grep-switches "-E -I -nH -i --no-color"
   "Switches to pass to `git grep'."
   :type 'string)
@@ -247,11 +260,13 @@
                (company-mode)
                (define-key elixir-mode-map (kbd "M-TAB")   'company-complete)
                (define-key elixir-mode-map (kbd "C-c C-s") 'alchemist-iex-project-run)
-               (define-key elixir-mode-map (kbd "C-c C-z") 'alchemist-iex-send-region-and-go)
-               (define-key elixir-mode-map (kbd "C-c C-c") 'alchemist-iex-send-region)
-               (define-key elixir-mode-map (kbd "C-c C-d") 'alchemist-help-search-at-point)
                (define-key elixir-mode-map (kbd "C-c C-l") 'alchemist-iex-compile-this-buffer)
                (define-key elixir-mode-map (kbd "C-c C-t") 'alchemist-mix-test)
+               (define-key elixir-mode-map (kbd "C-c C-d") 'alchemist-help-search-at-point)
+               (define-key elixir-mode-map (kbd "C-c C-r") 'alchemist-iex-send-region-and-go)
+               (define-key elixir-mode-map (kbd "C-c C-c") 'alchemist-iex-send-region)
+               (define-key elixir-mode-map (kbd "C-c C-e") 'alchemist-iex-send-current-line-and-go)
+
                ))
 
 
