@@ -13,7 +13,8 @@
 
      # Configuration. Common proxy ports are 3128, 8123, 8000.
 
-_proxy=global.proxy.lucent.com
+_proxy=135.245.192.6
+#_proxy=global.proxy.lucent.com
 #_proxy=cache.tm.alcatel.ro
 _proxyport=8000
 
