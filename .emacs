@@ -29,6 +29,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(alchemist-iex-program-name "iex --sname iex -S mix")
  '(auto-revert-interval 2)
  '(blink-cursor-mode t)
  '(blink-matching-paren-on-screen t)
@@ -53,9 +54,7 @@
  '(font-lock-global-modes t)
  '(global-auto-revert-mode 1)
  '(global-font-lock-mode t nil (font-lock))
- ;; '(helm-autoresize-mode t)
- ;; '(helm-buffer-skip-remote-checking t)
- ;; '(helm-mode t)
+ '(haskell-tags-on-save t)
  '(kill-whole-line t)
  '(line-number-mode t)
  '(menu-bar-mode nil)

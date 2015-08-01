@@ -226,7 +226,7 @@ echo
 
 # Customize to your needs...
 #alias emacs="/opt/emacs24/bin/emacs"
-alias observer="erl -s observer"
+alias observer="/opt/otp/bin/erl -s observer"
 
 #JAVA/SCALA
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle
