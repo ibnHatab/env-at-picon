@@ -30,13 +30,6 @@
                 ("\\.s?css\\'"             . web-mode)
                 )auto-mode-alist))
 
-(setq url-using-proxy t)
-(setq url-proxy-services
-      '(("no_proxy" . "^\\(localhost\\|10.*\\|0:4587\\|127.*\\|.*:24969\\)")
-        ;; ("http"     . "cache.tm.alcatel.ro:8080")
-        ;; ("https"    . "cache.tm.alcatel.ro:8080")))
-        ("http"     . "135.245.192.6:8000")
-        ("https"    . "135.245.192.6:8000")))
 
 ;; ELPA
 (require 'package)
@@ -180,15 +173,15 @@
 
 
 ;; Projectile
-(projectile-global-mode)
+;;(projectile-global-mode)
 
-(add-hook 'enh-ruby-mode-hook 'projectile-mode)
-(add-hook 'projectile-mode-hook 'projectile-rails-on)
-(setq projectile-rails-keymap-prefix (kbd "s-a"))
+;; (add-hook 'enh-ruby-mode-hook 'projectile-mode)
+;; (add-hook 'projectile-mode-hook 'projectile-rails-on)
+;; (setq projectile-rails-keymap-prefix (kbd "s-a"))
 
-(add-hook 'python-mode-hook 'projectile-mode)
-(global-set-key (kbd "s-f") 'projectile-find-file)
-(global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
+;; (add-hook 'python-mode-hook 'projectile-mode)
+;; (global-set-key (kbd "s-f") 'projectile-find-file)
+;; (global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
 
 ;; Python
 (require 'python)

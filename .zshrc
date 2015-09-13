@@ -15,6 +15,7 @@ viewmap["caprica"]="afowler"
 viewmap["tauron"]="robbyrussell"
 viewmap["leonis"]="alanpeabody"
 viewmap["marvel"]="af-magic"
+viewmap["maveric"]="af-magic"
 
 ZSH_THEME="${viewmap["$HOST"]}"
 
@@ -225,8 +226,8 @@ echo '-------------------------------------------'
 echo
 
 # Customize to your needs...
-#alias emacs="/opt/emacs24/bin/emacs"
-alias observer="/opt/otp/bin/erl -s observer"
+alias observer="/opt/otp-18.0/bin/erl -s observer"
+
 
 #JAVA/SCALA
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle
@@ -234,11 +235,11 @@ export JDK_HOME=/usr/lib/jvm/java-7-oracle
 export SCALA_HOME=/local/tools/scala-2.11.6
 #export GROOVY_HOME=/local/tools/scala/groovy
 export PATH=$HOME/bin:/sbin:/usr/bin:/bin:/usr/local/bin:$GROOVY_HOME/bin:$SCALA_HOME/bin:/local/tools/scala/sbt/bin:$JAVA_HOME/bin:~/.cabal/bin
-export JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=135.245.192.6 -Dhttp.proxyPort=8000 -Dhttps.proxyHost=135.245.192.6 -Dhttps.proxyPort=8000"
+#export JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=135.245.192.6 -Dhttp.proxyPort=8000 -Dhttps.proxyHost=135.245.192.6 -Dhttps.proxyPort=8000"
 
 
 # ib utils
-source ~/libs/ib-utils/activate.zsh ~/libs/ib-utils/ib-platform.json
+[[ -s ~/libs/ib-utils/activate.zsh ]] && source ~/libs/ib-utils/activate.zsh ~/libs/ib-utils/ib-platform.json
 # Android
 #xport ADT_HOME=/local/tools/scala/adt-bundle-linux-x86-20130522/sdk
 #xport PATH=$PATH:$ADT_HOME/tools:$ADT_HOME/platform-tools
@@ -261,3 +262,5 @@ export PATH=$PATH:/local/tools/ats/bin
 #haskell
 export PATH=~/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.8.4/bin:$PATH
 
+#ERL
+export PATH=/opt/otp-18.0/bin:$PATH
