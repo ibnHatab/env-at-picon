@@ -28,13 +28,12 @@
                 ("\\.djhtml\\'"            . web-mode)
                 ("\\.erb\\'"               . web-mode)
                 ("\\.s?css\\'"             . web-mode)
+                ("\\.eex\\'"             . web-mode)
                 )auto-mode-alist))
 
 (setq url-using-proxy t)
 (setq url-proxy-services
       '(("no_proxy" . "^\\(localhost\\|10.*\\|0:4587\\|127.*\\|.*:24969\\)")
-        ;; ("http"     . "cache.tm.alcatel.ro:8080")
-        ;; ("https"    . "cache.tm.alcatel.ro:8080")))
         ("http"     . "135.245.192.6:8000")
         ("https"    . "135.245.192.6:8000")))
 
@@ -49,29 +48,8 @@
 
 (package-initialize)
 
-;; package-activated-list
-(setq package-list '(ac-inf-ruby auto-complete popup inf-ruby bm color-theme-sanityinc-solarized color-theme-solarized color-theme django-mode edts popup f dash s erlang eproject helm async dash auto-highlight-symbol auto-complete popup elixir-mode elixir-yasnippets yasnippet elpy yasnippet pyvenv highlight-indentation find-file-in-project company enh-ruby-mode eproject helm async erlang find-file-in-project git-gutter helm async highlight-indentation hippie-exp-ext jedi auto-complete popup jedi-core python-environment deferred epc ctable concurrent deferred jedi-core python-environment deferred epc ctable concurrent deferred magit git-rebase-mode git-commit-mode multiple-cursors popup projectile-rails rake dash f dash s f dash s inf-ruby inflections projectile pkg-info epl dash projectile-speedbar projectile pkg-info epl dash python-environment deferred pyvenv rake dash f dash s robe inf-ruby rvm s smartparens dash sr-speedbar web-mode xcscope yard-mode yasnippe))
-
-(defun package-install-missing ()
-  (interactive
-   ;; fetch the list of packages available
-   (unless package-archive-contents
-     (package-refresh-contents))
-   ;; install the missing packages
-   (dolist (package package-list)
-     (unless (package-installed-p package)
-       (package-install package)))
-   ))
-
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
-
-;; Helm
-;; (require 'helm-config)
-;; (helm-mode 1)
-;; (helm-autoresize-mode 1)
-;; (eval-after-load 'helm-mode
-;;   '(add-to-list 'helm-completing-read-handlers-alist '(find-file)))
 
 ;; Yaml
 (add-hook 'yaml-mode-hook
@@ -124,13 +102,6 @@
 (global-set-key (kbd "C-x ?") 'git-grep)
 (global-set-key "\C-xg" 'magit-status)
 
-;; (require 'auto-complete-config)
-;; (ac-config-default)
-;; (setq ac-ignore-case nil)
-;; (add-to-list 'ac-modes 'enh-ruby-mode)
-;; (add-to-list 'ac-modes 'web-mode)
-;; (ac-flyspell-workaround)
-
 ;; Ruby
 (require 'robe)
 (add-hook 'enh-ruby-mode-hook
@@ -140,7 +111,7 @@
 ;; (setq enh-ruby-program "~/.rvm/rubies/ruby-2.2.0/bin/ruby")
 (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
-(add-hook 'web-mode-hook 'robe-mode)
+;;; (add-hook 'web-mode-hook 'robe-mode)
 (add-hook 'enh-ruby-mode-hook 'yard-mode)
 (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
 ;; (add-hook 'after-init-hook 'inf-ruby-switch-setup) ;debug compilation
@@ -247,7 +218,7 @@
                (define-key elixir-mode-map (kbd "C-c C-s") 'alchemist-iex-project-run)
                (define-key elixir-mode-map (kbd "C-c C-z") 'alchemist-iex-start-process)
                (define-key elixir-mode-map (kbd "C-c C-r") 'alchemist-iex-send-region-and-go)
-               (define-key elixir-mode-map (kbd "C-c C-c") 'alchemist-iex-send-region)
+               (define-key elixir-mode-map (kbd "C-c C-c") 'alchemist-iex-send-current-line-and-go)
                (define-key elixir-mode-map (kbd "C-c C-d") 'alchemist-help-search-at-point)
                (define-key elixir-mode-map (kbd "C-c C-l") 'alchemist-iex-compile-this-buffer)
                (define-key elixir-mode-map (kbd "C-c C-t") 'alchemist-mix-test)
@@ -356,8 +327,24 @@ See URL `http://elixir-lang.org/'."
 (custom-set-variables
  '(haskell-tags-on-save t))
 
- (require 'speedbar)
-   (speedbar-add-supported-extension ".hs")
+(require 'speedbar)
+(speedbar-add-supported-extension ".hs")
+
+
+;; Proof General
+(load-file "/local/tools/ProofGeneral/generic/proof-site.el")
+(setq coq-prog-name "/usr/bin/coqtop")
+
+
+;; Elm
+;; (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
+(add-hook 'elm-mode-hook
+          '(lambda ()
+             #'elm-oracle-setup-completion
+             (company-mode)
+             (define-key scala-mode-map (kbd "M-TAB") 'company-complete)
+             ))
+
 
 (provide 'emacs-packages)
 ;;; emacs-packages.el Ends here

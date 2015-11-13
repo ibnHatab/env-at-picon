@@ -1,3 +1,4 @@
+
 #!/bin/bash
 #
 # Watches the folder or files passed as arguments to the script and when it
@@ -20,6 +21,9 @@ echo $FILES
 while inotifywait -q -r --event=modify --timefmt "${TIME_FORMAT}" --format "${OUTPUT_FORMAT}" $FILES; do
     MYWINDOW=$(xdotool getwindowfocus)
     CHROME_WINDOW_ID=$(xdotool search --onlyvisible --name "$CMD" | head -1)
+    echo "chrome window: $CHROME_WINDOW_ID"
+    xwininfo -root -tree |grep `printf 0x%x $CHROME_WINDOW_ID`
+    xdotool key --window $CHROME_WINDOW_ID windowfocus F5 # 'CTRL+r'
     xdotool key --window $CHROME_WINDOW_ID windowfocus 'CTRL+r'
     xdotool windowfocus --sync ${MYWINDOW}
 done

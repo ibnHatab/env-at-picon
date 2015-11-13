@@ -22,7 +22,7 @@ ZSH_THEME="${viewmap["$HOST"]}"
 COMPLETION_WAITING_DOTS="true"
 
 # Example format: plugins=(debian git-flow compleat rails git textmate ruby lighthouse)
-plugins=(git git-flow  dircycle rebar mix web-search gem rails heroku sbt)
+plugins=(git git-flow  dircycle rebar mix web-search gem rails heroku sbt kerl cabal)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -261,3 +261,8 @@ export PATH=$PATH:/local/tools/ats/bin
 #haskell
 export PATH=~/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.8.4/bin:$PATH
 
+export PATH=/opt/otp/bin:/opt/elixir/bin/:$PATH
+export PATH=/local/vlad/repos/elixir/elm-platform-up/installers/Elm-Platform/0.15.1/.cabal-sandbox/bin:$PATH
+
+#node
+export PATH=/opt/node/bin:/opt/node_modules/elm-oracle/bin:$PATH

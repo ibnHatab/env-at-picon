@@ -29,13 +29,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(alchemist-iex-program-name "iex --sname iex -S mix")
+ '(alchemist-iex-program-name "iex --sname iex")
  '(auto-revert-interval 2)
  '(blink-cursor-mode t)
  '(blink-matching-paren-on-screen t)
  '(bm-highlight-style (quote bm-highlight-only-fringe))
  '(c-echo-syntactic-information-p nil)
  '(column-number-mode t)
+ '(company-idle-delay 0.1)
+ '(compilation-ask-about-save nil)
  '(compilation-window-height 14)
  '(cscope-do-not-update-database t)
  '(cscope-program-args (quote "-q"))
@@ -52,11 +54,12 @@
  '(flymake-no-changes-timeout 12)
  '(follow-auto t)
  '(font-lock-global-modes t)
+ '(global-auto-highlight-symbol-mode t)
  '(global-auto-revert-mode 1)
  '(global-font-lock-mode t nil (font-lock))
  '(haskell-tags-on-save t)
  '(kill-whole-line t)
- '(line-number-mode t)
+ '(line-number-mode nil)
  '(menu-bar-mode nil)
  '(next-line-add-newlines nil)
  '(nxml-attribute-indent 1)
@@ -72,6 +75,7 @@
  '(sr-speedbar-auto-refresh t)
  '(sr-speedbar-default-width 42)
  '(sr-speedbar-skip-other-window-p t)
+ '(tab-always-indent t)
  '(tags-case-fold-search nil)
  '(transient-mark-mode t)
  '(truncate-lines nil)
@@ -97,9 +101,10 @@
 
 ;; Switch to the first theme in the list above
 (cycle-my-theme)
+
 ;; (flx-ido-mode 1)
 (setq magit-auto-revert-mode nil)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
-
 (server-start)
+(put 'proof-frob-locked-end 'disabled nil)

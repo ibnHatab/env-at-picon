@@ -1,75 +1,65 @@
 
 (setq-default indent-tabs-mode nil)
 
-;; ;; Helm
-;; ;; (define-key global-map [remap find-file] 'helm-find-files)
-;; (define-key global-map [remap occur] 'helm-occur)
-;; (define-key global-map [remap list-buffers] 'helm-buffers-list)
-;; (define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
-;; (global-set-key (kbd "M-x") 'helm-M-x)
 
-(global-set-key (kbd "C-x \\") 'align-regexp)
+(global-set-key (kbd "C-x \\")      'align-regexp)
 
-(global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
-(global-set-key (kbd "C-x B") 'ibuffer)
+(global-set-key (kbd "C-x C-b")     'ido-switch-buffer)
+(global-set-key (kbd "C-x B")       'ibuffer)
+(global-set-key [C-escape]          'helm-buffers-list)
 
-(define-key global-map (kbd "C-+") 'text-scale-increase)
-(define-key global-map (kbd "C--") 'text-scale-decrease)
+(define-key global-map (kbd "C-+")  'text-scale-increase)
+(define-key global-map (kbd "C--")  'text-scale-decrease)
 
-(require 'sr-speedbar)
-(global-set-key (kbd "s-s")   'sr-speedbar-toggle)
+(global-set-key (kbd "s-s")         'neotree-toggle)
 
-(require 'multiple-cursors)
+(require                            'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->")         'mc/mark-next-like-this)
 (global-set-key (kbd "C-<")         'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<")     'mc/mark-all-like-this)
 
 ;; Completion
-(global-set-key "\M-," 'pop-tag-mark)
-(global-set-key "\M- " 'hippie-expand)
+(global-set-key "\M-,"              'pop-tag-mark)
+(global-set-key "\M- "              'hippie-expand)
+
 (setq completion-ignore-case nil
       pcomplete-ignore-case nil
       read-file-name-completion-ignore-case t)
 
-(global-set-key [C-escape]   'helm-buffers-list)
-(global-set-key [(C-tab)] 'other-window)
+(global-set-key "\M-\t"   'company-complete)
 
 (defun switch-to-buffer-other-buffer ()
   ""
   (interactive)
   (switch-to-buffer (other-buffer)))
 
-(require 'cycle-buffer)
-(global-set-key [(C-f1)]              'cycle-buffer)
-(global-set-key [(S-f1)]              'cycle-buffer-backward)
-(global-set-key [(f1)]              'switch-to-buffer-other-buffer)
+(require                        'cycle-buffer)
+(global-set-key [(C-f1)]        'cycle-buffer)
+(global-set-key [(S-f1)]        'cycle-buffer-backward)
+(global-set-key [(f1)]          'switch-to-buffer-other-buffer)
+(global-set-key [(f2)]          'save-buffer)
+(global-set-key [(f3)]          'find-file)
+(global-set-key [(f4)]          'ido-switch-buffer)
 
-(global-set-key [(f2)]              'save-buffer)
-(global-set-key [(f3)]              'find-file)
-(global-set-key [(f4)]              'ido-switch-buffer)	    ;F4
+(global-set-key [(f8)]          'projectile-command-map)
 
-					    ;F7
-(global-set-key [(f8)]             'projectile-command-map) ;F8
-
-;; org hijack(global-set-key [(f9)] 'compile)		    ;F9
-(global-set-key [(f10)]             'grep)			    ;F10
-
-(global-set-key [(f11)]             'nuke-trailing-whitespace)
-
-(global-set-key [(C-f11)]           'cycle-my-theme)
-(global-set-key [(f12)]             'kill-this-buffer)	    ;F12
-(global-set-key [(C-f12)]           'server-edit)		    ;F12
+(global-set-key [(f9)]          'ack)
+(global-set-key [(f10)]         'grep)
+(global-set-key [(f11)]         'nuke-trailing-whitespace)
+(global-set-key [(C-f11)]       'cycle-my-theme)
+(global-set-key [(f12)]         'kill-this-buffer)
+(global-set-key [(C-f12)]       'server-edit)
 
 ;; Fast movements
-(global-set-key [M-right]           'forward-word)
-(global-set-key [M-left]            'backward-word)
-(global-set-key [C-right]           'forward-word)
-(global-set-key [C-left]            'backward-word)
-(global-set-key [?\C-\.]            'goto-line)
-(global-set-key [C-delete]          'kill-word)
-(global-set-key [ESC-backspace]     'backward-kill-word)
-(global-set-key [C-backspace]       'backward-kill-word)
+(global-set-key [M-right]       'forward-word)
+(global-set-key [M-left]        'backward-word)
+(global-set-key [C-right]       'forward-word)
+(global-set-key [C-left]        'backward-word)
+(global-set-key [?\C-\.]        'goto-line)
+(global-set-key [C-delete]      'kill-word)
+(global-set-key [ESC-backspace] 'backward-kill-word)
+(global-set-key [C-backspace]   'backward-kill-word)
 
 (defun backward-delete-word (arg)
   "Delete characters backward until encountering the beginning of a word.
@@ -79,12 +69,7 @@ With argument ARG, do this that many times."
 (define-key minibuffer-local-map [C-backspace] 'backward-delete-word)
 
 ;; duplicate line
-(global-set-key "\C-cd" "\C-a\C- \C-n\M-w\C-y")
-
-;; Move between visible windows
-(global-set-key [(C-tab)]	'other-window )
-(global-set-key [(C-S-tab)]	'previous-multiframe-window )
-(global-set-key [(s-tab)]	'complete-tag )
+(global-set-key "\C-cd" "\C-a\C- \C-n\M-w\C-y\C-p\C-a")
 
 ;; Windows Cycling
 (defun windmove-up-cycle()
@@ -170,21 +155,21 @@ With argument ARG, do this that many times."
 ;; (global-set-key "\C-ca" 'org-agenda)
 ;; (global-set-key "\C-cf" 'cfw:open-org-calendar)
 
-(global-set-key (kbd "<f9> <f9>") 'org-cycle-agenda-files)
-(global-set-key (kbd "<f9> c") 'cfw:open-org-calendar)
-(global-set-key (kbd "<f9> w") 'widen)
-(global-set-key (kbd "<f9> v") 'visible-mode)
-(global-set-key (kbd "<f9> r") 'org-refile)
-(global-set-key (kbd "<f9> m") 'org-manage)
-(global-set-key (kbd "<f9> j") 'vki:open-default-notes-file)
-(global-set-key (kbd "<f9> S") 'org-todo)
-(global-set-key (kbd "<f9> d") 'org-deadline)
-(global-set-key (kbd "<f9> s") 'org-schedule)
-(global-set-key (kbd "<f9> t") 'org-time-stamp-inactive)
-(global-set-key (kbd "<f9> T") 'org-toggle-timestamp-type)
-(global-set-key (kbd "<f9> SPC") 'org-clock-in)
+(global-set-key (kbd "<f9> <f9>")  'org-cycle-agenda-files)
+(global-set-key (kbd "<f9> c")     'cfw:open-org-calendar)
+(global-set-key (kbd "<f9> w")     'widen)
+(global-set-key (kbd "<f9> v")     'visible-mode)
+(global-set-key (kbd "<f9> r")     'org-refile)
+(global-set-key (kbd "<f9> m")     'org-manage)
+(global-set-key (kbd "<f9> j")     'vki:open-default-notes-file)
+(global-set-key (kbd "<f9> S")     'org-todo)
+(global-set-key (kbd "<f9> d")     'org-deadline)
+(global-set-key (kbd "<f9> s")     'org-schedule)
+(global-set-key (kbd "<f9> t")     'org-time-stamp-inactive)
+(global-set-key (kbd "<f9> T")     'org-toggle-timestamp-type)
+(global-set-key (kbd "<f9> SPC")   'org-clock-in)
 (global-set-key (kbd "<f9> s-SPC") 'org-clock-goto)
-(global-set-key (kbd "<f9> p") 'org-taskjuggler-export-and-process)
+(global-set-key (kbd "<f9> p")     'org-taskjuggler-export-and-process)
 
 (global-set-key (kbd "M-<f9>") 'org-toggle-inline-images)
 
@@ -194,9 +179,9 @@ With argument ARG, do this that many times."
  (find-file org-default-notes-file))
 
 (require 'bm)
-(global-set-key (kbd "<C-f2>") 'bm-toggle)
-(global-set-key (kbd "<M-f2>") 'bm-next)
-(global-set-key (kbd "<S-f2>") 'bm-previous)
+(global-set-key (kbd "<C-f2>")   'bm-toggle)
+(global-set-key (kbd "<M-f2>")   'bm-next)
+(global-set-key (kbd "<S-f2>")   'bm-previous)
 (global-set-key (kbd "<S-M-f2>") 'bm-show-all)
 
 (global-set-key (kbd "<left-fringe> <mouse-5>") 'bm-next-mouse)

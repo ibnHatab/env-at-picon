@@ -3,9 +3,12 @@
 code:load_abs(os:getenv("HOME") ++ "/libs/femto_test/ebin/user_default").
 
 %% project local deps
-%% [code:add_patha(Path ++ "/ebin") || Path <-  filelib:wildcard("deps/*")
-%% 					++ filelib:wildcard("../deps/*")
-%% 					, filelib:is_dir(Path)].
+[code:add_patha(Path ++ "/ebin") || Path <-  filelib:wildcard("deps/*")
+					++ filelib:wildcard("../deps/*")
+					, filelib:is_dir(Path)].
+
+
+%httpc:set_options([{proxy, {{"135.245.192.6", 8000}, ["localhost"]}}]).
 
 %% %% test framework and emacs support
 %% code:add_pathz(os:getenv("HOME") ++ "/libs/femto_test/ebin").

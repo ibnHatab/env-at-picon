@@ -127,8 +127,6 @@ e.g. `HelloWorldString'."
   (setq my-cur-theme (pop my-themes))
   (load-theme my-cur-theme t))
 
-;; --------------------------------------------------------------------------------
-
 
 (defun move-text-internal (arg)
   (cond
