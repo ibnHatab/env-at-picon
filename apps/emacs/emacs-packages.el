@@ -151,15 +151,15 @@
 
 
 ;; Projectile
-(projectile-global-mode)
+;;(projectile-global-mode)
 
-(add-hook 'enh-ruby-mode-hook 'projectile-mode)
-(add-hook 'projectile-mode-hook 'projectile-rails-on)
-(setq projectile-rails-keymap-prefix (kbd "s-a"))
+;; (add-hook 'enh-ruby-mode-hook 'projectile-mode)
+;; (add-hook 'projectile-mode-hook 'projectile-rails-on)
+;; (setq projectile-rails-keymap-prefix (kbd "s-a"))
 
-(add-hook 'python-mode-hook 'projectile-mode)
-(global-set-key (kbd "s-f") 'projectile-find-file)
-(global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
+;; (add-hook 'python-mode-hook 'projectile-mode)
+;; (global-set-key (kbd "s-f") 'projectile-find-file)
+;; (global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
 
 ;; Python
 (require 'python)

@@ -1,6 +1,6 @@
 " Vimrc file for Christian Andersen, http://phuzz.org
-syntax on
-filetype on
+"syntax on
+"filetype on
 set notitle 
 set nocompatible    " use vim defaults
 " set ls=2            " allways show status line
