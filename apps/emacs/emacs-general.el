@@ -1,5 +1,4 @@
 
-
 (when (fboundp 'winner-mode)
   (winner-mode 1))
 
@@ -17,7 +16,6 @@
       '("\n-> " "" "\n   " "\n   ..." "[" "]"
 	" [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]"))
 
-
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 (setq uniquify-separator "/")
@@ -29,15 +27,12 @@
 
 (autoload 'nuke-trailing-whitespace "whitespace" nil t) ;remove trailing
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Ace jump mode
-(when (locate-library "ace-jump-mode")
-  (require 'ace-jump-mode)
-  (define-key global-map (kbd "C-0") 'ace-jump-mode)
-  )
-
 (setq scroll-step 1)                    ; scrolling page
 (setq case-fold-search nil)             ; make searches case sensitive
+
+(defun search-all-buffers (regexp)
+  (interactive "sRegexp: ")
+  (multi-occur-in-matching-buffers "." regexp t))
 
 ;;Mouse well
 (defun scroll-up-half ()

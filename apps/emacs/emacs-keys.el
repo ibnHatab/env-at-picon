@@ -12,6 +12,7 @@
 (define-key global-map (kbd "C--")  'text-scale-decrease)
 
 (global-set-key (kbd "s-s")         'neotree-toggle)
+(global-set-key (kbd "s-a")         'neotree-find)
 
 (require                            'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -37,29 +38,30 @@
 (require                        'cycle-buffer)
 (global-set-key [(C-f1)]        'cycle-buffer)
 (global-set-key [(S-f1)]        'cycle-buffer-backward)
+(global-set-key [(M-f1)]        'ido-switch-buffer)
 (global-set-key [(f1)]          'switch-to-buffer-other-buffer)
 (global-set-key [(f2)]          'save-buffer)
 (global-set-key [(f3)]          'find-file)
-(global-set-key [(f4)]          'ido-switch-buffer)
 
 (global-set-key [(f8)]          'projectile-command-map)
 
-(global-set-key [(f9)]          'ack)
-(global-set-key [(f10)]         'grep)
+(global-set-key [(f10)]         'ack)
+(global-set-key [(C-f10)]       'grep)
+(global-set-key [(M-f10)]       'search-all-buffers)
+
 (global-set-key [(f11)]         'nuke-trailing-whitespace)
 (global-set-key [(C-f11)]       'cycle-my-theme)
 (global-set-key [(f12)]         'kill-this-buffer)
 (global-set-key [(C-f12)]       'server-edit)
 
 ;; Fast movements
-(global-set-key [M-right]       'forward-word)
-(global-set-key [M-left]        'backward-word)
 (global-set-key [C-right]       'forward-word)
 (global-set-key [C-left]        'backward-word)
 (global-set-key [?\C-\.]        'goto-line)
 (global-set-key [C-delete]      'kill-word)
 (global-set-key [ESC-backspace] 'backward-kill-word)
-(global-set-key [C-backspace]   'backward-kill-word)
+(global-set-key [C-backspace]   'backward-kille-word)
+(global-set-key "\C-\\"         'ace-jump-mode)
 
 (defun backward-delete-word (arg)
   "Delete characters backward until encountering the beginning of a word.
