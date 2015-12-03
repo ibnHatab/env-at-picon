@@ -60,7 +60,7 @@
 (global-set-key [?\C-\.]        'goto-line)
 (global-set-key [C-delete]      'kill-word)
 (global-set-key [ESC-backspace] 'backward-kill-word)
-(global-set-key [C-backspace]   'backward-kille-word)
+(global-set-key [C-backspace]   'backward-kill-word)
 (global-set-key "\C-\\"         'ace-jump-mode)
 
 (defun backward-delete-word (arg)

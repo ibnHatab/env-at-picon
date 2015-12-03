@@ -260,10 +260,13 @@ export PATH=$PATH:/local/tools/ats/bin
 #export PATH="$PATH:$HOME/q/l32" # Q
 
 #haskell
-export PATH=~/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.8.4/bin:$PATH
+export PATH=~/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.10.1/bin:$PATH
 
+#elixir
 export PATH=/opt/otp/bin:/opt/elixir/bin/:$PATH
-export PATH=/local/vlad/repos/elixir/elm-platform-up/installers/Elm-Platform/0.15.1/.cabal-sandbox/bin:$PATH
+
+#elm
+export PATH=/local/vlad/repos/elixir/elm-platform/installers/Elm-Platform/0.16/.cabal-sandbox/bin:$PATH
 
 #node
 export PATH=/opt/node/bin:/opt/node_modules/elm-oracle/bin:$PATH

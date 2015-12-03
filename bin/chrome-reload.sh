@@ -12,9 +12,9 @@ RELOAD_KEYS="CTRL+R"
 # get which window is active right now
 MYWINDOW=$(xdotool getwindowfocus)
 #
-BROWSER=`xdotool search --onlyvisible --name "$1" | tail -1`
+BROWSER=`xdotool search --onlyvisible --name "$1" | head -1`
 xdotool windowfocus --sync ${BROWSER}
-xdotool key --window ${BROWSER} 'ctrl+r'
+xdotool key --window ${BROWSER} 'F5'
 
 # bring up the browser
 ### xdotool search --onlyvisible --name "$1" windowfocus key 'ctrl+r'
