@@ -214,6 +214,8 @@ account=(
    leonis vlad@135.243.2.230
    marvel vlad@135.243.2.178
    maveric vlad@135.243.28.212
+   rasputin axadmin@135.243.2.151
+   mrclin125 vkinzers@mrclin125
 )
 for k (${(k)account}) {                         # for each key in account
     alias ${k}="ssh -X $account[$k]"                 #   create an ssh alias
