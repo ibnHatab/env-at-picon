@@ -1,6 +1,6 @@
 typeset -U path fpath manpath
 
-path=(~/bin /sbin $path)
+path=(~/bin /sbin /local/tools/R17B01/bin $path)
 
 fpath=(~/.zsh $fpath)
 manpath=(~/usr/man $manpath)
@@ -35,13 +35,41 @@ export CRACKLIB_DICTPATH=/var/cache/cracklib/cracklib_dict
 
 export OOO_FORCE_DESKTOP=gnome
 export LM_LICENSE_FILE=5555@135.86.206.75
-export ERL_LIBS=/usr/lib/erlang/lib:$HOME/libs/femto_test/deps:$HOME/libs:/local/$USER/repos/superdeps/
+#export ERL_LIBS=/usr/lib/erlang/lib:$HOME/libs/femto_test/deps
 
 limit coredumpsize 0
 
-export http_proxy=http://cache.tm.alcatel.ro:8080
-export HTTP_PROXY=http://cache.tm.alcatel.ro:8080
-export https_proxy=http://cache.tm.alcatel.ro:8080
 
-#Carton for Emacs is what Bundler is to Ruby.
-export PATH=/local/home/vlad/.carton/bin:$PATH
+#set PATSHOMERELOC to ${PATSHOME}
+export PATSHOMERELOC=/local/tools/ats
+
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+export SBT_HOME=/usr/share/sbt-launcher-packaging/bin/sbt-launch.jar
+export SPARK_HOME=/usr/lib/spark
+export PYTHONPATH=$SPARK_HOME/python/:$SPARK_HOME/python/lib/py4j-0.10.4-src.zip:$PYTHONPATH
+export SPARK_LOCAL_IP=127.0.0.1
+export PATH=$PATH:$JAVA_HOME/bin
+export PATH=$PATH:$SBT_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin
+export _JAVA_OPTIONS='-Dhttp.proxyHost=87.254.212.120 -Dhttp.proxyPort=8080 -Dhttps.proxyHost=87.254.212.120 -Dhttps.proxyPort=8080' 
+
+export ARDUINO_DIR=/local/tools/arduino-1.8.2/
+export ARDMK_DIR=/usr/share/arduino
+export AVR_TOOLS_DIR=/usr
+
+export PATH=$PATH:$HOME/repo/esp32/xtensa-esp32-elf/bin
+export IDF_PATH=$HOME/repo/esp32/esp-idf
+
+
+export GOROOT=/local/vlad/repo/golang/go
+export GOPATH=/local/vlad/repo/golang
+export GOBIN=/local/vlad/repo/golang/bin
+export PATH=$PATH:$GOROOT/bin:$GOBIN
+
+#export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+#export ZEPHYR_TOOLCHAIN_VARIANT=zephyr
+#export ZEPHYR_SDK_INSTALL_DIR=/opt/zephyr-sdk
+#export ZEPHYR_TOOLCHAIN_VARIANT=gnuarmemb
+#export GNUARMEMB_TOOLCHAIN_PATH=/local/vlad/repo/rust/cortex/gcc-arm-none-eabi-8-2018-q4-major/
+
+export PATH=$HOME/.local/bin/:$HOME/opt/julia-1.2.0/bin:$PATH
+#. "/home/axadmin/opt/anaconda3/etc/profile.d/conda.sh"
